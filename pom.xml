@@ -15,19 +15,29 @@
             <version>4.0.0</version>
         </dependency>
 
-       <!--  https://mvnrepository.com/artifact/com.mchange/c3p0
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java
         <dependency>
-            <groupId>com.mchange</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>0.9.5.2</version>
-        </dependency>
-
-        &lt;!&ndash; https://mvnrepository.com/artifact/com.mchange/mchange-commons-java &ndash;&gt;
-        <dependency>
-            <groupId>com.mchange</groupId>
-            <artifactId>mchange-commons-java</artifactId>
-            <version>0.2.11</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>6.0.6</version>
         </dependency>-->
+
+
+
+
+        <!--         https://mvnrepository.com/artifact/com.mchange/c3p0
+                <dependency>
+                    <groupId>com.mchange</groupId>
+                    <artifactId>c3p0</artifactId>
+                    <version>0.9.5.2</version>
+                </dependency>
+
+                &lt;!&ndash; https://mvnrepository.com/artifact/com.mchange/mchange-commons-java &ndash;&gt;
+                <dependency>
+                    <groupId>com.mchange</groupId>
+                    <artifactId>mchange-commons-java</artifactId>
+                    <version>0.2.11</version>
+                </dependency>-->
 
 
 
