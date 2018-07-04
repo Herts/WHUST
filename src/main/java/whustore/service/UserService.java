@@ -9,4 +9,10 @@ public class UserService {
         UserDao userDao = new UserDao();
         return userDao.passwordIsCorrect(user);
     }
+
+    public boolean userReg(User user)
+    {
+        UserDao userDao = new UserDao();
+        return userDao.userReg(user);
+    }
 }

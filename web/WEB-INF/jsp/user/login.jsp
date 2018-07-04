@@ -8,8 +8,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>登陆WHUStore</title>
+    <title>注册WHUStore</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/user.css">
+    <script>
+        function changeRAndL() {
+            var temp = document.getElementById("logDiv").style.visibility;
+            document.getElementById("logDiv").style.visibility = document.getElementById("RegDiv").style.visibility;
+            document.getElementById("RegDiv").style.visibility = temp;
+        }
+    </script>
 </head>
 <body>
 <div id="particles-js">
@@ -26,8 +33,8 @@
             <button type="submit" class="btn btn-primary btn-block btn-large" name="user">登录</button>
 
         </form>
-        <form action="reg" method="post">
-            <button type="submit" class="btn btn-primary btn-block btn-large" name="toRegister">
+        <form>
+            <button type="button" class="btn btn-primary btn-block btn-large" name="toRegister" onclick="changeRAndL()">
                 注册
             </button>
         </form>
@@ -36,10 +43,26 @@
 
     <div class="login" id="RegDiv" style="visibility: hidden">
         <h1>WHU Store</h1>
-        <form action="" method="post">
-
+        <form action="reg" method="post">
+            <input type="text" name="username" placeholder="用户名" required="required"/>
+            <input type="password" name="password" placeholder="密码" required="required"/>
+            <input type="text" name="email" placeholder="邮箱" required="required"/>
+            <input type="text" name="phone" placeholder="电话" required="required"/>
+            <br>
+            <button type="submit" class="btn btn-primary btn-block btn-large" name="user">注册</button>
         </form>
+        <form>
+            <button type="button" class="btn btn-primary btn-block btn-large" name="toRegister" onclick="changeRAndL()">
+                登陆
+            </button>
+        </form>
+        <b>${message}</b>
     </div>
 </div>
+<script>
+    var y = "yes";
+    if (${isReg})
+        changeRAndL();
+</script>
 </body>
 </html>
