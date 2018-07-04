@@ -1,40 +1,48 @@
-package whustore.con;
+package whustore.cont;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import whustore.dao.UserDao;
 import whustore.model.User;
+import whustore.service.UserService;
 
 
 @Controller
 public class UserController {
-
+    //测试
     @RequestMapping("hello")
     public String hello(ModelMap modelMap) {
         modelMap.addAttribute("username", "what");
         return "hello";
     }
 
-
+    //登陆密码检查
     @RequestMapping("loginChecker")
-    public String LogPrint(@ModelAttribute("SpringWeb") User user,
-                           ModelMap modelMap) {
+    public ModelAndView LogChecker(@ModelAttribute("SpringWeb") User user,
+                             ModelMap modelMap) {
+        UserService userService = new UserService();
+        if (!userService.passwordIsCorrect(user)) {
+            modelMap.addAttribute("message","账号或密码错误");
+            return new ModelAndView("user/login","command", new User());
+        }
         modelMap.addAttribute("username", user.getUsername());
         modelMap.addAttribute("password", user.getPassword());
-        UserDao userDao = new UserDao();
-        if (userDao.passwordIsCorrect(user))
 
-            return "hello";
-        else return "login";
+        return  new ModelAndView("hello");
     }
 
+    //登陆页面调整
     @RequestMapping("log")
     public ModelAndView logPage() {
         return new ModelAndView("user/login", "command", new User());
     }
 
+    //
+    @RequestMapping("reg")
+    public String Reg(@ModelAttribute("SpringWeb") User user,
+                      ModelMap modelMap) {
+        return null;
+    }
 }

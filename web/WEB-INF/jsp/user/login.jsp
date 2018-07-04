@@ -31,6 +31,7 @@
                 注册
             </button>
         </form>
+        <b>${message}</b>
     </div>
 
     <div class="login" id="RegDiv" style="visibility: hidden">
