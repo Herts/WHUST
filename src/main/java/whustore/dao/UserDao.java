@@ -1,24 +1,65 @@
 package whustore.dao;
 
 import whustore.model.User;
-import com.mchange.v2.c3p0.ComboPooledDataSource;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
+import java.beans.PropertyVetoException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDao {
 
-    public boolean passwordIsCorrect(User user)
-    {
-        DataSource ds = new ComboPooledDataSource();
+    private Connection conn = null;
+    private Context context = null;
+    private DataSource dataSource = null;
 
-        try {
-            Connection conn = ds.getConnection();
-            System.out.println("连接上了");
+    public boolean passwordIsCorrect(User user) {
+
+        //获取数据库连接
+        boolean haveConned = getConnection();
+        if (!haveConned)
+            return false;
+
+        String sql ="SELECT * FROM user WHERE username = ?";
+
+        try {//查询数据库
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,user.getUsername());
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            String userPw = rs.getString("password");
+            if (user.getPassword().equals(userPw))
+                return true;
+            else return false;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-        return true;
+    }
+
+    /*
+    * 确保已经有了数据库的连接
+    * */
+    private boolean getConnection() {
+        try {
+            if (context == null)
+                context = new InitialContext();
+            if (dataSource == null)
+                dataSource = (DataSource) context.lookup("java:comp/env/jdbc/mysql");
+            conn = dataSource.getConnection();
+            return true;
+        } catch (NamingException e) {
+            e.printStackTrace();
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("获取连接失败");
+            return false;
+        }
     }
 }

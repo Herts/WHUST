@@ -14,27 +14,27 @@ import whustore.model.User;
 public class UserController {
 
     @RequestMapping("hello")
-    public String hello(ModelMap modelMap)
-    {
+    public String hello(ModelMap modelMap) {
         modelMap.addAttribute("username", "what");
         return "hello";
     }
 
 
     @RequestMapping("loginChecker")
-    public String LogPrint(@ModelAttribute("SpringWeb")User user,
+    public String LogPrint(@ModelAttribute("SpringWeb") User user,
                            ModelMap modelMap) {
         modelMap.addAttribute("username", user.getUsername());
         modelMap.addAttribute("password", user.getPassword());
         UserDao userDao = new UserDao();
-        userDao.passwordIsCorrect(user);
+        if (userDao.passwordIsCorrect(user))
 
-        return "hello";
+            return "hello";
+        else return "login";
     }
 
     @RequestMapping("log")
     public ModelAndView logPage() {
-        return new ModelAndView("user/login","command", new User());
+        return new ModelAndView("user/login", "command", new User());
     }
 
 }
