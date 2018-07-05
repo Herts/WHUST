@@ -35,6 +35,7 @@ public class CartDao {
                 current.setProductName(rs.getString("pname"));
                 current.setProIntro(rs.getString("description"));
                 current.setQuantity(rs.getInt("quantity"));
+                current.setPrice(rs.getDouble("price"));
                 //setType等待进一步实现
                 current.setType(null);
                 int amount = rs.getInt("amount");

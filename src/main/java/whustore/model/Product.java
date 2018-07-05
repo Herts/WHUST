@@ -10,6 +10,7 @@ public class Product {
     private int quantity;
     private int teamID;
     private List<String> type;
+    private double price;
 
 
 
@@ -59,5 +60,13 @@ public class Product {
 
     public void setProIntro(String proIntro) {
         this.proIntro = proIntro;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
