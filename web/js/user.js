@@ -435,7 +435,6 @@ Object.deepExtend = function (e, a) {
 };
 
 
-
 particlesJS("particles-js", {
     "particles": {
         "number": {
@@ -548,21 +547,19 @@ particlesJS("particles-js", {
 });
 
 
-
 var count_particles, stats, update;
 update = function () {
     requestAnimationFrame(update);
 };
 
-function toRegisterPage()
-{
+function toRegisterPage() {
     document.getElementById("loginDiv").style.visibility = "hidden";
     document.getElementById("registerDiv").style.visibility = "visible";
 }
 
-function toLoginPage()
-{
+function toLoginPage() {
     document.getElementById("loginDiv").style.visibility = "visible";
     document.getElementById("registerDiv").style.visibility = "hidden";
 }
+
 requestAnimationFrame(update);

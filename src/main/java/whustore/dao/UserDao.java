@@ -21,8 +21,8 @@ public class UserDao {
     public boolean passwordIsCorrect(User user) {
 
         //获取数据库连接
-        boolean haveConned = getConnection();
-        if (!haveConned)
+        conn = DBConnector.getDBConn();
+        if (conn == null)
             return false;
 
         String sql = "SELECT * FROM user WHERE username = ?";
@@ -43,8 +43,8 @@ public class UserDao {
     }
 
     public boolean userReg(User user) {
-        boolean haveConned = getConnection();
-        if (!haveConned)
+        conn = DBConnector.getDBConn();
+        if (conn == null)
             return false;
         String sql = "SELECT COUNT(*) FROM user WHERE username = ?";
         try {
@@ -52,9 +52,9 @@ public class UserDao {
             ps.setString(1, user.getUsername());
             ResultSet rs = ps.executeQuery();
             rs.next();
-            if (rs.getInt(1) > 0)
+            if (rs.getInt(1) > 0) {
                 return false;
-            else {
+            } else {
                 sql = "INSERT INTO user (username, password, email, phone) VALUES (?, ?, ?, ?)";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, user.getUsername());
@@ -68,27 +68,15 @@ public class UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            //关闭数据库连接
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    /*
-     * 确保已经有了数据库的连接
-     * */
-    private boolean getConnection() {
-        try {
-            if (context == null)
-                context = new InitialContext();
-            if (dataSource == null)
-                dataSource = (DataSource) context.lookup("java:comp/env/jdbc/mysql");
-            conn = dataSource.getConnection();
-            return true;
-        } catch (NamingException e) {
-            e.printStackTrace();
-            return false;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("获取连接失败");
-            return false;
-        }
-    }
 }
