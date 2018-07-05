@@ -6,15 +6,9 @@ import java.util.Map;
 public class Cart {
     private int cartID;
     private int userID;
-    private List<Map<Product, Integer>> items;
+    private Map<Product, Integer> items;
 
-    public List<Map<Product, Integer>> getItems() {
-        return items;
-    }
 
-    public void setItems(List<Map<Product, Integer>> items) {
-        this.items = items;
-    }
 
     public int getCartID() {
         return cartID;
@@ -30,5 +24,13 @@ public class Cart {
 
     public void setUserID(int userID) {
         this.userID = userID;
+    }
+
+    public Map<Product, Integer> getItems() {
+        return items;
+    }
+
+    public void setItems(Map<Product, Integer> items) {
+        this.items = items;
     }
 }

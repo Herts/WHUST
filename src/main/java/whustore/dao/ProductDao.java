@@ -14,7 +14,7 @@ public class ProductDao {
     {
         conn = DBConnector.getDBConn();
         java.sql.PreparedStatement ps;
-        Product product;
+        Product product = new Product();
 
         try {
             ResultSet rs;
@@ -24,12 +24,17 @@ public class ProductDao {
                 ps.setInt(1,productID);
                 rs = ps.executeQuery();
                 rs.next();
-
+                product.setId(rs.getInt("idproduct"));
+                product.setProductName(rs.getString("pname"));
+                product.setProIntro(rs.getString("description"));
+                product.setQuantity(rs.getInt("quantity"));
+                //setType等待进一步实现
+                product.setType(null);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return product;
     }
 }
