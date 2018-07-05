@@ -17,14 +17,45 @@ public class CartDao {
 
     public Cart getUserCart(int userID) {
         Cart cart = new Cart();
-        cart.setUserID(userID);
-        int cartID = getCartID(userID);
-        if (cartID == -1)
-            return null;
-        cart.setCartID(cartID);
-        HashMap<Product, Integer> items = new HashMap<Product, Integer>();
-        items = getItems(cartID);
-        cart.setItems(items);
+        conn = DBConnector.getDBConn();
+        int idcart = getCartID(userID);
+        String sql = "SELECT * FROM cartInfo WHERE idcart=?";
+
+        PreparedStatement ps = null;
+        ResultSet rs;
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,idcart);
+            rs = ps.executeQuery();
+            HashMap<Product,Integer> items = new HashMap<Product, Integer>();
+            while (rs.next())
+            {
+                Product current = new Product();
+                current.setId(rs.getInt("idproduct"));
+                current.setProductName(rs.getString("pname"));
+                current.setProIntro(rs.getString("description"));
+                current.setQuantity(rs.getInt("quantity"));
+                //setType等待进一步实现
+                current.setType(null);
+                int amount = rs.getInt("amount");
+                items.put(current,amount);
+            }
+            rs.last();
+            cart.setCartID(rs.getInt("idcart"));
+            cart.setItems(items);
+        return cart;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            //关闭数据库连接
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         return cart;
     }
 
@@ -59,7 +90,7 @@ public class CartDao {
 
     /*
      * 根据cartID获取cart全部商品及其数量
-     * */
+
     private HashMap<Product, Integer> getItems(int cartID) {
         if (conn == null)
             conn = DBConnector.getDBConn();
@@ -89,4 +120,6 @@ public class CartDao {
 
         return null;
     }
+    *
+    * */
 }
