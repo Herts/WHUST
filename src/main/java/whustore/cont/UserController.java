@@ -62,7 +62,7 @@ public class UserController {
     //账户详情跳转
     @RequestMapping("/user/home")
     public ModelAndView toUserHome() {
-        return new ModelAndView("hello");
+        return new ModelAndView("user/myAccount");
     }
 
     //注册用户
