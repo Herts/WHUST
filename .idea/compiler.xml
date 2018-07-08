@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="WHUST" target="1.5" />
+      <module name="WHUST" target="6" />
     </bytecodeTargetLevel>
   </component>
 </project>

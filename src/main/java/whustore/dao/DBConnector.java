@@ -1,5 +1,8 @@
 package whustore.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -7,7 +10,9 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+@Repository
 public class DBConnector {
+
     private static Context context = null;
     private static DataSource dataSource = null;
 

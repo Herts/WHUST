@@ -16,7 +16,7 @@ public class TestController {
     {
         CartDao cartDao = new CartDao();
         Cart cart = cartDao.getUserCart(1);
-        return null;
+        return "homepage";
     }
     @RequestMapping("TestOrder")
     public String testorder(){
