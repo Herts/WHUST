@@ -11,6 +11,7 @@ public class Product {
     private int teamID;
     private List<String> type;
     private double price;
+    private List<String> picPath;
 
 
 
@@ -68,5 +69,9 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public void picPathAppend(String ppath){
+        this.picPath.add(ppath);
     }
 }

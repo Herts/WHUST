@@ -37,21 +37,6 @@
 
 
 
-        <!--         https://mvnrepository.com/artifact/com.mchange/c3p0
-                <dependency>
-                    <groupId>com.mchange</groupId>
-                    <artifactId>c3p0</artifactId>
-                    <version>0.9.5.2</version>
-                </dependency>
-
-                &lt;!&ndash; https://mvnrepository.com/artifact/com.mchange/mchange-commons-java &ndash;&gt;
-                <dependency>
-                    <groupId>com.mchange</groupId>
-                    <artifactId>mchange-commons-java</artifactId>
-                    <version>0.2.11</version>
-                </dependency>-->
-
-
 
     </dependencies>
 
