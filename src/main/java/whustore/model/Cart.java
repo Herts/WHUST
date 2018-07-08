@@ -8,8 +8,6 @@ public class Cart {
     private int userID;
     private Map<Product, Integer> items;
 
-
-
     public int getCartID() {
         return cartID;
     }
