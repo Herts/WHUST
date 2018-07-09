@@ -7,6 +7,7 @@ import whustore.dao.CustomerDao;
 import whustore.dao.OrderDao;
 import whustore.dao.UserDao;
 import whustore.model.*;
+import whustore.service.ProductService;
 
 import java.util.List;
 
@@ -29,6 +30,16 @@ public class TestController {
         OrderDao dao = new OrderDao();
         List<Order> orderlist = dao.getOrderlist(1);
         return null;
+    }
+    @RequestMapping("Picture")
+    public String pictureTest(){
+        ProductService ps = new ProductService();
+        Product product = new Product();
+        Picture picture = new Picture();
+        product.setId(5);
+        picture.setIdpicture(1);
+        ps.addProductPicture(product,picture);
+        return "homepage";
     }
 
 }
