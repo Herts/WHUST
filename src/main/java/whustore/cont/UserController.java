@@ -65,7 +65,7 @@ public class UserController {
         Customer cus = cs.getCustomer((User) request.getSession().getAttribute("user"));
         modelMap.addAttribute("customer", cus);
         if (cus != null) {
-            if (cus.getSex().equalsIgnoreCase("f"))
+            if (cus.getSex()!=null && cus.getSex().equalsIgnoreCase("f"))
                 modelMap.addAttribute("fs", "selected");
             else
                 modelMap.addAttribute("ms", "selected");

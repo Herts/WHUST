@@ -34,16 +34,22 @@ public class CustomerDao {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 cus = new Customer();
-                cus.setEmail(rs.getString("email"));
-                cus.setPhone(rs.getString("phone"));
+                cus.setEmail(user.getEmail());
+                cus.setPhone(user.getPhone());
                 cus.setAddress(rs.getString("addr"));
-                cus.setDate(rs.getDate("birthdate").toString());
+                if (rs.getDate("birthdate") != null)
+                    cus.setDate(rs.getDate("birthdate").toString());
                 cus.setFname(rs.getString("fname"));
                 cus.setLname(rs.getString("lname"));
                 cus.setSex(rs.getString("sex"));
                 return cus;
-            } else
-                return null;
+            } else {
+                cus = new Customer();
+                insertCustomer(cus, user);
+                cus.setEmail(user.getEmail());
+                cus.setPhone(user.getPhone());
+                return cus;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -77,8 +83,8 @@ public class CustomerDao {
             ps.setString(4, customer.getDate());
             ps.setString(5, customer.getAddress());
             ps.setString(6, user.getPhone());
-            ps.setString(7,user.getEmail());
-            ps.setInt(8,user.getUserid());
+            ps.setString(7, user.getEmail());
+            ps.setInt(8, user.getUserid());
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
