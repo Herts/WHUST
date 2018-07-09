@@ -115,18 +115,16 @@ public class CustomerDao {
 
         String sql = "UPDATE customer SET fname = ?, lname = ?, sex = ?,birthdate = ?,addr = ? WHERE iduser = ?";
 
-        try {//查询数据库
+        try {//修改数据库
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, customer.getFname());
             ps.setString(2, customer.getLname());
             ps.setString(3, customer.getSex());
             ps.setString(4, customer.getDate());
             ps.setString(5, customer.getAddress());
-            ps.setString(6, username);
-            int num = ps.executeUpdate();
-            //之前没有数据
-            if (num == 0)
-                return insertCustomer(customer, user);
+            ps.setInt(6, user.getUserid());
+            ps.executeUpdate();
+
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
