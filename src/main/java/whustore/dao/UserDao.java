@@ -21,24 +21,31 @@ public class UserDao {
     private Context context = null;
     private DataSource dataSource = null;
 
-    public boolean passwordIsCorrect(User user) {
+    public User loginCheck(User user) {
 
         //获取数据库连接
         conn = DBConnector.getDBConn();
         if (conn == null)
-            return false;
+            return null;
 
         String sql = "SELECT * FROM user WHERE username = ?";
 
         try {//查询数据库
+            User result;
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, user.getUsername());
             ResultSet rs = ps.executeQuery();
             rs.next();
             String userPw = rs.getString("password");
-            if (user.getPassword().equals(userPw))
-                return true;
-            else return false;
+            if (user.getPassword().equals(userPw)) {
+                result = new User();
+                result.setUserid(rs.getInt("iduser"));
+                result.setEmail(rs.getString("email"));
+                result.setPhone(rs.getString("phone"));
+                result.setUsername(rs.getString("username"));
+                result.setPassword(rs.getString("password"));
+                return result;
+            } else return null;
         } catch (SQLException e) {
             e.printStackTrace();
             try {
@@ -46,7 +53,7 @@ public class UserDao {
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }
-            return false;
+            return null;
         }
     }
 

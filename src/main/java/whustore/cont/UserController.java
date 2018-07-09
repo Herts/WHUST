@@ -7,13 +7,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
-import whustore.dao.UserDao;
 import whustore.model.Customer;
 import whustore.model.User;
 import whustore.service.CustomerService;
 import whustore.service.UserService;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -38,13 +36,12 @@ public class UserController {
     public ModelAndView LogChecker(@ModelAttribute("SpringWeb") User user,
                                    ModelMap modelMap) {
         service = new UserService();
-        if (!service.passwordIsCorrect(user)) {
+        User userInDB = service.loginCheck(user);
+        if (userInDB==null) {
             modelMap.addAttribute("message", "账号或密码错误");
             return new ModelAndView("user/login", "command", new User());
         }
-        request.getSession().setAttribute("user", user);
-        modelMap.addAttribute("username", ((User) request.getSession().getAttribute("user")).getUsername());
-        modelMap.addAttribute("password", user.getPassword());
+        request.getSession().setAttribute("user", userInDB);
         return new ModelAndView("homepage");
     }
 

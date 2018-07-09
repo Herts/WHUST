@@ -8,6 +8,6 @@ public class test {
         User user = new User();
         user.setUsername("huhaomewng");
         user.setPassword("mima");
-        userDao.passwordIsCorrect(user);
+        userDao.loginCheck(user);
     }
 }

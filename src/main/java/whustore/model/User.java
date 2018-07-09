@@ -5,6 +5,7 @@ public class User {
     private String password;
     private String email;
     private String phone;
+    private int userid;
 
     public String getPassword() {
         return password;
@@ -36,5 +37,13 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public int getUserid() {
+        return userid;
+    }
+
+    public void setUserid(int userid) {
+        this.userid = userid;
     }
 }

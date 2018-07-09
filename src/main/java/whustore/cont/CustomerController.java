@@ -25,7 +25,8 @@ public class CustomerController {
     public String customerModify(@ModelAttribute("SpringWeb") Customer cus,
                                  ModelMap modelMap) {
         CustomerService cs = new CustomerService();
-        cs.modifyCustomer(cus, (User) request.getSession().getAttribute("user"));
+        User user = (User) request.getSession().getAttribute("user");
+        cs.modifyCustomer(cus, user);
         return "redirect:/user/home";
     }
 }

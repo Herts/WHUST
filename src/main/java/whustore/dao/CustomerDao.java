@@ -14,13 +14,17 @@ public class CustomerDao {
 
     Connection conn;
 
+    /**
+     * @param user
+     * @return
+     */
     public Customer getCustomer(User user) {
 
         //获取数据库连接
         conn = DBConnector.getDBConn();
         if (conn == null)
             return null;
-        Customer cus = new Customer();
+        Customer cus;
 
         String sql = "SELECT * FROM user u,customer c WHERE  u.username = ? AND u.iduser = c.iduser";
 
@@ -28,15 +32,18 @@ public class CustomerDao {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, user.getUsername());
             ResultSet rs = ps.executeQuery();
-            rs.next();
-            cus.setEmail(rs.getString("email"));
-            cus.setPhone(rs.getString("phone"));
-            cus.setAddress(rs.getString("addr"));
-            cus.setDate(rs.getDate("birthdate").toString());
-            cus.setFname(rs.getString("fname"));
-            cus.setLname(rs.getString("lname"));
-            cus.setSex(rs.getString("sex"));
-            return cus;
+            if (rs.next()) {
+                cus = new Customer();
+                cus.setEmail(rs.getString("email"));
+                cus.setPhone(rs.getString("phone"));
+                cus.setAddress(rs.getString("addr"));
+                cus.setDate(rs.getDate("birthdate").toString());
+                cus.setFname(rs.getString("fname"));
+                cus.setLname(rs.getString("lname"));
+                cus.setSex(rs.getString("sex"));
+                return cus;
+            } else
+                return null;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -49,6 +56,48 @@ public class CustomerDao {
         }
     }
 
+
+    /**
+     * 当没有插入customer信息时插入该信息
+     *
+     * @param customer
+     * @param user
+     * @return
+     */
+    public boolean insertCustomer(Customer customer, User user) {
+        if ((conn = DBConnector.getDBConn()) == null)
+            return false;
+        String sql = "INSERT INTO customer (fname, lname, sex, birthdate, addr, tel, email,iduser) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, customer.getFname());
+            ps.setString(2, customer.getLname());
+            ps.setString(3, customer.getSex());
+            ps.setString(4, customer.getDate());
+            ps.setString(5, customer.getAddress());
+            ps.setString(6, user.getPhone());
+            ps.setString(7,user.getEmail());
+            ps.setInt(8,user.getUserid());
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * @param customer
+     * @param user
+     * @return
+     */
     public boolean modifyCustomer(Customer customer, User user) {
         conn = DBConnector.getDBConn();
         if (conn == null)
@@ -58,17 +107,20 @@ public class CustomerDao {
         syncWithUser(user);
         String username = user.getUsername();
 
-        String sql = "UPDATE customer SET fname = ?, lname = ?, sex = ?,birthdate = ?,addr = ? WHERE iduser =(SELECT iduser FROM user WHERE username = ?)";
+        String sql = "UPDATE customer SET fname = ?, lname = ?, sex = ?,birthdate = ?,addr = ? WHERE iduser = ?";
 
         try {//查询数据库
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, customer.getFname());
-            ps.setString(2,customer.getLname());
-            ps.setString(3,customer.getSex());
-            ps.setString(4,customer.getDate());
-            ps.setString(5,customer.getAddress());
-            ps.setString(6,username);
-            ps.executeUpdate();
+            ps.setString(2, customer.getLname());
+            ps.setString(3, customer.getSex());
+            ps.setString(4, customer.getDate());
+            ps.setString(5, customer.getAddress());
+            ps.setString(6, username);
+            int num = ps.executeUpdate();
+            //之前没有数据
+            if (num == 0)
+                return insertCustomer(customer, user);
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,6 +135,10 @@ public class CustomerDao {
 
     }
 
+    /**
+     * @param user
+     * @return
+     */
     private boolean syncWithUser(User user) {
         UserDao userDao = new UserDao();
         if (userDao.userModify(user))

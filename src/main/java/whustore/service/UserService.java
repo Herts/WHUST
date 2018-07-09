@@ -7,10 +7,10 @@ import whustore.model.User;
 @Service
 public class UserService {
 
-    public boolean passwordIsCorrect(User user)
+    public User loginCheck(User user)
     {
         UserDao userDao = new UserDao();
-        return userDao.passwordIsCorrect(user);
+        return userDao.loginCheck(user);
     }
 
     public boolean userReg(User user)
