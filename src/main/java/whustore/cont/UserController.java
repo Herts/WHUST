@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import whustore.dao.UserDao;
+import whustore.model.Customer;
 import whustore.model.User;
+import whustore.service.CustomerService;
 import whustore.service.UserService;
 
 import javax.annotation.Resource;
@@ -41,14 +43,14 @@ public class UserController {
             return new ModelAndView("user/login", "command", new User());
         }
         request.getSession().setAttribute("user", user);
-        modelMap.addAttribute("username", ((User)request.getSession().getAttribute("user")).getUsername());
+        modelMap.addAttribute("username", ((User) request.getSession().getAttribute("user")).getUsername());
         modelMap.addAttribute("password", user.getPassword());
         return new ModelAndView("homepage");
     }
 
     //注销
     @RequestMapping("logOut")
-    public ModelAndView logOut(){
+    public ModelAndView logOut() {
         request.getSession().removeAttribute("user");
         return new ModelAndView("hello");
     }
@@ -61,8 +63,15 @@ public class UserController {
 
     //账户详情跳转
     @RequestMapping("/user/home")
-    public ModelAndView toUserHome() {
-        return new ModelAndView("user/myAccount");
+    public ModelAndView toUserHome(ModelMap modelMap) {
+        CustomerService cs = new CustomerService();
+        Customer cus = cs.getCustomer((User) request.getSession().getAttribute("user"));
+        modelMap.addAttribute("customer", cus);
+        if (cus.getSex().equalsIgnoreCase("f"))
+            modelMap.addAttribute("fs","selected");
+        else
+            modelMap.addAttribute("ms","selected");
+        return new ModelAndView("user/myAccount", "command", new Customer());
     }
 
     //注册用户

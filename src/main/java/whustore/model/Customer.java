@@ -7,20 +7,15 @@ import java.util.Date;
  */
 public class Customer {
 
-    private User user;
+    private String email;
+    private String phone;
     private String fname;
     private String lname;
     private String sex;
-    private Date date;
+    private String date;
     private String address;
 
-    public User getUser() {
-        return user;
-    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public String getFname() {
         return fname;
@@ -46,13 +41,6 @@ public class Customer {
         this.sex = sex;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
 
     public String getAddress() {
         return address;
@@ -60,5 +48,29 @@ public class Customer {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

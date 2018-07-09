@@ -41,6 +41,11 @@ public class UserDao {
             else return false;
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                conn.close();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
             return false;
         }
     }
@@ -78,6 +83,33 @@ public class UserDao {
                     conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    public boolean userModify(User user) {
+        //获取数据库连接
+        conn = DBConnector.getDBConn();
+        if (conn == null)
+            return false;
+
+        String sql = "UPDATE user SET email = ?, phone = ? WHERE username = ?";
+
+        try {//查询数据库
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, user.getEmail());
+            ps.setString(2, user.getPhone());
+            ps.setString(3, user.getUsername());
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
             }
         }
     }
