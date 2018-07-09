@@ -1,5 +1,6 @@
 package whustore.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Product {
@@ -12,7 +13,6 @@ public class Product {
     private List<String> type;
     private double price;
     private List<String> picPath;
-
 
 
     public int getId() {
@@ -72,6 +72,12 @@ public class Product {
     }
 
     public void picPathAppend(String ppath){
+        if (picPath == null)
+            picPath =  new ArrayList<String>();
         this.picPath.add(ppath);
+    }
+
+    public List<String> getPicPath() {
+        return picPath;
     }
 }

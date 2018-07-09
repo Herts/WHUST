@@ -83,7 +83,7 @@ TODO
                                 <nav>
                                     <ul class="main-menu">
                                         <li><a href="home">首页</a></li>
-                                        <li><a href="hello">逛一逛</a></li>
+                                        <li><a href="HangingAround">逛一逛</a></li>
                                         <li><a href="single-product.html">为我推荐</a></li>
                                     </ul>
                                 </nav>

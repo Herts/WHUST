@@ -5,16 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Recommend {
-    private List recommendList = new ArrayList();
+    private ArrayList<Product> recommendList = new ArrayList();
 
     public Recommend() {
     }
 
-    public List getRecommendList() {
+    public ArrayList<Product> getRecommendList() {
         return this.recommendList;
     }
 
-    public void setRecommendList(List recommendList) {
+    public void setRecommendList(ArrayList<Product> recommendList) {
         this.recommendList = recommendList;
     }
 }

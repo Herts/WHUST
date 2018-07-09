@@ -17,12 +17,8 @@ public class TestController {
     @RequestMapping("Test")
     public String test()
     {
-        CustomerDao customerDao = new CustomerDao();
-        User user = new User();
-        user.setUsername("huhaomeng");
-        user.setEmail("111@outlook.com");
-        customerDao.getCustomer(user);
-        return "homepage";
+
+        return "HangingAroundPage";
     }
     @RequestMapping("TestOrder")
     public String testorder(){
