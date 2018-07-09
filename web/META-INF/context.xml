@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context reloadable="true">
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+    <Resource name="jdbc/mysql" auth="Container" type="javax.sql.DataSource"
+              maxActive="100"
+              maxIdle="30"
+              maxWait="10000"
+              username="whu"
+              password="123567whu"
+              driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://104.199.177.163:3306/WHUStore"/>
+</Context>
