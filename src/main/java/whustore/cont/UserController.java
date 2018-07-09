@@ -67,12 +67,15 @@ public class UserController {
         CustomerService cs = new CustomerService();
         Customer cus = cs.getCustomer((User) request.getSession().getAttribute("user"));
         modelMap.addAttribute("customer", cus);
-        if (cus.getSex().equalsIgnoreCase("f"))
-            modelMap.addAttribute("fs","selected");
-        else
-            modelMap.addAttribute("ms","selected");
+        if (cus != null) {
+            if (cus.getSex().equalsIgnoreCase("f"))
+                modelMap.addAttribute("fs", "selected");
+            else
+                modelMap.addAttribute("ms", "selected");
+        }
         return new ModelAndView("user/myAccount", "command", new Customer());
     }
+
 
     //注册用户
     @RequestMapping("reg")
