@@ -15,6 +15,7 @@ public class JumpController {
 
     /**
      * 跳转到主页面
+     *
      * @return
      */
     @RequestMapping("home")
@@ -24,6 +25,7 @@ public class JumpController {
 
     /**
      * 随便逛逛页面跳转
+     *
      * @param request
      * @param modelMap
      * @return
@@ -32,7 +34,7 @@ public class JumpController {
     public ModelAndView hangAround(HttpServletRequest request, ModelMap modelMap) {
         RecommendService service = new RecommendService();
         Recommend recommend = service.getRecommendation();
-        request.getSession().setAttribute("recommend",recommend);
+        request.getSession().setAttribute("recommend", recommend);
         return new ModelAndView("HangingAroundPage");
     }
 }

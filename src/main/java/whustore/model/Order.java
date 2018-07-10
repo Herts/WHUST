@@ -3,7 +3,7 @@ package whustore.model;
 import java.util.List;
 import java.util.Map;
 
-public class Order{
+public class Order {
     private int idOrder;
     private int iduser;
     private Map<Product, Integer> items;

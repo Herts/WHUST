@@ -16,12 +16,13 @@ public class OrderDao {
 
     /**
      * 获取用户的历史订单
+     *
      * @param userID
      * @return
      */
     public List<Order> getOrderlist(int userID) {
         conn = DBConnector.getDBConn();
-        List <Order> orderlist = new ArrayList<Order>();
+        List<Order> orderlist = new ArrayList<Order>();
         List<Integer> orderidList = this.getOrderID(userID);
         String sql = "SELECT * FROM orderInfo WHERE idorder=?";
         int amount = 0;
@@ -29,13 +30,12 @@ public class OrderDao {
         ResultSet rs;
         try {
             ps = conn.prepareStatement(sql);
-            for( Integer i : orderidList){
-                ps.setInt(1,i);
+            for (Integer i : orderidList) {
+                ps.setInt(1, i);
                 rs = ps.executeQuery();
                 Order order = new Order();
-                HashMap<Product,Integer> items = new HashMap<Product, Integer>();
-                while (rs.next())
-                {
+                HashMap<Product, Integer> items = new HashMap<Product, Integer>();
+                while (rs.next()) {
                     Product current = new Product();
                     current.setId(rs.getInt("idproduct"));
                     current.setProductName(rs.getString("pname"));
@@ -46,7 +46,7 @@ public class OrderDao {
                     //setType等待进一步实现
                     current.setType(null);
                     amount = rs.getInt("amount");
-                    items.put(current,amount);
+                    items.put(current, amount);
                 }
                 order.setIdOrder(i);
                 order.setIduser(userID);
@@ -82,7 +82,7 @@ public class OrderDao {
             if (ps != null) {
                 ps.setInt(1, userID);
                 rs = ps.executeQuery();
-                while(rs.next()){
+                while (rs.next()) {
                     orderID = rs.getInt("idorder");
                     System.out.println("获取订单id : " + orderID);
                     list.add(orderID);

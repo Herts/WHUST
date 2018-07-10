@@ -26,6 +26,7 @@ public class UserController {
 
     /**
      * 第一个RequestMapping的纪念碑
+     *
      * @param modelMap
      * @return
      */
@@ -38,6 +39,7 @@ public class UserController {
 
     /**
      * 用于登陆检查
+     *
      * @param user
      * @param modelMap
      * @return
@@ -48,7 +50,7 @@ public class UserController {
                                    ModelMap modelMap) {
         service = new UserService();
         User userInDB = service.loginCheck(user);
-        if (userInDB==null) {
+        if (userInDB == null) {
             modelMap.addAttribute("message", "账号或密码错误");
             return new ModelAndView("user/login", "command", new User());
         }
@@ -59,6 +61,7 @@ public class UserController {
 
     /**
      * 注销账户
+     *
      * @return
      */
     @RequestMapping("logOut")
@@ -69,6 +72,7 @@ public class UserController {
 
     /**
      * 跳转至登陆页面
+     *
      * @return
      */
     //登陆页面跳转
@@ -79,6 +83,7 @@ public class UserController {
 
     /**
      * 我的账户页面
+     *
      * @param modelMap
      * @return
      */
@@ -89,7 +94,7 @@ public class UserController {
         Customer cus = cs.getCustomer((User) request.getSession().getAttribute("user"));
         modelMap.addAttribute("customer", cus);
         if (cus != null) {
-            if (cus.getSex()!=null && cus.getSex().equalsIgnoreCase("f"))
+            if (cus.getSex() != null && cus.getSex().equalsIgnoreCase("f"))
                 modelMap.addAttribute("fs", "selected");
             else
                 modelMap.addAttribute("ms", "selected");
@@ -100,6 +105,7 @@ public class UserController {
 
     /**
      * 用户注册
+     *
      * @param user
      * @param modelMap
      * @return

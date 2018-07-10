@@ -12,9 +12,10 @@ public class RecommendService {
 
     /**
      * 获取推荐
+     *
      * @return
      */
-    public Recommend getRecommendation(){
+    public Recommend getRecommendation() {
         dao = new RecommendDao();
         return dao.getRecommendation();
     }

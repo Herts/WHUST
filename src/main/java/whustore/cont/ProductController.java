@@ -10,14 +10,14 @@ import org.springframework.web.servlet.ModelAndView;
 public class ProductController {
     /**
      * 获取单个商品页面
+     *
      * @param productID
      * @param modelMap
      * @return
      */
     @RequestMapping("product")
-    public ModelAndView getSingleProduct(@RequestParam("productID") int productID, ModelMap modelMap)
-    {
-        modelMap.addAttribute("peoductID",productID);
+    public ModelAndView getSingleProduct(@RequestParam("productID") int productID, ModelMap modelMap) {
+        modelMap.addAttribute("peoductID", productID);
         return new ModelAndView("hello");
     }
 }

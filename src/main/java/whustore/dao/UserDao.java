@@ -23,6 +23,7 @@ public class UserDao {
 
     /**
      * 登陆密码检查
+     *
      * @param user
      * @return
      */
@@ -64,6 +65,7 @@ public class UserDao {
 
     /**
      * 用户注册
+     *
      * @param user
      * @return
      */
@@ -106,6 +108,7 @@ public class UserDao {
 
     /**
      * 更改用户的记录
+     *
      * @param user
      * @return
      */

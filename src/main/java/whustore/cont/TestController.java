@@ -7,24 +7,26 @@ import whustore.model.*;
 import whustore.service.ProductService;
 
 import java.util.List;
+
 @Controller
 public class TestController {
 
     /**
      * 用于测试功能
+     *
      * @return
      */
     @RequestMapping("Picture")
-    public String pictureTest(){
+    public String pictureTest() {
         ProductService ps = new ProductService();
         Product product = new Product();
         Picture picture = new Picture();
         product.setId(5);
         picture.setIdpicture(1);
-        ps.addProductPicture(product,picture);
+        ps.addProductPicture(product, picture);
         return "homepage";
     }
-    @RequestMapping("product")
+    /*@RequestMapping("product")
     public String productTest(){
         ProductService ps = new ProductService();
         List<Product> list1 = ps.getAllProducts();
@@ -32,6 +34,6 @@ public class TestController {
         List<Product> list3 = ps.getProductsByQuery("保研");
         List<Product> list4 = ps.getRandomProducts(10);
         return "homepage";
-    }
+    }*/
 
 }

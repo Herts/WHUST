@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Repository;
 import whustore.model.Product;
 import whustore.model.Recommend;
+
 @Repository
 public class RecommendDao {
     Connection conn;
@@ -19,6 +20,7 @@ public class RecommendDao {
     /**
      * 获取商品推荐
      * TODO：实现推荐算法
+     *
      * @return
      */
     public Recommend getRecommendation() {
@@ -32,10 +34,10 @@ public class RecommendDao {
             ps = this.conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 //是否已经加入
-                Product productInList = getFromListByID(recommendList,rs.getInt("idproduct"));
-                if (productInList==null) {
+                Product productInList = getFromListByID(recommendList, rs.getInt("idproduct"));
+                if (productInList == null) {
                     //list里尚无该id商品信息
                     Product current = new Product();
                     current.setId(rs.getInt("idproduct"));
@@ -69,11 +71,10 @@ public class RecommendDao {
         return rec;
     }
 
-    private Product getFromListByID(ArrayList<Product> list,int id)
-    {
-        for (Product product:
-             list) {
-            if (product.getId()==id)
+    private Product getFromListByID(ArrayList<Product> list, int id) {
+        for (Product product :
+                list) {
+            if (product.getId() == id)
                 return product;
         }
         return null;

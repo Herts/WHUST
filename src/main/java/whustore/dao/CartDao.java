@@ -17,6 +17,7 @@ public class CartDao {
 
     /**
      * 获取用户的购物车
+     *
      * @param userID
      * @return
      */
@@ -30,11 +31,10 @@ public class CartDao {
         ResultSet rs;
         try {
             ps = conn.prepareStatement(sql);
-            ps.setInt(1,idcart);
+            ps.setInt(1, idcart);
             rs = ps.executeQuery();
-            HashMap<Product,Integer> items = new HashMap<Product, Integer>();
-            while (rs.next())
-            {
+            HashMap<Product, Integer> items = new HashMap<Product, Integer>();
+            while (rs.next()) {
                 Product current = new Product();
                 current.setId(rs.getInt("idproduct"));
                 current.setProductName(rs.getString("pname"));
@@ -44,12 +44,12 @@ public class CartDao {
                 //setType等待进一步实现
                 current.setType(null);
                 int amount = rs.getInt("amount");
-                items.put(current,amount);
+                items.put(current, amount);
             }
             rs.last();
             cart.setCartID(rs.getInt("idcart"));
             cart.setItems(items);
-        return cart;
+            return cart;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -67,6 +67,7 @@ public class CartDao {
 
     /**
      * 获取购物车的ID
+     *
      * @param userID
      * @return
      */

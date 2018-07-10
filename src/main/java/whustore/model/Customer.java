@@ -3,7 +3,7 @@ package whustore.model;
 import java.util.Date;
 
 /**
- *Customer实体类
+ * Customer实体类
  */
 public class Customer {
 
@@ -14,7 +14,6 @@ public class Customer {
     private String sex;
     private String date;
     private String address;
-
 
 
     public String getFname() {

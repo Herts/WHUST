@@ -70,9 +70,9 @@ public class Product {
         this.price = price;
     }
 
-    public void picPathAppend(String ppath){
+    public void picPathAppend(String ppath) {
         if (picPath == null)
-            picPath =  new ArrayList<String>();
+            picPath = new ArrayList<String>();
         this.picPath.add(ppath);
     }
 

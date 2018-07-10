@@ -16,6 +16,7 @@ public class CustomerDao {
 
     /**
      * 获取Customer
+     *
      * @param user
      * @return
      */
@@ -102,6 +103,7 @@ public class CustomerDao {
 
     /**
      * 修改Customer的记录
+     *
      * @param customer
      * @param user
      * @return
@@ -143,6 +145,7 @@ public class CustomerDao {
 
     /**
      * 与user记录同步
+     *
      * @param user
      * @return
      */

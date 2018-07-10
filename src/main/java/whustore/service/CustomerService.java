@@ -10,6 +10,7 @@ public class CustomerService {
 
     /**
      * 获取Customer实体类
+     *
      * @param user
      * @return
      */
@@ -21,12 +22,13 @@ public class CustomerService {
 
     /**
      * 维护Customer实体类
+     *
      * @param customer
      * @param user
      * @return
      */
-    public boolean modifyCustomer(Customer customer, User user){
+    public boolean modifyCustomer(Customer customer, User user) {
         CustomerDao customerDao = new CustomerDao();
-        return customerDao.modifyCustomer(customer,user);
+        return customerDao.modifyCustomer(customer, user);
     }
 }
