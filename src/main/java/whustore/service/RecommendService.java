@@ -10,6 +10,10 @@ public class RecommendService {
     @Autowired
     RecommendDao dao;
 
+    /**
+     * 获取推荐
+     * @return
+     */
     public Recommend getRecommendation(){
         dao = new RecommendDao();
         return dao.getRecommendation();

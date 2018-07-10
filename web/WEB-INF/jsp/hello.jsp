@@ -11,7 +11,8 @@
     <title>Login Test</title>
 </head>
 <body>
-    <h2>username:${username}</h2>
-    <h2>password:${password}</h2>
+<h2>username:${username}</h2>
+<h2>password:${password}</h2>
+<h2>productID:${peoductID}</h2>
 </body>
 </html>

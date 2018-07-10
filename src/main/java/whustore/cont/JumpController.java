@@ -13,11 +13,21 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class JumpController {
 
+    /**
+     * 跳转到主页面
+     * @return
+     */
     @RequestMapping("home")
     public String toHomePage() {
         return "homepage";
     }
 
+    /**
+     * 随便逛逛页面跳转
+     * @param request
+     * @param modelMap
+     * @return
+     */
     @RequestMapping("HangingAround")
     public ModelAndView hangAround(HttpServletRequest request, ModelMap modelMap) {
         RecommendService service = new RecommendService();

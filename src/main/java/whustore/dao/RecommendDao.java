@@ -16,6 +16,11 @@ public class RecommendDao {
     public RecommendDao() {
     }
 
+    /**
+     * 获取商品推荐
+     * TODO：实现推荐算法
+     * @return
+     */
     public Recommend getRecommendation() {
         this.conn = DBConnector.getDBConn();
         Recommend rec = new Recommend();

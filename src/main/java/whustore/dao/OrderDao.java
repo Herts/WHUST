@@ -13,6 +13,12 @@ import java.util.List;
 public class OrderDao {
 
     Connection conn;
+
+    /**
+     * 获取用户的历史订单
+     * @param userID
+     * @return
+     */
     public List<Order> getOrderlist(int userID) {
         conn = DBConnector.getDBConn();
         List <Order> orderlist = new ArrayList<Order>();

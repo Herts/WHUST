@@ -21,6 +21,11 @@ public class UserDao {
     private Context context = null;
     private DataSource dataSource = null;
 
+    /**
+     * 登陆密码检查
+     * @param user
+     * @return
+     */
     public User loginCheck(User user) {
 
         //获取数据库连接
@@ -57,6 +62,11 @@ public class UserDao {
         }
     }
 
+    /**
+     * 用户注册
+     * @param user
+     * @return
+     */
     public boolean userReg(User user) {
         conn = DBConnector.getDBConn();
         if (conn == null)
@@ -94,6 +104,11 @@ public class UserDao {
         }
     }
 
+    /**
+     * 更改用户的记录
+     * @param user
+     * @return
+     */
     public boolean userModify(User user) {
         //获取数据库连接
         conn = DBConnector.getDBConn();

@@ -21,6 +21,12 @@ public class CustomerController {
     private HttpServletRequest request;
 
 
+    /**
+     * 更改customer的信息
+     * @param cus
+     * @param modelMap
+     * @return
+     */
     @RequestMapping("/user/changeInfo")
     public String customerModify(@ModelAttribute("SpringWeb") Customer cus,
                                  ModelMap modelMap) {

@@ -24,13 +24,24 @@ public class UserController {
     @Autowired
     private HttpServletRequest request;
 
-    //测试
+    /**
+     * 第一个RequestMapping的纪念碑
+     * @param modelMap
+     * @return
+     */
     @RequestMapping("hello")
     public String hello(ModelMap modelMap) {
         modelMap.addAttribute("username", "what");
         return "hello";
     }
 
+
+    /**
+     * 用于登陆检查
+     * @param user
+     * @param modelMap
+     * @return
+     */
     //登陆密码检查
     @RequestMapping("login")
     public ModelAndView LogChecker(@ModelAttribute("SpringWeb") User user,
@@ -41,23 +52,36 @@ public class UserController {
             modelMap.addAttribute("message", "账号或密码错误");
             return new ModelAndView("user/login", "command", new User());
         }
+        //向对话添加用户对象
         request.getSession().setAttribute("user", userInDB);
         return new ModelAndView("homepage");
     }
 
-    //注销
+    /**
+     * 注销账户
+     * @return
+     */
     @RequestMapping("logOut")
     public ModelAndView logOut() {
         request.getSession().removeAttribute("user");
         return new ModelAndView("hello");
     }
 
+    /**
+     * 跳转至登陆页面
+     * @return
+     */
     //登陆页面跳转
     @RequestMapping("log")
     public ModelAndView logPage() {
         return new ModelAndView("user/login", "command", new User());
     }
 
+    /**
+     * 我的账户页面
+     * @param modelMap
+     * @return
+     */
     //账户详情跳转
     @RequestMapping("/user/home")
     public ModelAndView toUserHome(ModelMap modelMap) {
@@ -74,6 +98,12 @@ public class UserController {
     }
 
 
+    /**
+     * 用户注册
+     * @param user
+     * @param modelMap
+     * @return
+     */
     //注册用户
     @RequestMapping("reg")
     public ModelAndView Reg(@ModelAttribute("SpringWeb") User user,

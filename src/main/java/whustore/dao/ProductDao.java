@@ -7,6 +7,12 @@ import java.util.*;
 
 public class ProductDao {
     private Connection conn;
+
+    /**
+     * 获取单个商品的Model
+     * @param productID
+     * @return
+     */
     public Product getProduct(int productID)
     {
         conn = DBConnector.getDBConn();

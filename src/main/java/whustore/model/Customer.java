@@ -3,7 +3,7 @@ package whustore.model;
 import java.util.Date;
 
 /**
- *
+ *Customer实体类
  */
 public class Customer {
 

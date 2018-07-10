@@ -10,6 +10,10 @@ import java.util.List;
 @Controller
 public class TestController {
 
+    /**
+     * 用于测试功能
+     * @return
+     */
     @RequestMapping("Picture")
     public String pictureTest(){
         ProductService ps = new ProductService();

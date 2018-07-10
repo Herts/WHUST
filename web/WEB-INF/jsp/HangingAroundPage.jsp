@@ -38,72 +38,115 @@
                 </div>
                 <!--Section Title End-->
             </div>
+            ﻿
             <!--商品们  两个一组  目标是11组 22个-->
             <div class="row">
                 <div class="product-slider-active">
-                    ﻿
-                    <%--<div class="col-md-3 col-lg-3 col-sm-4 col-xs-12">--%>
-                        <%--<!--Single Product Start-->--%>
-                        <%--<div class="single-product mb-25">--%>
-                            <%--<div class="product-img img-full">--%>
-                                <%--<a href="single-product.html">--%>
-                                    <%--<img src="img/product/product1.jpg" alt="">--%>
-                                <%--</a>--%>
-                                <%--<span class="onsale">Sale!</span>--%>
-                                <%--<div class="product-action">--%>
-                                    <%--<ul>--%>
-                                        <%--<li><a href="#open-modal" data-toggle="modal"--%>
-                                               <%--title="Quick view"><i class="fa fa-search"></i></a>--%>
-                                        <%--</li>--%>
-                                        <%--<li><a href="#" title="Whishlist"><i--%>
-                                                <%--class="fa fa-heart-o"></i></a></li>--%>
-                                    <%--</ul>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-                            <%--<div class="product-content">--%>
-                                <%--<h2><a href="single-product.html">Eleifend quam</a></h2>--%>
-                                <%--<div class="product-price">--%>
-                                    <%--<div class="price-box">--%>
-                                        <%--<span class="regular-price">￥115.00</span>--%>
-                                    <%--</div>--%>
-                                    <%--<div class="add-to-cart">--%>
-                                        <%--<a href="#">加入购物车</a>--%>
-                                    <%--</div>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                        <%--<!--Single Product End-->--%>
-                        <%--<!--Single Product Start-->--%>
-                        <%--<div class="single-product mb-25">--%>
-                            <%--<div class="product-img img-full">--%>
-                                <%--<a href="single-product.html">--%>
-                                    <%--<img src="img/product/product2.jpg" alt="">--%>
-                                <%--</a>--%>
-                                <%--<div class="product-action">--%>
-                                    <%--<ul>--%>
-                                        <%--<li><a href="#open-modal" data-toggle="modal"--%>
-                                               <%--title="Quick view"><i class="fa fa-search"></i></a>--%>
-                                        <%--</li>--%>
-                                        <%--<li><a href="#" title="Whishlist"><i--%>
-                                                <%--class="fa fa-heart-o"></i></a></li>--%>
-                                    <%--</ul>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-                            <%--<div class="product-content">--%>
-                                <%--<h2><a href="single-product.html">Odio tortor consequat</a></h2>--%>
-                                <%--<div class="product-price">--%>
-                                    <%--<div class="price-box">--%>
-                                        <%--<span class="regular-price">￥90.00</span>--%>
-                                    <%--</div>--%>
-                                    <%--<div class="add-to-cart">--%>
-                                        <%--<a href="#">加入购物车</a>--%>
-                                    <%--</div>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                        <%--<!--Single Product End-->--%>
-                    <%--</div>--%>
                     <%
+                        //为每一个商品添加html元素
+                        Recommend recommend = (Recommend) request.getSession().getAttribute("recommend");
+                        ArrayList<Product> list = recommend.getRecommendList();
+                        for (int i = 0; i < 22; i++) {
+                            //每两个一个列头
+                            Product product = list.get(i);
+                            out.println(i % 2 == 0 ? "<div class=\"col-md-3 col-lg-3 col-sm-4 col-xs-12\">" : "");
+                    %>
+                    <!--Single Product Start-->
+                    <div class="single-product mb-25">
+                        <div class="product-img img-full">
+                            <a href="product?productID=<%=product.getId()%>">
+                                <img src="<%="../../" + product.getPicPath().get(0)%>" alt="">
+                            </a>
+                            <span class="onsale">Sale!</span>
+                            <div class="product-action">
+                                <ul>
+                                    <li><a href="#open-modal" data-toggle="modal"
+                                           title="Quick view"><i class="fa fa-search"></i></a>
+                                    </li>
+                                    <li><a href="#" title="Whishlist"><i
+                                            class="fa fa-heart-o"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h2><a href="product?productID=<%=product.getId()%>">Eleifend quam</a></h2>
+                            <div class="product-price">
+                                <div class="price-box">
+                                    <span class="regular-price"><%=product.getPrice()%></span>
+                                </div>
+                                <div class="add-to-cart">
+                                    <a href="#">加入购物车</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Single Product End-->
+                    <%
+                            out.println(i % 2 == 1 ? "</div>" : "");
+                        }
+                    %>       ﻿
+                    <%--<div class="col-md-3 col-lg-3 col-sm-4 col-xs-12">
+                        <!--Single Product Start-->
+                        <div class="single-product mb-25">
+                            <div class="product-img img-full">
+                                <a href="single-product.html">
+                                    <img src="img/product/product1.jpg" alt="">
+                                </a>
+                                <span class="onsale">Sale!</span>
+                                <div class="product-action">
+                                    <ul>
+                                        <li><a href="#open-modal" data-toggle="modal"
+                                               title="Quick view"><i class="fa fa-search"></i></a>
+                                        </li>
+                                        <li><a href="#" title="Whishlist"><i
+                                                class="fa fa-heart-o"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="product-content">
+                                <h2><a href="single-product.html">Eleifend quam</a></h2>
+                                <div class="product-price">
+                                    <div class="price-box">
+                                        <span class="regular-price">￥115.00</span>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <a href="#">加入购物车</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Single Product End-->
+                        <!--Single Product Start-->
+                        <div class="single-product mb-25">
+                            <div class="product-img img-full">
+                                <a href="single-product.html">
+                                    <img src="img/product/product2.jpg" alt="">
+                                </a>
+                                <div class="product-action">
+                                    <ul>
+                                        <li><a href="#open-modal" data-toggle="modal"
+                                               title="Quick view"><i class="fa fa-search"></i></a>
+                                        </li>
+                                        <li><a href="#" title="Whishlist"><i
+                                                class="fa fa-heart-o"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="product-content">
+                                <h2><a href="single-product.html">Odio tortor consequat</a></h2>
+                                <div class="product-price">
+                                    <div class="price-box">
+                                        <span class="regular-price">￥90.00</span>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <a href="#">加入购物车</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Single Product End-->
+                    </div>--%>
+                    <%--<%
                         String groupHead = "<div class=\"col-md-3 col-lg-3 col-sm-4 col-xs-12\">";
                         String groupFoot = "</div>";
                         String beforeUrl = "<!--Single Product Start-->\n" +
@@ -159,12 +202,12 @@
                                 //url
                                 out.println("#");
 
-                                temp+=afterUrlBeforeImgSrc;
+                                temp += afterUrlBeforeImgSrc;
                                 out.println(afterUrlBeforeImgSrc);
                                 //图片地址
-                                temp+="../../"+current.getPicPath().get(0);
-                                out.println("../../"+current.getPicPath().get(0));
-                                temp+=afterImgSrcBeforeSale;
+                                temp += "../../" + current.getPicPath().get(0);
+                                out.println("../../" + current.getPicPath().get(0));
+                                temp += afterImgSrcBeforeSale;
                                 out.println(afterImgSrcBeforeSale);
                                 //促销？
                                 //out.println(sale);
@@ -184,7 +227,7 @@
                                     out.println(groupFoot);
                             }
                         }
-                    %>
+                    %>--%>
                 </div>
             </div>
             <!--商品完-->

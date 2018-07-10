@@ -16,9 +16,11 @@ public class DBConnector {
     private static Context context = null;
     private static DataSource dataSource = null;
 
-    /*
-     * 获取数据库的连接
-     * 记得在Dao里面 close*/
+    /**
+     * 获取数据库的链接
+     * 使用完毕后需要关闭
+     * @return
+     */
     public static Connection getDBConn() {
         Connection conn;
         try {
