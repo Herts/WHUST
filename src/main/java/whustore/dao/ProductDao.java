@@ -4,6 +4,8 @@ import com.mysql.cj.jdbc.PreparedStatement;
 import whustore.model.*;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDao {
     private Connection conn;
@@ -40,27 +42,87 @@ public class ProductDao {
         java.sql.PreparedStatement ps;
         int state = 0;
         boolean restate=false;
-        String sql = "INSERT INTO product(pname,description,quantity,idteam,price) VALUES (?,?,?,?,?)";
-
+        int idproduct =(int) (System.currentTimeMillis() / 1000);
+        List<Integer> idcategory = new ArrayList<Integer>();
+        List<Integer> idpicture = new ArrayList<Integer>();
+        String insert_product = "INSERT INTO product(idproduct,pname,description,quantity,idteam,price) VALUES (?,?,?,?,?,?)";
+        String select_idcategory = "SELECT idcategory FROM category WHERE cname = ?";
+        String insert_picture = "INSERT INTO picture(ppath) values(?)";
+        String select_idpicture = "SELECT * FROM picture WHERE ppath = ?";
+        String insert_procat = "INSERT INTO procat(idproduct,idcategory) values(?,?)";
+        String insert_productpic = "INSERT INTO productpic(idproduct,idpicture)values(?,?)";
+        ResultSet rs = null;
         try {
+            conn.setAutoCommit(false);
             if(conn!=null && p!=null) {
-                ps = conn.prepareStatement(sql);
-                ps.setObject(1,p.getProductName());
-                ps.setObject(2,p.getProIntro());
-                ps.setObject(3,p.getQuantity());
-                ps.setObject(4,p.getTeamID());
-                ps.setObject(5,p.getPrice());
-                state = ps.executeUpdate();
+                ps = conn.prepareStatement(insert_product);
+                ps.setInt(1,idproduct);
+                ps.setObject(2,p.getProductName());
+                ps.setObject(3,p.getProIntro());
+                ps.setObject(4,p.getQuantity());
+                ps.setObject(5,p.getTeamID());
+                ps.setObject(6,p.getPrice());
+                ps.executeUpdate();
+
+                if(p.getPicPath()!=null && p.getPicPath().size() >0){
+                    for (String str: p.getPicPath()) {
+                        ps = conn.prepareStatement(insert_picture);
+                        ps.setString(1,str);
+                        int a = ps.executeUpdate();
+                        ps = conn.prepareStatement(select_idpicture);
+                        ps.setString(1,str);
+                        rs = ps.executeQuery();
+                        rs.next();
+                        int id = rs.getInt("idpicture");
+                        idpicture.add(id);
+                    }
+                }
+
+
+                if(idpicture.size()>0){
+
+                    for (Integer in: idpicture) {
+                        ps = conn.prepareStatement(insert_productpic);
+                        ps.setInt(1,idproduct);
+                        ps.setInt(2,in);
+                        ps.executeUpdate();
+                    }
+                }
+
+                if(p.getType()!=null && p.getType().size()>1){
+                    for ( String str: p.getType()  ) {
+                        ps = conn.prepareStatement(select_idcategory);
+                        ps.setString(1,str);
+                        rs = ps.executeQuery();
+                        rs.next();
+                        idcategory.add(rs.getInt("idcategory"));
+                    }
+                }
+
+                if(idcategory.size() >0){
+                    for(Integer in : idcategory){
+                        ps = conn.prepareStatement(insert_procat);
+                        ps.setInt(1,idproduct);
+                        ps.setInt(2,in);
+                        ps.executeUpdate();
+                    }
+                }
+
             }
+            state = 1;
+            conn.commit();
         } catch (SQLException e) {
             e.printStackTrace();
-
+            try {
+                conn.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
         }
         if(state == 0)
             restate = false;
         if(state ==1)
-            restate = false;
-
+            restate = true;
         return restate;
     }
     public boolean addPicture(Picture p){

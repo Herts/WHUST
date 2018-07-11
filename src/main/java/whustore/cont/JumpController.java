@@ -17,7 +17,6 @@ public class JumpController {
     public String toHomePage() {
         return "homepage";
     }
-
     @RequestMapping("HangingAround")
     public ModelAndView hangAround(HttpServletRequest request, ModelMap modelMap) {
         RecommendService service = new RecommendService();
@@ -25,4 +24,6 @@ public class JumpController {
         request.getSession().setAttribute("recommend",recommend);
         return new ModelAndView("HangingAroundPage");
     }
+    @RequestMapping("addproduct")
+    public String toaddproduct(){return "addproduct";}
 }

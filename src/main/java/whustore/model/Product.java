@@ -62,6 +62,10 @@ public class Product {
         this.proIntro = proIntro;
     }
 
+    public void setPicPath(List<String> picPath) {
+        this.picPath = picPath;
+    }
+
     public double getPrice() {
         return price;
     }
