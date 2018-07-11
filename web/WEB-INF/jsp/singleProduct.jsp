@@ -1062,7 +1062,8 @@
                             <div class="nav product-tab-menu">
                                 <c:forEach var="i" begin="0" end="${product.picPath.size()-1}" step="1">
                                     <div class="product-details-img">
-                                        <a<c:if test="${i==0}"> class="active" </c:if> data-toggle="tab" href="#product${i+1}"><img
+                                        <a<c:if test="${i==0}"> class="active" </c:if> data-toggle="tab"
+                                                                                       href="#product${i+1}"><img
                                                 src="${product.picPath.get(i)}" alt=""></a>
                                     </div>
                                 </c:forEach>
@@ -1082,14 +1083,14 @@
                         <!--Product Nav End-->
                         <h2>${product.productName}</h2>
 
-                       <%-- <div class="single-product-reviews">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                            <a class="review-link" href="#">(1 customer review)</a>
-                        </div>--%>
+                        <%-- <div class="single-product-reviews">
+                             <i class="fa fa-star"></i>
+                             <i class="fa fa-star"></i>
+                             <i class="fa fa-star"></i>
+                             <i class="fa fa-star"></i>
+                             <i class="fa fa-star-o"></i>
+                             <a class="review-link" href="#">(1 customer review)</a>
+                         </div>--%>
                         <div class="single-product-price">
                             <%--活动价--%>
                             <%--<span class="price new-price">$66.00</span>--%>
@@ -1250,186 +1251,39 @@
             </div>
             <div class="row">
                 <div class="product-slider-active">
-                    <div class="col-md-3 col-lg-3 col-sm-4 col-xs-12">
-                        <!--Single Product Start-->
-                        <div class="single-product mb-25">
-                            <div class="product-img img-full">
-                                <a href="single-product.html">
-                                    <img src="img/product/product1.jpg" alt="">
-                                </a>
-                                <div class="product-action">
-                                    <ul>
-                                        <li><a href="#open-modal" data-toggle="modal" title="Quick view"><i
-                                                class="fa fa-search"></i></a></li>
-                                        <li><a href="#" title="Whishlist"><i class="fa fa-heart-o"></i></a></li>
-                                        <li><a href="#" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <h2><a href="single-product.html">Eleifend quam</a></h2>
-                                <div class="product-price">
-                                    <div class="price-box">
-                                        <span class="regular-price">$115.00</span>
-                                    </div>
-                                    <div class="add-to-cart">
-                                        <a href="#">Add To Cart</a>
+                    <c:forEach var="i" begin="0" end="5" step="1">
+                        <div class="col-md-3 col-lg-3 col-sm-4 col-xs-12">
+                            <!--Single Product Start-->
+                            <div class="single-product mb-25">
+                                <div class="product-img img-full">
+                                    <a href="/product?productID=${alsoLikes.get(i).id}">
+                                        <img src="${alsoLikes.get(i).picPath.get(0)}" alt="">
+                                    </a>
+                                    <div class="product-action">
+                                        <ul>
+                                            <li><a href="#open-modal${i}" data-toggle="modal" title="Quick view"><i
+                                                    class="fa fa-search"></i></a></li>
+                                            <li><a href="#" title="Whishlist"><i class="fa fa-heart-o"></i></a></li>
+                                        </ul>
                                     </div>
                                 </div>
+                                <div class="product-content">
+                                    <h2>
+                                        <a href="/product?productID=${alsoLikes.get(i).id}">${alsoLikes.get(i).productName}</a>
+                                    </h2>
+                                    <div class="product-price">
+                                        <div class="price-box">
+                                            <span class="regular-price">¥${alsoLikes.get(i).price}</span>
+                                        </div>
+                                        <div class="add-to-cart">
+                                            <a href="#">添加至购物车</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                            <!--Single Product End-->
                         </div>
-                        <!--Single Product End-->
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-sm-4 col-xs-12">
-                        <!--Single Product Start-->
-                        <div class="single-product mb-25">
-                            <div class="product-img img-full">
-                                <a href="single-product.html">
-                                    <img src="img/product/product3.jpg" alt="">
-                                </a>
-                                <div class="product-action">
-                                    <ul>
-                                        <li><a href="#open-modal" data-toggle="modal" title="Quick view"><i
-                                                class="fa fa-search"></i></a></li>
-                                        <li><a href="#" title="Whishlist"><i class="fa fa-heart-o"></i></a></li>
-                                        <li><a href="#" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <h2><a href="single-product.html">Nulla sed stg</a></h2>
-                                <div class="product-price">
-                                    <div class="price-box">
-                                        <span class="regular-price">$40.00</span>
-                                    </div>
-                                    <div class="add-to-cart">
-                                        <a href="#">Add To Cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--Single Product End-->
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-sm-4 col-xs-12">
-                        <!--Single Product Start-->
-                        <div class="single-product mb-25">
-                            <div class="product-img img-full">
-                                <a href="single-product.html">
-                                    <img src="img/product/product5.jpg" alt="">
-                                </a>
-                                <div class="product-action">
-                                    <ul>
-                                        <li><a href="#open-modal" data-toggle="modal" title="Quick view"><i
-                                                class="fa fa-search"></i></a></li>
-                                        <li><a href="#" title="Whishlist"><i class="fa fa-heart-o"></i></a></li>
-                                        <li><a href="#" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <h2><a href="single-product.html">Odio tortor consequat</a></h2>
-                                <div class="product-price">
-                                    <div class="price-box">
-                                        <span class="regular-price">$90.00</span>
-                                    </div>
-                                    <div class="add-to-cart">
-                                        <a href="#">Add To Cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--Single Product End-->
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-sm-4 col-xs-12">
-                        <!--Single Product Start-->
-                        <div class="single-product mb-25">
-                            <div class="product-img img-full">
-                                <a href="single-product.html">
-                                    <img src="img/product/product7.jpg" alt="">
-                                </a>
-                                <div class="product-action">
-                                    <ul>
-                                        <li><a href="#open-modal" data-toggle="modal" title="Quick view"><i
-                                                class="fa fa-search"></i></a></li>
-                                        <li><a href="#" title="Whishlist"><i class="fa fa-heart-o"></i></a></li>
-                                        <li><a href="#" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <h2><a href="single-product.html">Vulputate justo</a></h2>
-                                <div class="product-price">
-                                    <div class="price-box">
-                                        <span class="regular-price">$70.00</span>
-                                    </div>
-                                    <div class="add-to-cart">
-                                        <a href="#">Add To Cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--Single Product End-->
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-sm-4 col-xs-12">
-                        <!--Single Product Start-->
-                        <div class="single-product mb-25">
-                            <div class="product-img img-full">
-                                <a href="single-product.html">
-                                    <img src="img/product/product9.jpg" alt="">
-                                </a>
-                                <div class="product-action">
-                                    <ul>
-                                        <li><a href="#open-modal" data-toggle="modal" title="Quick view"><i
-                                                class="fa fa-search"></i></a></li>
-                                        <li><a href="#" title="Whishlist"><i class="fa fa-heart-o"></i></a></li>
-                                        <li><a href="#" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <h2><a href="single-product.html">Ipsum imperdie</a></h2>
-                                <div class="product-price">
-                                    <div class="price-box">
-                                        <span class="regular-price">$100.00</span>
-                                    </div>
-                                    <div class="add-to-cart">
-                                        <a href="#">Add To Cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--Single Product End-->
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-sm-4 col-xs-12">
-                        <!--Single Product Start-->
-                        <div class="single-product mb-25">
-                            <div class="product-img img-full">
-                                <a href="single-product.html">
-                                    <img src="img/product/product11.jpg" alt="">
-                                </a>
-                                <div class="product-action">
-                                    <ul>
-                                        <li><a href="#open-modal" data-toggle="modal" title="Quick view"><i
-                                                class="fa fa-search"></i></a></li>
-                                        <li><a href="#" title="Whishlist"><i class="fa fa-heart-o"></i></a></li>
-                                        <li><a href="#" title="Compare"><i class="fa fa-refresh"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <h2><a href="single-product.html">Pellentesque position</a></h2>
-                                <div class="product-price">
-                                    <div class="price-box">
-                                        <span class="regular-price">$90.00</span>
-                                    </div>
-                                    <div class="add-to-cart">
-                                        <a href="#">Add To Cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--Single Product End-->
-                    </div>
+                    </c:forEach>
                 </div>
             </div>
         </div>
@@ -1439,145 +1293,91 @@
     <%@include file="universal/footer.jsp" %>
     <!--Footer Area End-->
     <!-- Modal Area Strat -->
-    <div class="modal fade" id="open-modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i
-                            class="fa fa-close"></i></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <!--Modal Img-->
-                        <div class="col-md-5">
-                            <!--Modal Tab Content Start-->
-                            <div class="tab-content product-details-large" id="myTabContent">
-                                <div class="tab-pane fade show active" id="single-slide1" role="tabpanel"
-                                     aria-labelledby="single-slide-tab-1">
-                                    <!--Single Product Image Start-->
-                                    <div class="single-product-img img-full">
-                                        <img src="img/single-product/large/single-product1.jpg" alt="">
-                                    </div>
-                                    <!--Single Product Image End-->
-                                </div>
-                                <div class="tab-pane fade" id="single-slide2" role="tabpanel"
-                                     aria-labelledby="single-slide-tab-2">
-                                    <!--Single Product Image Start-->
-                                    <div class="single-product-img img-full">
-                                        <img src="img/single-product/large/single-product2.jpg" alt="">
-                                    </div>
-                                    <!--Single Product Image End-->
-                                </div>
-                                <div class="tab-pane fade" id="single-slide3" role="tabpanel"
-                                     aria-labelledby="single-slide-tab-3">
-                                    <!--Single Product Image Start-->
-                                    <div class="single-product-img img-full">
-                                        <img src="img/single-product/large/single-product3.jpg" alt="">
-                                    </div>
-                                    <!--Single Product Image End-->
-                                </div>
-                                <div class="tab-pane fade" id="single-slide4" role="tabpanel"
-                                     aria-labelledby="single-slide-tab-4">
-                                    <!--Single Product Image Start-->
-                                    <div class="single-product-img img-full">
-                                        <img src="img/single-product/large/single-product4.jpg" alt="">
-                                    </div>
-                                    <!--Single Product Image End-->
-                                </div>
-                                <div class="tab-pane fade" id="single-slide5" role="tabpanel"
-                                     aria-labelledby="single-slide-tab-4">
-                                    <!--Single Product Image Start-->
-                                    <div class="single-product-img img-full">
-                                        <img src="img/single-product/large/single-product5.jpg" alt="">
-                                    </div>
-                                    <!--Single Product Image End-->
-                                </div>
-                                <div class="tab-pane fade" id="single-slide6" role="tabpanel"
-                                     aria-labelledby="single-slide-tab-4">
-                                    <!--Single Product Image Start-->
-                                    <div class="single-product-img img-full">
-                                        <img src="img/single-product/large/single-product6.jpg" alt="">
-                                    </div>
-                                    <!--Single Product Image End-->
-                                </div>
-                            </div>
-                            <!--Modal Content End-->
-                            <!--Modal Tab Menu Start-->
-                            <div class="single-product-menu">
-                                <div class="nav single-slide-menu owl-carousel" role="tablist">
-                                    <div class="single-tab-menu img-full">
-                                        <a class="active" data-toggle="tab" id="single-slide-tab-1"
-                                           href="#single-slide1"><img src="img/single-product/small/single-product1.jpg"
-                                                                      alt=""></a>
-                                    </div>
-                                    <div class="single-tab-menu img-full">
-                                        <a data-toggle="tab" id="single-slide-tab-2" href="#single-slide2"><img
-                                                src="img/single-product/small/single-product2.jpg" alt=""></a>
-                                    </div>
-                                    <div class="single-tab-menu img-full">
-                                        <a data-toggle="tab" id="single-slide-tab-3" href="#single-slide3"><img
-                                                src="img/single-product/small/single-product3.jpg" alt=""></a>
-                                    </div>
-                                    <div class="single-tab-menu img-full">
-                                        <a data-toggle="tab" id="single-slide-tab-4" href="#single-slide4"><img
-                                                src="img/single-product/small/single-product4.jpg" alt=""></a>
-                                    </div>
-                                    <div class="single-tab-menu img-full">
-                                        <a data-toggle="tab" id="single-slide-tab-5" href="#single-slide5"><img
-                                                src="img/single-product/small/single-product5.jpg" alt=""></a>
-                                    </div>
-                                    <div class="single-tab-menu img-full">
-                                        <a data-toggle="tab" id="single-slide-tab-6" href="#single-slide6"><img
-                                                src="img/single-product/small/single-product6.jpg" alt=""></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Modal Tab Menu End-->
-                        </div>
-                        <!--Modal Img-->
-                        <!--Modal Content-->
-                        <div class="col-md-7">
-                            <div class="modal-product-info">
-                                <h1>Sit voluptatem</h1>
-                                <div class="modal-product-price">
-                                    <span class="old-price">$74.00</span>
-                                    <span class="new-price">$69.00</span>
-                                </div>
-                                <a href="single-product.html" class="see-all">See all features</a>
-                                <div class="add-to-cart quantity">
-                                    <form class="add-quantity" action="#">
-                                        <div class="modal-quantity">
-                                            <input type="number" value="1">
+    <c:forEach var="i" begin="0" end="5" step="1">
+        <div class="modal fade" id="open-modal${i}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i
+                                class="fa fa-close"></i></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <!--Modal Img-->
+                            <div class="col-md-5">
+                                <!--Modal Tab Content Start-->
+                                <div class="tab-content product-details-large" id="myTabContent">
+                                    <c:forEach var="j" begin="0" end="${alsoLikes.get(i).picPath.size()-1}" step="1">
+                                        <div class="tab-pane <c:if test="${j==0}"> fade show active </c:if> " id="single-slide${j+1}" role="tabpanel"
+                                             aria-labelledby="single-slide-tab-1">
+                                            <!--Single Product Image Start-->
+                                            <div class="single-product-img img-full">
+                                                <img src="${alsoLikes.get(i).picPath.get(j)}" alt="">
+                                            </div>
+                                            <!--Single Product Image End-->
                                         </div>
-                                        <div class="add-to-link">
-                                            <button class="form-button" data-text="add to cart">add to cart</button>
-                                        </div>
-                                    </form>
+                                    </c:forEach>
                                 </div>
-                                <div class="cart-description">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                        nostrud exercitation ullamco,Proin lectus ipsum, gravida et mattis vulputate,
-                                        tristique ut lectus.</p>
+                                <!--Modal Content End-->
+                                <!--Modal Tab Menu Start-->
+                                <div class="single-product-menu">
+                                    <div class="nav single-slide-menu owl-carousel" role="tablist">
+                                        <c:forEach var="j" begin="0" end="${alsoLikes.get(i).picPath.size()-1}"
+                                                   step="1">
+                                            <div class="single-tab-menu img-full">
+                                                <a <c:if test="${j==0}"> class="active" </c:if> data-toggle="tab" id="single-slide-tab-1"
+                                                   href="#single-slide${j+1}"><img
+                                                        src="${alsoLikes.get(i).picPath.get(j)}"
+                                                        alt=""></a>
+                                            </div>
+                                        </c:forEach>
+
+                                    </div>
                                 </div>
-                                <div class="social-share">
-                                    <h3>Share this product</h3>
-                                    <ul class="socil-icon2">
-                                        <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                        <li><a href=""><i class="fa fa-pinterest"></i></a></li>
-                                        <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                        <li><a href=""><i class="fa fa-linkedin"></i></a></li>
-                                    </ul>
+                                <!--Modal Tab Menu End-->
+                            </div>
+                            <!--Modal Img-->
+                            <!--Modal Content-->
+                            <div class="col-md-7">
+                                <div class="modal-product-info">
+                                    <h1>${alsoLikes.get(i).productName}</h1>
+                                    <div class="modal-product-price">
+                                        <%--<span class="old-price"></span>--%>
+                                        <span class="new-price">¥${alsoLikes.get(i).price}</span>
+                                    </div>
+                                    <a href="/product?productID=${alsoLikes.get(i).id}" class="see-all">查看商品详情</a>
+                                    <div class="add-to-cart quantity">
+                                        <form class="add-quantity" action="#">
+                                            <div class="modal-quantity">
+                                                <input type="number" value="1">
+                                            </div>
+                                            <div class="add-to-link">
+                                                <button class="form-button" data-text="add to cart">添加至购物车</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="cart-description">
+                                        <p>${alsoLikes.get(i).proIntro}</p>
+                                    </div>
+                                    <div class="social-share">
+                                        <h3>分享商品</h3>
+                                        <ul class="socil-icon2">
+                                            <li><a href=""><i class="fa fa-facebook"></i></a></li>
+                                            <li><a href=""><i class="fa fa-twitter"></i></a></li>
+                                            <li><a href=""><i class="fa fa-pinterest"></i></a></li>
+                                            <li><a href=""><i class="fa fa-google-plus"></i></a></li>
+                                            <li><a href=""><i class="fa fa-linkedin"></i></a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
+                            <!--Modal Content-->
                         </div>
-                        <!--Modal Content-->
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </c:forEach>
     <!-- Modal Area End -->
 </div>
 
