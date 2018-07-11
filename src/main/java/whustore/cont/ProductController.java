@@ -5,6 +5,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import whustore.data.ProductData;
+import whustore.model.Product;
 
 @Controller
 public class ProductController {
@@ -17,7 +19,8 @@ public class ProductController {
      */
     @RequestMapping("product")
     public ModelAndView getSingleProduct(@RequestParam("productID") int productID, ModelMap modelMap) {
-        modelMap.addAttribute("peoductID", productID);
+        Product product = ProductData.getProductByID(productID);
+        modelMap.addAttribute("product",product);
         return new ModelAndView("singleProduct");
     }
 }

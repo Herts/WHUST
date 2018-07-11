@@ -6,7 +6,7 @@ import whustore.model.Product;
 import java.util.ArrayList;
 import java.util.List;
 
-public class productData {
+public class ProductData {
     private static List<Product> productList = null;
     private static ProductDao dao = new ProductDao();
 

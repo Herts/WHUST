@@ -2,9 +2,7 @@ package whustore.cont;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import whustore.dao.*;
-import whustore.data.productData;
+import whustore.data.ProductData;
 import whustore.model.*;
 import whustore.service.ProductService;
 
@@ -31,7 +29,7 @@ public class TestController {
 
     @RequestMapping("test")
     public String ttt() {
-        List<Product> list = productData.getProductList();
+        List<Product> list = ProductData.getProductList();
         return "shop";
     }
 }

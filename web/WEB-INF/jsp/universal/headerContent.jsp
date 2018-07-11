@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ page import="whustore.model.User" %>
 <div class="row">
     <!--Header Logo Start-->
     <div class="col-lg-3 col-md-3">

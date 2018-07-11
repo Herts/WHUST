@@ -42,12 +42,12 @@ public class ProductDao {
     }
 
     public List<Product> getAllProductOrderByPrice() {
-        String sql = "SELECT * FROM productInfo ORDER BY price";
+        String sql = "SELECT * FROM productinfo ORDER BY price";
         return getAllProduct(sql);
     }
 
     public List<Product> getAllProduct() {
-        String sql = "SELECT * FROM productInfo";
+        String sql = "SELECT * FROM productinfo";
         return getAllProduct(sql);
     }
 
