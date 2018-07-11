@@ -29,7 +29,7 @@
                             <nav>
                                 <ul class="main-menu">
                                     <li><a href="/home">首页</a></li>
-                                    <li><a href="/shop?page=1">找一找</a></li>
+                                    <li><a href="/shop?page=1">找一找</a> </li>
                                     <li><a href="/HangingAround">逛一逛</a></li>
                                     <li><a href="single-product.html">为我推荐</a></li>
                                 </ul>
@@ -109,37 +109,21 @@
                                             <ul class="menu-top-menu">
                                                 <%
                                                     User user = (User) session.getAttribute("user");
-                                                    if (user != null) {
+                                                    if (user != null)
+
+                                                        out.println("<li><a href=\"/user/home\">" +
+                                                                user.getUsername() +
+                                                                "的账户</a></li>" +
+                                                                "<li><a href=\"#\">历史订单</a></li>\n" +
+                                                                "<li><a href=\"#\">购物车</a></li>\n" +
+                                                                "<li><a href=\"#\">结算</a></li>" +
+                                                                "<li><a href='/logOut'>注销</a></li>");
+                                                    else
+                                                        out.println("<li><a href=\"/log\">"+
+                                                                "请登录" +
+                                                                "</a></li>" +
+                                                                "<li><a href='/reg'>注册</a></li>");
                                                 %>
-                                                out.println("
-                                                <li><a href=\"/user/home\">" +
-                                                    user.getUsername() +
-                                                    "的账户</a></li>
-                                                " +
-                                                "
-                                                <li><a href=\"#\">历史订单</a></li>
-                                                \n" +
-                                                "
-                                                <li><a href=\"#\">购物车</a></li>
-                                                \n" +
-                                                "
-                                                <li><a href=\"#\">结算</a></li>
-                                                " +
-                                                "
-                                                <li><a href='/logOut'>注销</a></li>
-                                                ");
-                                                <%
-                                                } else {
-                                                %>
-                                                out.println("
-                                                <li><a href=\"/log\">"+
-                                                    "请登录" +
-                                                    "</a></li>
-                                                " +
-                                                "
-                                                <li><a href='/reg'>注册</a></li>
-                                                ");
-                                                <%}%>
                                             </ul>
                                         </div>
                                     </div>

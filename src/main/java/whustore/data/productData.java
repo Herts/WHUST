@@ -28,6 +28,8 @@ public class productData {
      * @return 是否成功
      */
     public static boolean removeProduct(int id) {
+        if (productList == null)
+            productList = dao.getAllProduct();
         for (Product product :
                 productList) {
             if (product != null && product.getId() == id)
@@ -43,6 +45,8 @@ public class productData {
      * @return 是否移除成功
      */
     public static boolean removeProduct(Product theProduct) {
+        if (productList == null)
+            productList = dao.getAllProduct();
         return productList.remove(theProduct);
     }
 
@@ -53,6 +57,8 @@ public class productData {
      * @return 商品
      */
     public static Product getProductByID(int id) {
+        if (productList == null)
+            productList = dao.getAllProduct();
         for (Product product :
                 productList) {
             if (product != null && product.getId() == id)
@@ -68,6 +74,8 @@ public class productData {
      * @return 是否插入成功
      */
     public static boolean addProduct(Product newProduct) {
+        if (productList == null)
+            productList = dao.getAllProduct();
         if (getProductByID(newProduct.getId()) == null) {
             productList.add(newProduct);
             return true;

@@ -163,37 +163,21 @@ TODO
                                                 <ul class="menu-top-menu">
                                                     <%
                                                         User user = (User) session.getAttribute("user");
-                                                        if (user != null) {
+                                                        if (user != null)
+
+                                                            out.println("<li><a href=\"/user/home\">" +
+                                                                    user.getUsername() +
+                                                                    "的账户</a></li>" +
+                                                                    "<li><a href=\"#\">历史订单</a></li>\n" +
+                                                                    "<li><a href=\"#\">购物车</a></li>\n" +
+                                                                    "<li><a href=\"#\">结算</a></li>" +
+                                                                    "<li><a href='/logOut'>注销</a></li>");
+                                                        else
+                                                            out.println("<li><a href=\"/log\">"+
+                                                                    "请登录" +
+                                                                    "</a></li>" +
+                                                                    "<li><a href='/reg'>注册</a></li>");
                                                     %>
-                                                    out.println("
-                                                    <li><a href=\"/user/home\">" +
-                                                        user.getUsername() +
-                                                        "的账户</a></li>
-                                                    " +
-                                                    "
-                                                    <li><a href=\"#\">历史订单</a></li>
-                                                    \n" +
-                                                    "
-                                                    <li><a href=\"#\">购物车</a></li>
-                                                    \n" +
-                                                    "
-                                                    <li><a href=\"#\">结算</a></li>
-                                                    " +
-                                                    "
-                                                    <li><a href='/logOut'>注销</a></li>
-                                                    ");
-                                                    <%
-                                                    } else {
-                                                    %>
-                                                    out.println("
-                                                    <li><a href=\"/log\">"+
-                                                        "请登录" +
-                                                        "</a></li>
-                                                    " +
-                                                    "
-                                                    <li><a href='/reg'>注册</a></li>
-                                                    ");
-                                                    <%}%>
                                                 </ul>
                                             </div>
                                         </div>
