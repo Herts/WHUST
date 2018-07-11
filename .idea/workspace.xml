@@ -6,36 +6,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="25907c05-aca7-414e-8a51-c8eed3cda276" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="25907c05-aca7-414e-8a51-c8eed3cda276" name="Default" comment="log v0.3 Dao层v0.1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/classes/whustore/cont/TestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/classes/whustore/cont/TestController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/classes/whustore/cont/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/classes/whustore/cont/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/classes/whustore/dao/CartDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/classes/whustore/dao/CartDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/classes/whustore/dao/DBConnector.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/classes/whustore/dao/DBConnector.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/classes/whustore/dao/OrderDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/classes/whustore/dao/OrderDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/classes/whustore/dao/ProductDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/classes/whustore/dao/ProductDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/classes/whustore/dao/UserDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/classes/whustore/dao/UserDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/classes/whustore/model/Cart.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/classes/whustore/model/Cart.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/classes/whustore/model/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/classes/whustore/model/Product.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/classes/whustore/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/classes/whustore/model/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/classes/whustore/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/classes/whustore/service/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/jsp/user/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WHUST_war_exploded/WEB-INF/jsp/user/login.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/whustore/dao/RecommendDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/whustore/dao/RecommendDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/whustore/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/whustore/model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/whustore/cont/TestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/whustore/cont/TestController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/whustore/cont/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/whustore/cont/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/whustore/dao/CartDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/whustore/dao/CartDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/whustore/dao/DBConnector.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/whustore/dao/DBConnector.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/whustore/dao/OrderDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/whustore/dao/OrderDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/whustore/dao/ProductDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/whustore/dao/ProductDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/whustore/dao/UserDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/whustore/dao/UserDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/whustore/model/Cart.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/whustore/model/Cart.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/whustore/model/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/whustore/model/Product.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/whustore/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/whustore/model/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/whustore/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/whustore/service/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/test.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/test.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -65,17 +38,20 @@
       <file leaf-file-name="Product.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/whustore/model/Product.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-412">
+            <state relative-caret-position="326">
               <caret line="15" selection-start-line="15" selection-end-line="15" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProductDao.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/whustore/dao/ProductDao.java">
+      <file leaf-file-name="Cart.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/whustore/model/Cart.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
+            <state relative-caret-position="88">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -89,53 +65,56 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RecommendDao.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RecommendDao.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/whustore/dao/RecommendDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-66">
-              <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+            <state relative-caret-position="132">
+              <caret line="26" column="13" lean-forward="true" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RecommendService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/whustore/service/RecommendService.java">
+      <file leaf-file-name="Customer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/whustore/model/Customer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
+            <state relative-caret-position="220">
+              <caret line="10" column="25" lean-forward="true" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JumpController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Order.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/whustore/model/Order.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="418">
+              <caret line="30" column="14" lean-forward="true" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Picture.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/whustore/model/Picture.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="44">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/whustore/model/User.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="44">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JumpController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/whustore/cont/JumpController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor />
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/whustore/cont/UserController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+            <state relative-caret-position="246">
+              <caret line="25" selection-start-line="25" selection-end-line="25" />
             </state>
           </provider>
         </entry>
@@ -553,7 +532,7 @@
       <workItem from="1531138097452" duration="397000" />
       <workItem from="1531190281322" duration="942000" />
       <workItem from="1531218431150" duration="3674000" />
-      <workItem from="1531271621276" duration="326000" />
+      <workItem from="1531271621276" duration="1096000" />
     </task>
     <task id="LOCAL-00001" summary="log v0.1">
       <created>1530673684472</created>
@@ -597,11 +576,18 @@
       <option name="project" value="LOCAL" />
       <updated>1530763884282</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="log v0.3 Dao层v0.1">
+      <created>1531272171261</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1531272171261</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39705000" />
+    <option name="totallyTimeSpent" value="40475000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -614,7 +600,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50143063" side_tool="true" weight="0.32010242" />
@@ -627,8 +612,9 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49928468" weight="0.0" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49928468" visible="true" weight="0.0" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3290653" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.32898173" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="bottom" id="Java Enterprise" order="8" />
@@ -644,7 +630,6 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Messages" order="8" weight="0.32898173" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3290653" />
@@ -722,21 +707,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="43" column="26" selection-start-line="43" selection-start-column="26" selection-end-line="43" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/c3p0-config.tld" />
-    <entry file="jar://$PROJECT_DIR$/lib/spring-webmvc-4.3.18.RELEASE.jar!/org/springframework/web/servlet/FrameworkServlet.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="469" selection-start-line="469" selection-end-line="469" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/lib/spring-web-4.3.18.RELEASE.jar!/org/springframework/web/filter/OncePerRequestFilter.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="148">
@@ -798,19 +768,10 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/whustore/dao/UserDao.java" />
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/js/user.js" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/sql/sql.sql" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/whustore/model/User.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/whustore/dao/OrderDao.java" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/sql/db.sql" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/whustore/model/Cart.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/whustore/dao/DBConnector.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/whustore/dao/CartDao.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/whustore/model/Recommend.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/whustore/dao/ProductDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
@@ -843,20 +804,6 @@
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/whustore/model/Product.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-412">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/whustore/dao/RecommendDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-66">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/whustore/cont/UserController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
@@ -873,8 +820,67 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/whustore/cont/JumpController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        <state relative-caret-position="246">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/whustore/model/Picture.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/whustore/model/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/whustore/model/Recommend.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/whustore/model/Product.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/whustore/model/Cart.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/whustore/model/Customer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="10" column="25" lean-forward="true" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/whustore/model/Order.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="30" column="14" lean-forward="true" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/whustore/dao/RecommendDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="26" column="13" lean-forward="true" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
         </state>
       </provider>
     </entry>

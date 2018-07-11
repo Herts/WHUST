@@ -30,7 +30,6 @@ public class RecommendDao {
 
             while(rs.next()) {
                 //是否已经加入
-                //Product productInList = getFromListByID(recommendList,rs.getInt("idproduct"));
                 int currentID = rs.getInt("idproduct");
                 //第一次加入或者还未加入
                 if (currentID!=lastp.getId()||lastp.getId()==0) {
