@@ -10,7 +10,7 @@ public class Product {
     private String proIntro;
     private int quantity;
     private int teamID;
-    private List<String> type;
+    private List<String> types;
     private double price;
     private List<String> picPath;
 
@@ -46,12 +46,12 @@ public class Product {
         this.teamID = teamID;
     }
 
-    public List<String> getType() {
-        return type;
+    public List<String> getTypes() {
+        return types;
     }
 
-    public void setType(List<String> type) {
-        this.type = type;
+    public void setTypes(List<String> type) {
+        this.types = type;
     }
 
     public String getProIntro() {
@@ -73,7 +73,16 @@ public class Product {
     public void picPathAppend(String ppath) {
         if (picPath == null)
             picPath = new ArrayList<String>();
-        this.picPath.add(ppath);
+        if (!picPath.contains(ppath))
+            this.picPath.add(ppath);
+    }
+
+    public boolean typeAppend(String type) {
+        if (types == null)
+            types = new ArrayList<String>();
+        if (!types.contains(type))
+            return types.add(type);
+        return false;
     }
 
     public List<String> getPicPath() {

@@ -18,6 +18,6 @@ public class ProductController {
     @RequestMapping("product")
     public ModelAndView getSingleProduct(@RequestParam("productID") int productID, ModelMap modelMap) {
         modelMap.addAttribute("peoductID", productID);
-        return new ModelAndView("hello");
+        return new ModelAndView("singleProduct");
     }
 }

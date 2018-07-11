@@ -44,7 +44,7 @@ public class OrderDao {
                     current.setPrice(rs.getDouble("price"));
 
                     //setType等待进一步实现
-                    current.setType(null);
+                    current.setTypes(null);
                     amount = rs.getInt("amount");
                     items.put(current, amount);
                 }

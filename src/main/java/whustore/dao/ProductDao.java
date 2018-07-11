@@ -32,13 +32,67 @@ public class ProductDao {
                 product.setProIntro(rs.getString("description"));
                 product.setQuantity(rs.getInt("quantity"));
                 //setType等待进一步实现
-                product.setType(null);
+                product.setTypes(null);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return product;
+    }
+
+    public List<Product> getAllProductOrderByPrice() {
+        String sql = "SELECT * FROM productInfo ORDER BY price";
+        return getAllProduct(sql);
+    }
+
+    public List<Product> getAllProduct() {
+        String sql = "SELECT * FROM productInfo";
+        return getAllProduct(sql);
+    }
+
+
+    public List<Product> getAllProduct(String sql) {
+        conn = DBConnector.getDBConn();
+        List<Product> list = new ArrayList<Product>();
+        if (conn == null)
+            return null;
+        try {
+            ResultSet rs = conn.createStatement().executeQuery(sql);
+            Product lastProduct = new Product();
+            while (rs.next()) {
+                int idproduct = rs.getInt("idproduct");
+                //是一个新的产品时新建产品
+                if (lastProduct.getId() != idproduct) {
+                    Product current = new Product();
+                    current.setId(idproduct);
+                    current.setProductName(rs.getString("pname"));
+                    current.setProIntro(rs.getString("description"));
+                    current.setQuantity(rs.getInt("quantity"));
+                    current.setTeamID(rs.getInt("idteam"));
+                    current.setPrice(rs.getDouble("price"));
+                    current.picPathAppend(rs.getString("ppath"));
+                    current.typeAppend(rs.getString("category"));
+                    list.add(current);
+                    lastProduct = current;
+                } else {
+                    //是上一个产品的新ppath或者category时只尝试添加这两个值
+                    lastProduct.picPathAppend(rs.getString("ppath"));
+                    lastProduct.typeAppend(rs.getString("category"));
+                }
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public boolean addProduct(Product p) {
@@ -124,9 +178,9 @@ public class ProductDao {
         List<Product> list = new ArrayList<Product>();
         conn = DBConnector.getDBConn();
         String sql = "SELECT * FROM product";
-        PreparedStatement ps = null;
-        ResultSet rs = null;
         try {
+            PreparedStatement ps;
+            ResultSet rs;
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {

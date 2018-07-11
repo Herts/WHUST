@@ -14,7 +14,7 @@
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
-    <title>Title</title>
+    <title>逛一逛————WHU STORE</title>
 
     <%@ include file="universal/allcss.jsp" %>
 
@@ -238,3 +238,4 @@
 
 </div>
 </body>
+</html>
