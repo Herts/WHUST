@@ -14,7 +14,6 @@ public class Product {
     private double price;
     private List<String> picPath;
 
-
     public int getId() {
         return id;
     }

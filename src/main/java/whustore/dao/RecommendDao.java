@@ -22,15 +22,18 @@ public class RecommendDao {
         String sql = "SELECT * FROM recommend";
         PreparedStatement ps;
         ArrayList<Product> recommendList = new ArrayList<Product>();
-
+        Product lastp = new Product();
+        lastp.setId(0);
         try {
             ps = this.conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
                 //是否已经加入
-                Product productInList = getFromListByID(recommendList,rs.getInt("idproduct"));
-                if (productInList==null) {
+                //Product productInList = getFromListByID(recommendList,rs.getInt("idproduct"));
+                int currentID = rs.getInt("idproduct");
+                //第一次加入或者还未加入
+                if (currentID!=lastp.getId()||lastp.getId()==0) {
                     //list里尚无该id商品信息
                     Product current = new Product();
                     current.setId(rs.getInt("idproduct"));
@@ -39,8 +42,9 @@ public class RecommendDao {
                     current.setPrice(rs.getDouble("price"));
                     current.picPathAppend(rs.getString("ppath"));
                     recommendList.add(current);
+                    lastp = current;
                 } else {
-                    productInList.picPathAppend(rs.getString("ppath"));
+                    lastp.picPathAppend(rs.getString("ppath"));
                 }
             }
 

@@ -26,7 +26,7 @@
 
     <div class="login" id="logDiv" style="visibility: visible">
         <h1>WHU Store</h1>
-        <form action="loginChecker" method="post">
+        <form action="login" method="post">
             <input type="text" name="username" placeholder="用户名" required="required"/>
             <input type="password" name="password" placeholder="密码" required="required"/>
             <br>
