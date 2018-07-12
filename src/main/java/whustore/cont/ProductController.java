@@ -14,8 +14,8 @@ import java.util.UUID;
 
 @Controller
 public class ProductController {
-    @RequestMapping("testaddproduct")
-    public String addproduct(HttpServletRequest request, String [] type, @RequestParam MultipartFile pic) {
+    @RequestMapping("addproducts")
+    public String addproduct(HttpServletRequest request, String[] type, @RequestParam MultipartFile []pics) {
         ProductService ps = new ProductService();
         Product product = new Product();
         String pname = request.getParameter("productName");
@@ -24,17 +24,27 @@ public class ProductController {
         product.setQuantity(Integer.valueOf(request.getParameter("quantity")));
         product.setTeamID(Integer.valueOf(request.getParameter("teamID")));
         try {
-            if (!pic.isEmpty()) {
-                String basesqlpath = "img/product/";
-                String sqlpath = null;
-                String loadpath = System.getProperty("rootpath")+"img\\product\\";
-                String originalFileName = pic.getOriginalFilename();
-                String newFileName = UUID.randomUUID() +originalFileName.substring(originalFileName.lastIndexOf("."));
-                loadpath = loadpath + newFileName;
-                File newFile = new File(loadpath);
-                pic.transferTo(newFile);
-                sqlpath = basesqlpath + newFileName;
-                product.picPathAppend(sqlpath);
+            if (pics!=null && pics.length >0) {
+                for (MultipartFile mpf: pics
+                        ) {
+                    String basesqlpath = "img/product/";
+                    String sqlpath = null;
+                    String loadpath = System.getProperty("rootpath") + "img\\product\\";
+                    String originalFileName = mpf.getOriginalFilename();
+                    String newFileName = UUID.randomUUID() + originalFileName.substring(originalFileName.lastIndexOf("."));
+                    loadpath = loadpath + newFileName;
+                    File newFile = new File(loadpath);
+                    mpf.transferTo(newFile);
+                    sqlpath = basesqlpath + newFileName;
+                    product.picPathAppend(sqlpath);
+                }
+
+            }
+            if(type!=null){
+                for (String t: type
+                        ) {
+                    product.typeAppend(t);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

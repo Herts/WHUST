@@ -16,13 +16,4 @@ public class ProductService {
         return pd.addProduct(p);
     }
 
-    public boolean addPicture(Picture p){
-        ProductDao pd = new ProductDao();
-        return pd.addPicture(p);
-    }
-
-    public boolean addProductPicture(Product product,Picture picture){
-        ProductDao pd = new ProductDao();
-        return pd.addProductPicture(product,picture);
-    }
 }

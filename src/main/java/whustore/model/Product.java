@@ -83,4 +83,10 @@ public class Product {
     public List<String> getPicPath() {
         return picPath;
     }
+    public void typeAppend (String newtype){
+        if(this.type ==null){
+            this.type = new ArrayList<String>();
+        }
+        this.type.add(newtype);
+    }
 }

@@ -188,14 +188,13 @@ TODO
         </div>
         <br/>
 
-        <form action="testaddproduct" method="post" enctype="multipart/form-data">
+        <form action="/addproducts" method="post" enctype="multipart/form-data">
 
             <div class="single-feature mb-35" style="width: 60%;margin: 0 auto;min-width: 500px">
                 <div class="p_photo" style=" width: 30%;float: left;margin-left: 5%">
                     <!--<input type="file" value="上传图片" style="margin-left:13%;height: 200px;width: 200px;">-->
                     <div id="result" style="height: 200px;width: 200px"></div>
-                    <input id="pic" class="pic_class" type="file" name="" accept="image/*" onchange="selectFile()"/>
-                    <input type="file" required="required" name="pic" id="exampleInputFile">
+                    <input id="pic" class="pic_class" type="file" name="pics" accept="image/*" onchange="selectFile()" multiple/>
                     <!-- <button onclick = "handIn()">提交</button> -->
 
                 </div>
