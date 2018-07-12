@@ -4,6 +4,7 @@ import whustore.dao.ProductDao;
 import whustore.model.Product;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ProductData {
@@ -81,5 +82,24 @@ public class ProductData {
             return true;
         } else
             return false;
+    }
+
+    public static List<Product> getProductByCates(List<String> requiredCates) {
+        if (productList==null)
+        {
+            productList = getProductList();
+        }
+        List<Product> catedProducts = new ArrayList<Product>();
+        //遍历商品添加满足分类要求的不重复的商品
+        for (Product product :
+                productList) {
+            for (String cate :
+                    product.getTypes()) {
+                if (requiredCates.contains(cate) && !catedProducts.contains(product)) {
+                    catedProducts.add(product);
+                }//endif
+            }//endFor
+        }//endFor
+        return catedProducts;
     }
 }
