@@ -21,7 +21,7 @@ import java.util.*;
 @Controller
 public class ShopController {
     @Autowired
-    RecommendService service;
+    ShopService service;
 
     /**
      * 获取某一页面的商品
@@ -83,13 +83,15 @@ public class ShopController {
         //转换成list
         List<String> userFilterCates = new ArrayList<String>(Arrays.asList(cates));
 
-        List<Product> list = ProductData.getProductByCates(userFilterCates);
+        List<Product> products = (List<Product>) request.getSession().getAttribute("userFilterProductList");
+        List<Product> list = ProductData.getProductByCates(userFilterCates, products);
+        int allResultSize = list.size();
         if (list.size() > 9)
             list = list.subList(0, 9);
         modelMap.addAttribute("productList", list);
         modelMap.addAttribute("categories", getCategoryList());
         modelMap.addAttribute("userFilter", userFilterCates);
-        modelMap.addAttribute("allProductsSize", list.size());
+        modelMap.addAttribute("allProductsSize", allResultSize);
         modelMap.addAttribute("page", 1);
         request.getSession().setAttribute("userFilterProductList", list);
         request.getSession().setAttribute("userFilterCates", userFilterCates);
@@ -117,17 +119,44 @@ public class ShopController {
                 list.sort(new ProductComparatorPrice());
             }
             Object userFilterCates = request.getSession().getAttribute("userFilterCates");
-
+            int allResultSize = list.size();
+            if (list.size() > 9)
+                list = list.subList(0, 9);
             modelMap.addAttribute("productList", list);
             modelMap.addAttribute("categories", getCategoryList());
             modelMap.addAttribute("userFilter", userFilterCates);
-            modelMap.addAttribute("allProductsSize", list.size());
+            modelMap.addAttribute("allProductsSize", allResultSize);
             modelMap.addAttribute("page", 1);
             request.getSession().setAttribute("userFilterProductList", list);
 
 
         }
         return new ModelAndView("shop");
+    }
+
+    @RequestMapping("shop/search")
+    public ModelAndView shopBySearch(HttpServletRequest request,
+                                     ModelMap modelMap) {
+        if (service == null)
+            service = new ShopService();
+        if (request.getParameter("searching") != null || request.getParameter("searchinfo").toString().length() == 0) {
+            request.getSession().setAttribute("userFilterCates", getCategoryList());
+            String searching = request.getParameter("searching");
+            List<Product> results =  service.getProductsBySearch(searching);
+            int allResultSize = results.size();
+            if (results.size() > 9)
+                results = results.subList(0, 9);
+            modelMap.addAttribute("productList", results);
+            modelMap.addAttribute("categories", getCategoryList());
+            modelMap.addAttribute("userFilter", getCategoryList());
+            modelMap.addAttribute("allProductsSize", allResultSize);
+            modelMap.addAttribute("page", 1);
+            request.getSession().setAttribute("userFilterProductList", results);
+            request.getSession().setAttribute("userFilterCates", getCategoryList());
+
+            return new ModelAndView("shop");
+        } else
+            return getShopByPage(modelMap, request);
     }
 
     private List<String> getCategoryList() {

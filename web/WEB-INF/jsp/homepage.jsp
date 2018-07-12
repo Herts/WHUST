@@ -145,11 +145,10 @@ TODO
                                         <div class="search-box">
                                             <a href="#"><i class="fa fa-search"></i></a>
                                             <div class="search-dropdown">
-                                                <form action="#">
-                                                    <input name="search" id="search" placeholder=""
-                                                           value="Search product..."
-                                                           onblur="if(this.value==''){this.value='Search product...'}"
-                                                           onfocus="if(this.value=='Search product...'){this.value=''}"
+                                                <form action="/shop/search">
+                                                    <input name="searching" id="search" placeholder="在此处输入搜索信息"
+                                                           onblur="if(this.value==''){this.value='在此处输入搜索信息'}"
+                                                           onfocus="if(this.value=='在此处输入搜索信息'){this.value=''}"
                                                            type="text">
                                                     <button type="submit"><i class="fa fa-search"></i></button>
                                                 </form>

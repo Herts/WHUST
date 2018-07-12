@@ -84,15 +84,19 @@ public class ProductData {
             return false;
     }
 
-    public static List<Product> getProductByCates(List<String> requiredCates) {
-        if (productList==null)
-        {
-            productList = getProductList();
-        }
+    /**
+     * 根据分类获取商品
+     *
+     * @param requiredCates 传入的商品list
+     * @param products      筛选后的list
+     * @return
+     */
+    public static List<Product> getProductByCates(List<String> requiredCates, List<Product> products) {
+
         List<Product> catedProducts = new ArrayList<Product>();
         //遍历商品添加满足分类要求的不重复的商品
         for (Product product :
-                productList) {
+                products) {
             for (String cate :
                     product.getTypes()) {
                 if (requiredCates.contains(cate) && !catedProducts.contains(product)) {
@@ -102,4 +106,22 @@ public class ProductData {
         }//endFor
         return catedProducts;
     }
+
+    public static List<Product> getProductContainsKeywords(List<String> keywords) {
+        if (productList == null)
+            productList = dao.getAllProduct();
+        List<Product> result = new ArrayList<>();
+        for (String keyword :
+                keywords) {
+            for (Product product :
+                    productList) {
+                //包含关键词且尚未加入时加入
+                if (product.getProductName().contains(keyword)&&!result.contains(product))
+                    result.add(product);
+            }
+
+        }
+        return result;
+    }
+
 }
