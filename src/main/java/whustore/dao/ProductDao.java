@@ -1,9 +1,15 @@
 package whustore.dao;
 
-import whustore.model.*;
+import whustore.model.Picture;
+import whustore.model.Product;
 
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class ProductDao {
     private Connection conn;
@@ -16,7 +22,7 @@ public class ProductDao {
      */
     public Product getProduct(int productID) {
         conn = DBConnector.getDBConn();
-        java.sql.PreparedStatement ps;
+        PreparedStatement ps;
         Product product = new Product();
 
         try {
@@ -97,7 +103,7 @@ public class ProductDao {
 
     public boolean addProduct(Product p) {
         conn = DBConnector.getDBConn();
-        java.sql.PreparedStatement ps;
+        PreparedStatement ps;
         int state = 0;
         boolean restate = false;
         String sql = "INSERT INTO product(pname,description,quantity,idteam,price) VALUES (?,?,?,?,?)";
@@ -126,7 +132,7 @@ public class ProductDao {
 
     public boolean addPicture(Picture p) {
         conn = DBConnector.getDBConn();
-        java.sql.PreparedStatement ps;
+        PreparedStatement ps;
         int state = 0;
         boolean restate = false;
         String sql = "insert into picture(ppath,ptype) values (?,?)";
@@ -152,7 +158,7 @@ public class ProductDao {
 
     public boolean addProductPicture(Product product, Picture picture) {
         conn = DBConnector.getDBConn();
-        java.sql.PreparedStatement ps;
+        PreparedStatement ps;
         int state = 0;
         boolean restate = false;
         String sql = "insert into productpic(idproduct,idpicture) values (?,?)";
@@ -278,6 +284,53 @@ public class ProductDao {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public boolean changeQuantity ( int idproduct , int change){
+        conn = DBConnector.getDBConn();
+        PreparedStatement ps = null;
+        String sql = "UPDATE product SET quantity = ? WHERE idproduct = ?";
+        int lastquantity = 0;
+        int state = 0;
+        boolean restate = false;
+        lastquantity = this.getQuantity(idproduct);
+        if((lastquantity + change) <0){
+            return false;
+        }
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setObject(1,lastquantity + change);
+            ps.setObject(2,idproduct);
+            state = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(state ==0){
+            restate = false;
+        }
+        else{
+            restate = true;
+        }
+        return restate;
+    }
+
+    public int getQuantity (int idproduct){
+        conn = DBConnector.getDBConn();
+        PreparedStatement ps = null;
+        String sql = "select * from product where idproduct = ?";
+        ResultSet rs = null;
+        int quantity = 0;
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setObject(1,idproduct);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                quantity = rs.getInt("quantity");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return quantity;
     }
 
     private Product getProductFromResultSet(ResultSet rs) {
