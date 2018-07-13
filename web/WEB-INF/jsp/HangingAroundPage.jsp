@@ -22,8 +22,16 @@
 <body>
 <div class="wrapper">
     <%--头部引用开始--%>
-    <%@include file="universal/header.jsp" %>
-    ﻿
+    <header>
+        <div class="header-container">
+            <div class="header-area header-sticky pt-30 pb-30">
+                <div class="container">
+                    <%@include file="universal/headerContent.jsp" %>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--Header Area End-->
     <div class="product-area mt-85" style="margin:10% auto">
         <div class="container">
             <div class="row">
@@ -75,7 +83,7 @@
                                     <span class="regular-price"><%=product.getPrice()%></span>
                                 </div>
                                 <div class="add-to-cart">
-                                    <a href="#">加入购物车</a>
+                                    <a onclick="add(<%=product.getId()%>,2,1)">加入购物车</a>
                                 </div>
                             </div>
                         </div>

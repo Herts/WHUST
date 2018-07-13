@@ -29,7 +29,7 @@
                             <nav>
                                 <ul class="main-menu">
                                     <li><a href="/home">首页</a></li>
-                                    <li><a href="/shop">找一找</a> </li>
+                                    <li><a href="/shop">找一找</a></li>
                                     <li><a href="/HangingAround">逛一逛</a></li>
                                     <li><a href="single-product.html">为我推荐</a></li>
                                 </ul>
@@ -41,45 +41,43 @@
                             <div class="mini-cart-search">
                                 <div class="mini-cart">
                                     <a href="#">
-                                                <span class="cart-icon">
-                                                   <span class="cart-quantity">2</span>
-                                                </span>
-                                        <span class="cart-title">  购物车 <br><strong>¥190.00</strong></span>
+                                        <span class="cart-icon">
+                                            <span class="cart-quantity">${sessionScope.cart.items.keySet().size()}</span>
+                                        </span>
+                                        <span class="cart-title">  购物车 <br><strong>¥${sessionScope.cart.getTotal()}</strong></span>
                                     </a>
                                     <!--Cart Dropdown Start-->
                                     <div class="cart-dropdown">
                                         <ul>
-                                            <li class="single-cart-item">
-                                                <div class="cart-img">
-                                                    <a href="single-product.html"><img
-                                                            src="../../img/cart/cart1.jpg" alt=""></a>
-                                                </div>
-                                                <div class="cart-content">
-                                                    <h5 class="product-name"><a href="single-product.html">Odio
-                                                        tortor consequat</a></h5>
-                                                    <span class="cart-price">1 × ¥90.00</span>
-                                                </div>
-                                                <div class="cart-remove">
-                                                    <a title="Remove" href="#"><i class="fa fa-times"></i></a>
-                                                </div>
-                                            </li>
-                                            <li class="single-cart-item">
-                                                <div class="cart-img">
-                                                    <a href="single-product.html"><img
-                                                            src="../../img/cart/cart2.jpg" alt=""></a>
-                                                </div>
-                                                <div class="cart-content">
-                                                    <h5 class="product-name"><a href="single-product.html">Auctor
-                                                        sem</a></h5>
-                                                    <span class="cart-price">1 × ¥100.00</span>
-                                                </div>
-                                                <div class="cart-remove">
-                                                    <a title="Remove" href="#"><i class="fa fa-times"></i></a>
-                                                </div>
-                                            </li>
+                                            <c:if test="${sessionScope.cart!=null}">
+                                                <c:forEach items="${sessionScope.cart.items.keySet()}" var="product"
+                                                           varStatus="status" end="3">
+                                                    <li class="single-cart-item">
+                                                        <div class="cart-img">
+                                                            <a href="/product?productID=${product.id}"><img
+                                                                    src="../../${product.picPath.get(0)}"
+                                                                    alt=""></a>
+                                                        </div>
+                                                        <div class="cart-content">
+                                                            <h5 class="product-name"><a
+                                                                    href="/product?productID=${product.id}">
+                                                                    ${product.productName}
+                                                            </a></h5>
+                                                            <span class="cart-price">¥${product.price}</span>
+                                                        </div>
+                                                        <div class="cart-remove">
+                                                            <a title="Remove" href="#"><i
+                                                                    class="fa fa-times"></i></a>
+                                                        </div>
+                                                    </li>
+                                                </c:forEach>
+                                                <c:if test="${sessionScope.cart.items.keySet().size() > 4}">
+                                                    <h3 style="text-align: center">。。。</h3>
+                                                </c:if>
+                                            </c:if>
                                         </ul>
-                                        <p class="cart-subtotal"><strong>Subtotal:</strong> <span
-                                                class="float-right">$190.00</span></p>
+                                        <p class="cart-subtotal"><strong>合计:</strong> <span
+                                                class="float-right">¥${sessionScope.cart.getTotal()}</span></p>
                                         <p class="cart-btn">
                                             <a href="#">购物车</a>
                                             <a href="#">结算</a>
@@ -118,7 +116,7 @@
                                                                 "<li><a href=\"#\">结算</a></li>" +
                                                                 "<li><a href='/logOut'>注销</a></li>");
                                                     else
-                                                        out.println("<li><a href=\"/log\">"+
+                                                        out.println("<li><a href=\"/log\">" +
                                                                 "请登录" +
                                                                 "</a></li>" +
                                                                 "<li><a href='/reg'>注册</a></li>");

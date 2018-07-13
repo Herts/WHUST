@@ -31,8 +31,7 @@ public class TestController {
     @RequestMapping("test")
     public String ttt(HttpServletRequest request) {
 
-        String str = request.getParameter("search");
-        System.out.println(NlpAnalysis.parse(str));
+        Cart cart = (Cart) request.getSession().getAttribute("cart");
         return "shop";
     }
 }

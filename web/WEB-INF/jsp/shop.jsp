@@ -140,7 +140,7 @@
                                                                     <span class="regular-price">¥${product.price}</span>
                                                                 </div>
                                                                 <div class="add-to-cart">
-                                                                    <a href="#">加入购物车</a>
+                                                                    <a onclick="add(${product.id},${product.quantity},1)">加入购物车</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -191,7 +191,7 @@
                                                             </div>
                                                             <div class="product-list-action">
                                                                 <div class="add-btn">
-                                                                    <a href="#">加入购物车</a>
+                                                                    <a onclick="add(${product.id},${product.quantity},1)">加入购物车</a>
                                                                 </div>
                                                                 <ul>
                                                                     <li><a href="#" title="Whishlist"><i
