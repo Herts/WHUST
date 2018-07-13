@@ -12,12 +12,26 @@
 <html class="no-js" lang="en">
 <head>
     <script>
-        function add() {
-            var stock = document.getElementById('stock').innerText;
-            var addAmount = document.getElementById('add-quantity').value;
-            if (stock < addAmount)
+        function add(productID, stock, addAmount) {
+            Number(stock);
+            Number(addAmount);
+            if (stock < addAmount) {
+                alert("库存不足")
                 return;
-            $.get('/cart/add?productID=${product.id}&number='+document.getElementById('add-quantity').innerText);
+            }
+            $.ajax({
+                type: "GET",
+                dataType: 'json',
+                url: "/cart/add",
+                cache: false,
+                data: {productID: productID, number: addAmount},
+                error: function () {
+                }, success: function (data) {
+                    if (window.console) {
+                        return;
+                    }
+                }
+            });
         }
     </script>
     <%@include file="universal/allcss.jsp" %>
@@ -1065,15 +1079,12 @@
                         </div>
                         库存：<p id="stock" class="stock in-stock">${product.quantity}</p>
                         <div class="single-product-quantity">
-                            <form class="add-quantity">
-                                <div  class="product-quantity">
-                                    <input id="add-quantity" value="1" type="number">
-                                </div>
-                                <div class="add-to-link">
-                                    <button onclick="add()" class="product-btn" data-text="add to cart">添加至购物车
-                                    </button>
-                                </div>
-                            </form>
+                            <div class="product-quantity">
+                                <input id="add-quantity" value="1" type="number">
+                            </div>
+                            <button onclick="add(${product.id},document.getElementById('stock').innerTex,document.getElementById('add-quantity').value)"
+                                    class="product-btn">添加至购物车
+                            </button>
                         </div>
                         <div class="wishlist-compare-btn">
                             <a href="#" class="wishlist-btn">Add to Wishlist</a>
@@ -1241,7 +1252,7 @@
                                             <span class="regular-price">¥${alsoLikes.get(i).price}</span>
                                         </div>
                                         <div class="add-to-cart">
-                                            <a href="#">添加至购物车</a>
+                                            <a onclick="add(${alsoLikes.get(i).id},${alsoLikes.get(i).quantity},1)">添加至购物车</a>
                                         </div>
                                     </div>
                                 </div>

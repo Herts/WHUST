@@ -8,6 +8,29 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!--All Js Here-->
 
+<script>
+    function add(productID, stock, addAmount) {
+        Number(stock);
+        Number(addAmount);
+        if (stock < addAmount) {
+            alert("库存不足")
+            return;
+        }
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/cart/add",
+            cache: false,
+            data: {productID: productID, addAmount},
+            error: function () {
+            }, success: function (data) {
+                if (window.console) {
+                    return;
+                }
+            }
+        });
+    }
+</script>
 <!--Jquery 1.12.4-->
 <script src="../../js/vendor/jquery-1.12.4.min.js"></script>
 <!--Popper-->

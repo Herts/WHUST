@@ -49,12 +49,13 @@ public class CartDao {
             e.printStackTrace();
         } finally {
             //关闭数据库连接
-            if (conn != null) {
-                try {
+
+            try {
+                if (conn != null && !conn.isClosed()) {
                     conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
         return cart;
@@ -67,24 +68,27 @@ public class CartDao {
      * @return
      */
     private int getCartID(int userID) {
-        conn = DBConnector.getDBConn();
-        int cartID;
         String sql = "SELECT * FROM cart WHERE iduser=?";
 
         try {
+
+            int cartID;
             PreparedStatement ps = null;
             ResultSet rs;
-            if (conn != null) {
-                ps = conn.prepareStatement(sql);
+            if (conn == null || conn.isClosed()) {
+                conn = DBConnector.getDBConn();
             }
+            ps = conn.prepareStatement(sql);
             if (ps != null) {
                 ps.setInt(1, userID);
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     cartID = rs.getInt("idcart");
                     System.out.println("获取购物车ID：" + cartID);
+                    conn.close();
                     return cartID;
                 } else {
+                    conn.commit();
                     cartID = (int) ((System.currentTimeMillis() % 1000000) + (userID % 1000) * 1000000);
                     sql = "INSERT INTO cart (idcart, iduser) VALUES (?, ?)";
                     ps = conn.prepareStatement(sql);
@@ -98,7 +102,7 @@ public class CartDao {
             e.printStackTrace();
         } finally {
             try {
-                if (conn != null) {
+                if (conn != null && !conn.isClosed()) {
                     conn.close();
                 }
             } catch (SQLException e) {
@@ -113,13 +117,14 @@ public class CartDao {
             int cartID = getCartID(userID);
             //购物车已有该商品
             String sql = "SELECT amount FROM cartitem WHERE idproduct=? AND idcart=?";
-            conn = DBConnector.getDBConn();
+            if (conn == null || conn.isClosed()) {
+                conn = DBConnector.getDBConn();
+            }
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, productID);
             ps.setInt(2, cartID);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                conn = DBConnector.getDBConn();
                 int originNum = rs.getInt(1);
                 sql = "UPDATE cartitem SET amount=? WHERE idproduct=? AND  idcart=?";
                 ps = conn.prepareStatement(sql);
@@ -129,7 +134,6 @@ public class CartDao {
                 ps.executeUpdate();
             } else {
                 //购物车还没有该商品
-                conn = DBConnector.getDBConn();
                 sql = "INSERT INTO cartitem (idcart, idproduct, amount) VALUES (?, ?, ?)";
                 ps = conn.prepareStatement(sql);
                 ps.setInt(1, cartID);
@@ -141,7 +145,9 @@ public class CartDao {
             e.printStackTrace();
         } finally {
             try {
-                conn.close();
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }

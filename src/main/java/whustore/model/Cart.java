@@ -38,7 +38,7 @@ public class Cart {
     public void addItem(int productID, int amount) {
         for (Product product :
                 items.keySet()) {
-            if (product.getId() == productID) {
+            if (product != null && product.getId() == productID) {
                 int orignAmount = items.get(product);
                 int newAmount = orignAmount + amount;
                 items.remove(product);
@@ -46,7 +46,17 @@ public class Cart {
                 return;
             }
         }
-        Product product =  ProductData.getProductByID(productID);
-        items.put(product,amount);
+        Product product = ProductData.getProductByID(productID);
+        items.put(product, amount);
+    }
+
+    public double getTotal()
+    {
+        double total = 0;
+        for (Product product :
+                items.keySet()) {
+            total += product.getPrice() * items.get(product);
+        }
+        return total;
     }
 }
