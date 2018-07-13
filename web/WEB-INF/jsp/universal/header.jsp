@@ -66,7 +66,7 @@
                                                             <span class="cart-price">¥${product.price}</span>
                                                         </div>
                                                         <div class="cart-remove">
-                                                            <a title="Remove" href="#"><i
+                                                            <a title="Remove" onclick="remove(${product.id})"><i
                                                                     class="fa fa-times"></i></a>
                                                         </div>
                                                     </li>

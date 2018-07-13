@@ -15,7 +15,7 @@ public class FavController {
     private FavService favService= new FavService();
 
     @RequestMapping(path = "/fav")
-    public void changeFavState(HttpServletRequest request, @RequestParam int idproduct){
+    public void changeFavState(HttpServletRequest request, @RequestParam() int idproduct){
         User user = (User) request.getSession().getAttribute("user");
         favService.changeState(user.getUserid(), idproduct);
     }

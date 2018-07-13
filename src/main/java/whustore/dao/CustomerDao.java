@@ -17,8 +17,8 @@ public class CustomerDao {
     /**
      * 获取Customer
      *
-     * @param user
-     * @return
+     * @param user 用户对象
+     * @return Customer对象
      */
     public Customer getCustomer(User user) {
 
@@ -68,9 +68,9 @@ public class CustomerDao {
     /**
      * 当没有插入customer信息时插入该信息
      *
-     * @param customer
-     * @param user
-     * @return
+     * @param customer Customer对象
+     * @param user 用户
+     * @return 是否成功
      */
     public boolean insertCustomer(Customer customer, User user) {
         if ((conn = DBConnector.getDBConn()) == null)

@@ -2,12 +2,14 @@ package whustore.model;
 
 import whustore.data.ProductData;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Cart {
     private int cartID;
     private int userID;
+    //产品 库存  对应的MAP
     private Map<Product, Integer> items;
 
     public int getCartID() {
@@ -47,16 +49,38 @@ public class Cart {
             }
         }
         Product product = ProductData.getProductByID(productID);
-        items.put(product, amount);
+        if (product != null)
+            items.put(product, amount);
     }
 
-    public double getTotal()
-    {
+    /**
+     * 获取总金额
+     *
+     * @return 购物车总金额
+     */
+    public double getTotal() {
         double total = 0;
         for (Product product :
                 items.keySet()) {
-            total += product.getPrice() * items.get(product);
+            if (product != null)
+                total += product.getPrice() * items.get(product);
         }
         return total;
+    }
+
+    /**
+     * 移除商品
+     *
+     * @param productID 商品艾迪
+     */
+    public void remove(int productID) {
+
+        for (Product product :
+                items.keySet()) {
+            if (productID == product.getId()) {
+                items.remove(product);
+                break;
+            }
+        }
     }
 }

@@ -9,6 +9,7 @@
 <!--All Js Here-->
 
 <script>
+    // 发送添加到购物车请求
     function add(productID, stock, addAmount) {
         Number(stock);
         Number(addAmount);
@@ -23,13 +24,29 @@
             cache: false,
             data: {productID: productID, addAmount},
             error: function () {
+                location.reload(true);
             }, success: function (data) {
-                if (window.console) {
-                    return;
-                }
+                    location.reload(true);
             }
         });
     }
+    // 发送从购物车移除请求
+    function remove(productID) {
+        Number(productID);
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/cart/remove",
+            cache: false,
+            data: {productID: productID},
+            error: function () {
+                location.reload(true);
+            }, success: function (data) {
+                location.reload(true);
+            }
+        });
+    }
+
 </script>
 <!--Jquery 1.12.4-->
 <script src="../../js/vendor/jquery-1.12.4.min.js"></script>

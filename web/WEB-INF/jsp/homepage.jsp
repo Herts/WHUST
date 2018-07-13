@@ -48,7 +48,23 @@
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="../css/responsive.css">
     <!-- Modernizr Js -->
-    <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
+    <script>
+        function remove(productID) {
+            Number(productID);
+            $.ajax({
+                type: "GET",
+                dataType: 'json',
+                url: "/cart/remove",
+                cache: false,
+                data: {productID: productID},
+                error: function () {
+                    location.reload(true);
+                }, success: function (data) {
+                    location.reload(true);
+                }
+            });
+        }
+    </script>
 </head>
 <body>
 
@@ -97,14 +113,16 @@ TODO
                                     <div class="mini-cart">
                                         <a href="#">
                                         <span class="cart-icon">
-                                            <span class="cart-quantity">${sessionScope.cart.items.keySet().size()}</span>
+                                            <span class="cart-quantity">
+                                                ${sessionScope.cart.items.keySet().size()}
+                                            </span>
                                         </span>
                                             <span class="cart-title">  购物车 <br><strong>¥${sessionScope.cart.getTotal()}</strong></span>
                                         </a>
                                         <!--Cart Dropdown Start-->
                                         <div class="cart-dropdown">
                                             <ul>
-                                                <c:if test="${sessionScope.cart!=null}">
+                                                <c:if test="${sessionScope.cart!=null && sessionScope.cart.items.keySet().size()>0}">
                                                     <c:forEach items="${sessionScope.cart.items.keySet()}" var="product"
                                                                varStatus="status" end="3">
                                                         <li class="single-cart-item">
@@ -121,7 +139,7 @@ TODO
                                                                 <span class="cart-price">¥${product.price}</span>
                                                             </div>
                                                             <div class="cart-remove">
-                                                                <a title="Remove" href="#"><i
+                                                                <a title="Remove" onclick="remove(${product.id})"><i
                                                                         class="fa fa-times"></i></a>
                                                             </div>
                                                         </li>

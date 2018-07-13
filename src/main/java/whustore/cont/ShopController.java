@@ -120,16 +120,15 @@ public class ShopController {
             }
             Object userFilterCates = request.getSession().getAttribute("userFilterCates");
             int allResultSize = list.size();
+            List<Product> subLi = new ArrayList<>();
             if (list.size() > 9)
-                list = list.subList(0, 9);
-            modelMap.addAttribute("productList", list);
+                subLi = list.subList(0, 9);
+            modelMap.addAttribute("productList", subLi);
             modelMap.addAttribute("categories", getCategoryList());
             modelMap.addAttribute("userFilter", userFilterCates);
             modelMap.addAttribute("allProductsSize", allResultSize);
             modelMap.addAttribute("page", 1);
             request.getSession().setAttribute("userFilterProductList", list);
-
-
         }
         return new ModelAndView("shop");
     }

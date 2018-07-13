@@ -39,7 +39,9 @@ public class CartDao {
                 Product product = new Product();
                 int productID = rs.getInt("idproduct");
                 int amount = rs.getInt("amount");
-                items.put(ProductData.getProductByID(productID), amount);
+                product = ProductData.getProductByID(productID);
+                if (product != null)
+                    items.put(product, amount);
             }
             cart.setItems(items);
             cart.setCartID(cartID);
@@ -64,8 +66,8 @@ public class CartDao {
     /**
      * 获取购物车的ID
      *
-     * @param userID
-     * @return
+     * @param userID 用户ID
+     * @return 返还购物车
      */
     private int getCartID(int userID) {
         String sql = "SELECT * FROM cart WHERE iduser=?";
@@ -112,6 +114,13 @@ public class CartDao {
         return -1;
     }
 
+    /**
+     * 把商品添加到购物车
+     *
+     * @param userID    用户id
+     * @param productID 产品id
+     * @param num       数量
+     */
     public void addProductToCart(int userID, int productID, int num) {
         try {
             int cartID = getCartID(userID);
@@ -154,16 +163,16 @@ public class CartDao {
         }
     }
 
-    public boolean deleteCart (int idcart){
+    public boolean deleteCart(int idcart) {
         boolean isdeleteitems = false;
         conn = DBConnector.getDBConn();
         String sql = "DELETE FROM cart WHERE idcart = ?";
         PreparedStatement ps = null;
         isdeleteitems = this.deleteCartitem(idcart);
-        if(isdeleteitems){
+        if (isdeleteitems) {
             try {
                 ps = conn.prepareStatement(sql);
-                ps.setObject(1,idcart);
+                ps.setObject(1, idcart);
                 ps.executeUpdate();
                 return true;
             } catch (SQLException e) {
@@ -174,14 +183,14 @@ public class CartDao {
         return false;
     }
 
-    private boolean deleteCartitem ( int idcart){
+    public boolean deleteCartitem(int idcart) {
         String sql = "DELETE FROM cartitem WHERE idcart = ?";
         conn = DBConnector.getDBConn();
         PreparedStatement ps = null;
 
         try {
             ps = conn.prepareStatement(sql);
-            ps.setObject(1,idcart);
+            ps.setObject(1, idcart);
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -189,5 +198,39 @@ public class CartDao {
             return false;
         }
 
+    }
+
+    /**
+     * 从数据库中移除产品
+     *
+     * @param productID 产品id
+     * @param cartID    购物车id
+     * @return 成功与否
+     */
+    public boolean removeProduct(int productID, int cartID) {
+        String sql = "DELETE FROM cartitem WHERE idproduct=? AND idcart=?";
+        try {
+            if (conn == null || conn.isClosed()) {
+                conn = DBConnector.getDBConn();
+            }
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, productID);
+            ps.setInt(2, cartID);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                    return false;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
     }
 }

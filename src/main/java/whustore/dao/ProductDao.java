@@ -58,7 +58,7 @@ public class ProductDao {
     }
 
 
-    public List<Product> getAllProduct(String sql) {
+    private List<Product> getAllProduct(String sql) {
         conn = DBConnector.getDBConn();
         List<Product> list = new ArrayList<Product>();
         if (conn == null)
