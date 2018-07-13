@@ -20,6 +20,7 @@
         <mvc:interceptor>
             <!-- 拦截所有URL中包含/user/的请求 -->
             <mvc:mapping path="/user/**"/>
+            <mvc:mapping path="/fav/**"/>
             <mvc:mapping path="/cart/**"/>
             <bean class="whustore.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
