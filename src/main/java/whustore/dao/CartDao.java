@@ -1,5 +1,6 @@
 package whustore.dao;
 
+import whustore.data.ProductData;
 import whustore.model.Cart;
 import whustore.model.Product;
 
@@ -23,32 +24,26 @@ public class CartDao {
      */
     public Cart getUserCart(int userID) {
         Cart cart = new Cart();
-        conn = DBConnector.getDBConn();
-        int idcart = getCartID(userID);
+        int cartID = getCartID(userID);
         String sql = "SELECT * FROM cartInfo WHERE idcart=?";
 
         PreparedStatement ps = null;
         ResultSet rs;
         try {
+            conn = DBConnector.getDBConn();
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, idcart);
+            ps.setInt(1, cartID);
             rs = ps.executeQuery();
             HashMap<Product, Integer> items = new HashMap<Product, Integer>();
             while (rs.next()) {
-                Product current = new Product();
-                current.setId(rs.getInt("idproduct"));
-                current.setProductName(rs.getString("pname"));
-                current.setProIntro(rs.getString("description"));
-                current.setQuantity(rs.getInt("quantity"));
-                current.setPrice(rs.getDouble("price"));
-                //setType等待进一步实现
-                current.setTypes(null);
+                Product product = new Product();
+                int productID = rs.getInt("idproduct");
                 int amount = rs.getInt("amount");
-                items.put(current, amount);
+                items.put(ProductData.getProductByID(productID), amount);
             }
-            rs.last();
-            cart.setCartID(rs.getInt("idcart"));
             cart.setItems(items);
+            cart.setCartID(cartID);
+            cart.setUserID(userID);
             return cart;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -85,15 +80,71 @@ public class CartDao {
             if (ps != null) {
                 ps.setInt(1, userID);
                 rs = ps.executeQuery();
-                rs.next();
-                cartID = rs.getInt("idcart");
-                System.out.println("获取购物车ID：" + cartID);
-                return cartID;
+                if (rs.next()) {
+                    cartID = rs.getInt("idcart");
+                    System.out.println("获取购物车ID：" + cartID);
+                    return cartID;
+                } else {
+                    cartID = (int) ((System.currentTimeMillis() % 1000000) + (userID % 1000) * 1000000);
+                    sql = "INSERT INTO cart (idcart, iduser) VALUES (?, ?)";
+                    ps = conn.prepareStatement(sql);
+                    ps.setInt(1, cartID);
+                    ps.setInt(2, userID);
+                    ps.executeUpdate();
+                    return cartID;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-        System.out.println("获取购物车ID失败");
         return -1;
+    }
+
+    public void addProductToCart(int userID, int productID, int num) {
+        try {
+            int cartID = getCartID(userID);
+            //购物车已有该商品
+            String sql = "SELECT amount FROM cartitem WHERE idproduct=? AND idcart=?";
+            conn = DBConnector.getDBConn();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, productID);
+            ps.setInt(2, cartID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                conn = DBConnector.getDBConn();
+                int originNum = rs.getInt(1);
+                sql = "UPDATE cartitem SET amount=? WHERE idproduct=? AND  idcart=?";
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, num + originNum);
+                ps.setInt(2, productID);
+                ps.setInt(3, cartID);
+                ps.executeUpdate();
+            } else {
+                //购物车还没有该商品
+                conn = DBConnector.getDBConn();
+                sql = "INSERT INTO cartitem (idcart, idproduct, amount) VALUES (?, ?, ?)";
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, cartID);
+                ps.setInt(2, productID);
+                ps.setInt(3, num);
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

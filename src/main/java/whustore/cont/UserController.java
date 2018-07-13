@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
+import whustore.model.Cart;
 import whustore.model.Customer;
 import whustore.model.User;
+import whustore.service.CartService;
 import whustore.service.CustomerService;
 import whustore.service.UserService;
 
@@ -56,6 +58,9 @@ public class UserController {
         }
         //向对话添加用户对象
         request.getSession().setAttribute("user", userInDB);
+        CartService service = new CartService();
+        Cart userCart = service.getUserCart(userInDB.getUserid());
+        request.getSession().setAttribute("cart", userCart);
         return new ModelAndView("homepage");
     }
 
