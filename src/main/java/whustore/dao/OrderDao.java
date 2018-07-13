@@ -69,16 +69,18 @@ public class OrderDao {
         return orderlist;
     }
 
-    public boolean addOrder(Order order){
+    public boolean addOrder(Order order,int idcart){
         conn = DBConnector.getDBConn();
         PreparedStatement ps = null;
         ProductDao pd = new ProductDao();
+        CartDao cd = new CartDao();
         int lastquantity = 0;
         String insert_order = "INSERT INTO orders(idorder, iduser) values(?,?)";
         String insert_orderitem = "INSERT INTO orderitem(idorder,idproduct,amount,price) values(?,?,?,?)";
         String changequantity = "UPDATE product SET quantity = ? WHERE idproduct = ?";
         try {
             conn.setAutoCommit(false);
+            cd.deleteCart(idcart);
             ps = conn.prepareStatement(insert_order);
             ps.setObject(1,order.getIdOrder());
             ps.setObject(2,order.getIduser());
