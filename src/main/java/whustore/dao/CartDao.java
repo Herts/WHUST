@@ -184,4 +184,34 @@ public class CartDao {
         }
 
     }
+
+    public boolean addCart (int iduser,HashMap<Integer,Integer> pidANDamount){
+        String sql = "INSERT INTO cart(idcart,iduser) values(?,?)";
+        Connection conn = DBConnector.getDBConn();
+        PreparedStatement ps = null;
+        int idcart =(int) System.currentTimeMillis()/1000;
+        try {
+            conn.setAutoCommit(false);
+            ps = conn.prepareStatement(sql);
+            ps.setObject(1,idcart);
+            ps.setObject(2,iduser);
+            for (Integer idproduct: pidANDamount.keySet()) {
+                this.addProductToCart(iduser,idproduct,pidANDamount.get(idproduct));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        finally {
+            try {
+                conn.close();
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
+    }
+
 }

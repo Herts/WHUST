@@ -115,7 +115,7 @@ public class OrderDao {
         conn = DBConnector.getDBConn();
         PreparedStatement ps = null;
         String delete_orderitem = "DELETE FROM orderitem WHERE idorder = ?";
-        String delete_order = "DELETE FROM order WHERE idorder = ?";
+        String delete_order = "DELETE FROM orders WHERE idorder = ?";
         try {
             conn.setAutoCommit(false);
             ps = conn.prepareStatement(delete_orderitem);
@@ -129,7 +129,6 @@ public class OrderDao {
             e.printStackTrace();
             return false;
         }
-
         return true;
     }
 

@@ -28,4 +28,16 @@ public class OrderController {
         }
     }
 
+    @RequestMapping("deleteorder")
+    public String deleteOrder(){
+        OrderDao od = new OrderDao();
+        boolean isdelete = false;
+        isdelete = od.deleteOrder(100);
+        if(isdelete){
+            return "home";
+        }
+        else{
+            return "home";
+        }
+    }
 }
