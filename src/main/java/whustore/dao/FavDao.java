@@ -39,18 +39,22 @@ public class FavDao {
                     ps = connection.prepareStatement(sql);
                     ps.setInt(1, iduser);
                     ps.setInt(2, idproduct);
+                    ps.executeUpdate();
                     return 1;
                 }
                 sql = "UPDATE fav SET state = true WHERE iduser = ? AND idproduct = ? ";
                 ps = connection.prepareStatement(sql);
                 ps.setInt(1, iduser);
                 ps.setInt(2, idproduct);
+                ps.executeUpdate();
                 return 0;
             }
-            sql = "INSERT INTO fav(iduser, idproduct, state) VALUES(?,?, )";
+            sql =  "INSERT INTO fav(iduser, idproduct, state) VALUES(?,?,?)";
             ps = connection.prepareStatement(sql);
             ps.setInt(1, iduser);
             ps.setInt(2, idproduct);
+            ps.setInt(3,0);
+            ps.executeUpdate();
             return 0;
         } catch (SQLException e) {
             e.printStackTrace();
