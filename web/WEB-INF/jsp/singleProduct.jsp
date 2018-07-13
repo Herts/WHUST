@@ -11,7 +11,15 @@
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
-
+    <script>
+        function add() {
+            var stock = document.getElementById('stock').innerText;
+            var addAmount = document.getElementById('add-quantity').value;
+            if (stock < addAmount)
+                return;
+            $.get('/cart/add?productID=${product.id}&number='+document.getElementById('add-quantity').innerText);
+        }
+    </script>
     <%@include file="universal/allcss.jsp" %>
 </head>
 <body>
@@ -1011,50 +1019,6 @@
                                 </div>
                             </c:forEach>
 
-                            <%--<div class="tab-pane fade" id="product3">
-                                <div class="product-large-thumb img-full">
-                                    <div class="easyzoom easyzoom--overlay">
-                                        <a href="img/single-product/large/single-product3.jpg">
-                                            <img src="img/single-product/large/single-product3.jpg" alt="">
-                                        </a>
-                                        <a href="img/single-product/large/single-product3.jpg" class="popup-img venobox"
-                                           data-gall="myGallery"><i class="fa fa-search"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="product4">
-                                <div class="product-large-thumb img-full">
-                                    <div class="easyzoom easyzoom--overlay">
-                                        <a href="img/single-product/large/single-product4.jpg">
-                                            <img src="img/single-product/large/single-product4.jpg" alt="">
-                                        </a>
-                                        <a href="img/single-product/large/single-product4.jpg" class="popup-img venobox"
-                                           data-gall="myGallery"><i class="fa fa-search"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="product5">
-                                <div class="product-large-thumb img-full">
-                                    <div class="easyzoom easyzoom--overlay">
-                                        <a href="img/single-product/large/single-product5.jpg">
-                                            <img src="img/single-product/large/single-product5.jpg" alt="">
-                                        </a>
-                                        <a href="img/single-product/large/single-product5.jpg" class="popup-img venobox"
-                                           data-gall="myGallery"><i class="fa fa-search"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="product6">
-                                <div class="product-large-thumb img-full">
-                                    <div class="easyzoom easyzoom--overlay">
-                                        <a href="img/single-product/large/single-product6.jpg">
-                                            <img src="img/single-product/large/single-product6.jpg" alt="">
-                                        </a>
-                                        <a href="img/single-product/large/single-product6.jpg" class="popup-img venobox"
-                                           data-gall="myGallery"><i class="fa fa-search"></i></a>
-                                    </div>
-                                </div>
-                            </div>--%>
                         </div>
                         <!--Product Tab Content End-->
                         <!--Product Tab Menu Start-->
@@ -1099,14 +1063,15 @@
                         <div class="product-description">
                             <p>${product.proIntro}</p>
                         </div>
-                        <p class="stock in-stock">库存：${product.quantity}</p>
+                        库存：<p id="stock" class="stock in-stock">${product.quantity}</p>
                         <div class="single-product-quantity">
-                            <form class="add-quantity" action="#">
-                                <div class="product-quantity">
-                                    <input value="1" type="number">
+                            <form class="add-quantity">
+                                <div  class="product-quantity">
+                                    <input id="add-quantity" value="1" type="number">
                                 </div>
                                 <div class="add-to-link">
-                                    <button class="product-btn" data-text="add to cart">添加至购物车</button>
+                                    <button onclick="add()" class="product-btn" data-text="add to cart">添加至购物车
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -1308,7 +1273,8 @@
                                 <!--Modal Tab Content Start-->
                                 <div class="tab-content product-details-large" id="myTabContent">
                                     <c:forEach var="j" begin="0" end="${alsoLikes.get(i).picPath.size()-1}" step="1">
-                                        <div class="tab-pane <c:if test="${j==0}"> fade show active </c:if> " id="single-slide${j+1}" role="tabpanel"
+                                        <div class="tab-pane <c:if test="${j==0}"> fade show active </c:if> "
+                                             id="single-slide${j+1}" role="tabpanel"
                                              aria-labelledby="single-slide-tab-1">
                                             <!--Single Product Image Start-->
                                             <div class="single-product-img img-full">
@@ -1325,8 +1291,9 @@
                                         <c:forEach var="j" begin="0" end="${alsoLikes.get(i).picPath.size()-1}"
                                                    step="1">
                                             <div class="single-tab-menu img-full">
-                                                <a <c:if test="${j==0}"> class="active" </c:if> data-toggle="tab" id="single-slide-tab-1"
-                                                   href="#single-slide${j+1}"><img
+                                                <a <c:if test="${j==0}"> class="active" </c:if> data-toggle="tab"
+                                                                                                id="single-slide-tab-1"
+                                                                                                href="#single-slide${j+1}"><img
                                                         src="${alsoLikes.get(i).picPath.get(j)}"
                                                         alt=""></a>
                                             </div>
@@ -1342,7 +1309,7 @@
                                 <div class="modal-product-info">
                                     <h1>${alsoLikes.get(i).productName}</h1>
                                     <div class="modal-product-price">
-                                        <%--<span class="old-price"></span>--%>
+                                            <%--<span class="old-price"></span>--%>
                                         <span class="new-price">¥${alsoLikes.get(i).price}</span>
                                     </div>
                                     <a href="/product?productID=${alsoLikes.get(i).id}" class="see-all">查看商品详情</a>

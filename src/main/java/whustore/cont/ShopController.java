@@ -142,7 +142,7 @@ public class ShopController {
         if (request.getParameter("searching") != null || request.getParameter("searchinfo").toString().length() == 0) {
             request.getSession().setAttribute("userFilterCates", getCategoryList());
             String searching = request.getParameter("searching");
-            List<Product> results =  service.getProductsBySearch(searching);
+            List<Product> results = service.getProductsBySearch(searching);
             int allResultSize = results.size();
             if (results.size() > 9)
                 results = results.subList(0, 9);

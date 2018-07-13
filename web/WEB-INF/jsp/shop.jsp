@@ -28,8 +28,17 @@
 
 <div class="wrapper">
     <%--头部引用开始--%>
-    <%@include file="universal/header.jsp" %>
-    <div class="shop-area mb-70" style="padding-top: 10%">
+    <header>
+        <div class="header-container">
+            <div class="header-area header-sticky pt-30 pb-30">
+                <div class="container">
+                    <%@include file="universal/headerContent.jsp" %>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--Header Area End-->
+    <div class="shop-area mb-70" style="padding-top: 3%">
         <div class="container">
             <div class="row">
                 <!--Product Category Widget Start-->
@@ -209,7 +218,9 @@
                                             </li>
                                         </c:forEach>
                                         <c:if test="${((allProductsSize/9) < ((page-(page%9))+5) ? (allProductsSize/9) :((page-(page%9))+5)) < allProductsSize/9}">
-                                            <li><a href="/shop?page=${((allProductsSize/9) < ((page-(page%9))+5) ? (allProductsSize/9) :((page-(page%9))+5))+1}"><i class="fa fa-angle-double-right"></i></a></li>
+                                            <li>
+                                                <a href="/shop?page=${((allProductsSize/9) < ((page-(page%9))+5) ? (allProductsSize/9) :((page-(page%9))+5))+1}"><i
+                                                        class="fa fa-angle-double-right"></i></a></li>
                                         </c:if>
                                     </ul>
                                 </div>
@@ -221,8 +232,8 @@
                 </div>
             </div>
         </div>
+        <%@include file="universal/footer.jsp" %>
     </div>
-    <%@include file="universal/footer.jsp" %>
     <%@ include file="universal/alljs.jsp" %>
 </div>
 </body>
