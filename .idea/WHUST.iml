@@ -54,5 +54,7 @@
     <orderEntry type="library" name="Maven: org.ansj:ansj_seg:5.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.ansj:tree_split:1.5" level="project" />
     <orderEntry type="library" name="Maven: org.nlpcn:nlp-lang:1.7.7" level="project" />
+    <orderEntry type="library" name="Maven: com.zaxxer:HikariCP:3.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
   </component>
 </module>
