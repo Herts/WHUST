@@ -1,5 +1,6 @@
 package whustore.dao;
 
+import whustore.data.ProductData;
 import whustore.model.Order;
 import whustore.model.Product;
 
@@ -22,7 +23,6 @@ public class OrderDao {
      * @return
      */
     public List<Order> getOrderlist(int userID) {
-        conn = DBConnector.getDBConn();
         List<Order> orderlist = new ArrayList<Order>();
         List<Integer> orderidList = this.getOrderID(userID);
         String sql = "SELECT * FROM orderInfo WHERE idorder=?";
@@ -30,6 +30,8 @@ public class OrderDao {
         PreparedStatement ps = null;
         ResultSet rs;
         try {
+            if (conn == null || conn.isClosed())
+                conn = DBConnector.getDBConn();
             ps = conn.prepareStatement(sql);
             for (Integer i : orderidList) {
                 ps.setInt(1, i);
@@ -38,14 +40,8 @@ public class OrderDao {
                 HashMap<Product, Integer> items = new HashMap<Product, Integer>();
                 while (rs.next()) {
                     Product current = new Product();
-                    current.setId(rs.getInt("idproduct"));
-                    current.setProductName(rs.getString("pname"));
-                    current.setProIntro(rs.getString("description"));
-                    current.setQuantity(rs.getInt("quantity"));
-                    current.setPrice(rs.getDouble("price"));
-
-                    //setType等待进一步实现
-                    current.setTypes(null);
+                    int id = rs.getInt("idproduct");
+                    current = ProductData.getProductByID(id);
                     amount = rs.getInt("amount");
                     items.put(current, amount);
                 }
@@ -69,8 +65,7 @@ public class OrderDao {
         return orderlist;
     }
 
-    public boolean addOrder(Order order,int idcart){
-        conn = DBConnector.getDBConn();
+    public boolean addOrder(Order order, int idcart) {
         PreparedStatement ps = null;
         ProductDao pd = new ProductDao();
         CartDao cd = new CartDao();
@@ -79,23 +74,25 @@ public class OrderDao {
         String insert_orderitem = "INSERT INTO orderitem(idorder,idproduct,amount,price) values(?,?,?,?)";
         String changequantity = "UPDATE product SET quantity = ? WHERE idproduct = ?";
         try {
+            if (conn == null || conn.isClosed())
+                conn = DBConnector.getDBConn();
             conn.setAutoCommit(false);
             cd.deleteCart(idcart);
             ps = conn.prepareStatement(insert_order);
-            ps.setObject(1,order.getIdOrder());
-            ps.setObject(2,order.getIduser());
+            ps.setObject(1, order.getIdOrder());
+            ps.setObject(2, order.getIduser());
             ps.executeUpdate();
-            for (Product product: order.getItems().keySet()) {
+            for (Product product : order.getItems().keySet()) {
                 ps = conn.prepareStatement(insert_orderitem);
-                ps.setObject(1,order.getIdOrder());
-                ps.setObject(2,product.getId());
-                ps.setObject(3,order.getItems().get(product));
-                ps.setObject(4,product.getPrice());
+                ps.setObject(1, order.getIdOrder());
+                ps.setObject(2, product.getId());
+                ps.setObject(3, order.getItems().get(product));
+                ps.setObject(4, product.getPrice());
                 ps.executeUpdate();
                 ps = conn.prepareStatement(changequantity);
                 lastquantity = pd.getQuantity(product.getId());
-                ps.setObject(1,lastquantity-order.getItems().get(product));
-                ps.setObject(2,product.getId());
+                ps.setObject(1, lastquantity - order.getItems().get(product));
+                ps.setObject(2, product.getId());
                 ps.executeUpdate();
             }
             conn.commit();
@@ -111,7 +108,7 @@ public class OrderDao {
         return true;
     }
 
-    public boolean deleteOrder(int idorder){
+    public boolean deleteOrder(int idorder) {
         conn = DBConnector.getDBConn();
         PreparedStatement ps = null;
         String delete_orderitem = "DELETE FROM orderitem WHERE idorder = ?";
@@ -119,10 +116,10 @@ public class OrderDao {
         try {
             conn.setAutoCommit(false);
             ps = conn.prepareStatement(delete_orderitem);
-            ps.setObject(1,idorder);
+            ps.setObject(1, idorder);
             ps.executeUpdate();
             ps = conn.prepareStatement(delete_order);
-            ps.setObject(1,idorder);
+            ps.setObject(1, idorder);
             ps.executeUpdate();
             conn.commit();
         } catch (SQLException e) {

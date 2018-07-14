@@ -15,7 +15,7 @@
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
-    <title>订单详情</title>
+    <title>历史订单</title>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <%@ include file="../universal/allcss.jsp" %>
@@ -131,6 +131,13 @@
             width: 15px;
         }
     </style>
+    <script>
+        function hid(id) {
+            document.getElementById(id).remove();
+            for (var a in document.getElementsByClassName(id))
+                a.remove();
+        }
+    </script>
 </head>
 <body>
 <!--[if lt IE 8]>
@@ -154,10 +161,11 @@
     <div class="shop-area mb-70" style="padding-top: 3%">
         <div class="container">
             <div class="row">
+                <h2 class="title">历史订单</h2>
 
-                <div id="app">
-                    <h2 class="title">购物车</h2>
-                    <table class="tab" width="100%" border="0" cellspacing="0" cellpadding="0">
+                <c:forEach items="${orders}" var="order">
+                    <table id="${order.idOrder}" class="tab" width="100%" border="0" cellspacing="0" cellpadding="0"
+                           style="padding-bottom: 2%;padding-bottom: 2%">
                         <thead>
                         <tr style="text-align: center">
                             <th colspan="1">商品信息</th>
@@ -167,18 +175,18 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${items}" end="${items.size()}" var="product" varStatus="status">
-                            <tr id="${product.id}">
+                        <c:forEach items="${order.items.keySet()}" end="${order.items.keySet().size()}" var="product"
+                                   varStatus="status">
+                            <tr id="${product.id}" style="padding-bottom: 1%">
                                 <td class="goods">
-                                    <img src="${product.picPath.get(0)}" class="goods-left"/>
+                                    <img src="../../${product.picPath.get(0)}" class="goods-left"/>
                                     <div class="goods-right">
                                         <p>${product.productName}</p>
                                     </div>
                                 </td>
                                 <td><p id="price${product.id}">${product.price}</p></td>
                                 <td class="num">
-                                    <input id="num${product.id}" value="${order.items.get(product)}"
-                                           type="number" readonly disabled/>&nbsp;&nbsp;
+                                        ${product.id}&nbsp;&nbsp;
                                 </td>
                                 <td class="blackcolor"
                                     id="total${product.id}">${product.price * order.items.get(product)}</td>
@@ -190,13 +198,15 @@
                             <td colspan="5">
                                 <h3><span id="total">${order.total}</span>元</h3>
                                 <form>
-                                    <button type="submit" class="form-button">付款</button>
+                                    <button type="button" class="form-button" onclick="hid(${order.idOrder})">
+                                        隐藏
+                                    </button>
                                 </form>
                             </td>
                         </tr>
                         </tfoot>
                     </table>
-                </div>
+                </c:forEach>
             </div>
         </div>
     </div>

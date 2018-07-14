@@ -286,7 +286,7 @@ public class ProductDao {
         return list;
     }
 
-    public boolean changeQuantity ( int idproduct , int change){
+    public boolean changeQuantity(int idproduct, int change) {
         conn = DBConnector.getDBConn();
         PreparedStatement ps = null;
         String sql = "UPDATE product SET quantity = ? WHERE idproduct = ?";
@@ -294,43 +294,54 @@ public class ProductDao {
         int state = 0;
         boolean restate = false;
         lastquantity = this.getQuantity(idproduct);
-        if((lastquantity + change) <0){
+        if ((lastquantity + change) < 0) {
             return false;
         }
         try {
             ps = conn.prepareStatement(sql);
-            ps.setObject(1,lastquantity + change);
-            ps.setObject(2,idproduct);
+            ps.setObject(1, lastquantity + change);
+            ps.setObject(2, idproduct);
             state = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if(state ==0){
+        if (state == 0) {
             restate = false;
-        }
-        else{
+        } else {
             restate = true;
         }
         return restate;
     }
 
-    public int getQuantity (int idproduct){
-        conn = DBConnector.getDBConn();
+    public int getQuantity(int idproduct) {
         PreparedStatement ps = null;
         String sql = "select * from product where idproduct = ?";
         ResultSet rs = null;
         int quantity = 0;
         try {
-            ps = conn.prepareStatement(sql);
-            ps.setObject(1,idproduct);
-            rs = ps.executeQuery();
-            if(rs.next()){
-                quantity = rs.getInt("quantity");
+            if (conn == null || conn.isClosed()) {
+                conn = DBConnector.getDBConn();
             }
+            ps = conn.prepareStatement(sql);
+            ps.setObject(1, idproduct);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                quantity = rs.getInt("quantity");
+                return quantity;
+            }
+            return 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            return 0;
+        } finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-        return quantity;
     }
 
     private Product getProductFromResultSet(ResultSet rs) {

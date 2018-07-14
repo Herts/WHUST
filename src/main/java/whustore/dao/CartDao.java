@@ -165,18 +165,29 @@ public class CartDao {
 
     public boolean deleteCart(int idcart) {
         boolean isdeleteitems = false;
-        conn = DBConnector.getDBConn();
         String sql = "DELETE FROM cart WHERE idcart = ?";
         PreparedStatement ps = null;
         isdeleteitems = this.deleteCartitem(idcart);
         if (isdeleteitems) {
             try {
+                if (conn == null || conn.isClosed()) {
+                    conn = DBConnector.getDBConn();
+                }
+                conn = DBConnector.getDBConn();
                 ps = conn.prepareStatement(sql);
                 ps.setObject(1, idcart);
                 ps.executeUpdate();
                 return true;
             } catch (SQLException e) {
                 e.printStackTrace();
+            } finally {
+                try {
+                    if (conn == null || !conn.isClosed()) {
+                        conn.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
 
         }
@@ -185,10 +196,13 @@ public class CartDao {
 
     public boolean deleteCartitem(int idcart) {
         String sql = "DELETE FROM cartitem WHERE idcart = ?";
-        conn = DBConnector.getDBConn();
+
         PreparedStatement ps = null;
 
         try {
+            if (conn == null || conn.isClosed()) {
+                conn = DBConnector.getDBConn();
+            }
             ps = conn.prepareStatement(sql);
             ps.setObject(1, idcart);
             ps.executeUpdate();
@@ -196,6 +210,14 @@ public class CartDao {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            try {
+                if (conn == null || !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
     }
