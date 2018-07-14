@@ -17,7 +17,12 @@
 <html class="no-js" lang="en">
 <head>
     <title>逛一逛————WHU STORE</title>
-
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="robots" content="noindex, follow"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, follow"/>
     <%@ include file="universal/allcss.jsp" %>
 </head>
 <body>
@@ -29,6 +34,7 @@
 <div class="wrapper">
     <%--头部引用开始--%>
     <header>
+
         <div class="header-container">
             <div class="header-area header-sticky pt-30 pb-30">
                 <div class="container">
@@ -116,7 +122,7 @@
                                                     <!--Single Product Start-->
                                                     <div class="single-product mb-25">
                                                         <div class="product-img img-full">
-                                                            <a href="product?productID=${product.id}">
+                                                            <a href="/product?productID=${product.id}">
                                                                 <img src="../../${product.picPath.get(0)}" alt="">
                                                             </a>
                                                             <span class="onsale">特惠!</span>
@@ -132,7 +138,7 @@
                                                         </div>
                                                         <div class="product-content">
                                                             <h2>
-                                                                <a href="product?productID=${product.id}">
+                                                                <a href="/product?productID=${product.id}">
                                                                         ${product.productName}
                                                                 </a></h2>
                                                             <div class="product-price">

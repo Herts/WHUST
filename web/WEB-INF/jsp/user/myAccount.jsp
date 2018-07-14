@@ -53,7 +53,16 @@
 <body>
 <div class="wrapper">
     <%--头部引用开始--%>
-    <%@include file="../universal/header.jsp" %>
+    <header>
+        <div class="header-container">
+            <div class="header-area header-sticky pt-30 pb-30">
+                <div class="container">
+                    <%@include file="../universal/headerContent.jsp" %>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--Header Area End-->
     <div class="account_area">
         <form action="/user/changeInfo" method="post">
             <div class="single-feature mb-35" style="width: 75%">
@@ -104,8 +113,9 @@
         </form>
     </div>
     <%@include file="../universal/footer.jsp" %>
-    <%@ include file="../universal/alljs.jsp" %>
 
 </div>
+
+<%@ include file="../universal/alljs.jsp" %>
 </body>
 </html>

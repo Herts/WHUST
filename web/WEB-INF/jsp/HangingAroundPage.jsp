@@ -242,8 +242,9 @@
         </div>
     </div>
     <%@include file="universal/footer.jsp" %>
-    <%@ include file="universal/alljs.jsp" %>
 
 </div>
+
+<%@ include file="universal/alljs.jsp" %>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package whustore.cont;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,9 +18,10 @@ public class CartController {
     /**
      * 添加商品到购物车
      * 没有number参数默认为加一个
-     *
+     * <p>
      * (@param number 要添加的数量）
-     * @param request HttpServletRequest
+     *
+     * @param request   HttpServletRequest
      * @param productID 要添加的产品艾迪
      */
     @RequestMapping("cart/add")
@@ -38,18 +40,34 @@ public class CartController {
     /**
      * 从购物车移除商品
      *
-     * @param request HttpServletRequest
+     * @param request   HttpServletRequest
      * @param productID 要移除的产品艾迪
      */
     @RequestMapping("cart/remove")
     public void getUserCart(HttpServletRequest request,
                             @RequestParam("productID") int productID) {
-        Cart cart= (Cart) request.getSession().getAttribute("cart");
+        Cart cart = (Cart) request.getSession().getAttribute("cart");
         //系统操作
         service.removeProduct(productID, cart.getCartID());
         //会话操作
         Cart userCart = (Cart) request.getSession().getAttribute("cart");
         userCart.remove(productID);
         request.getSession().setAttribute("cart", userCart);
+    }
+
+    /**
+     * 展示我的购物车
+     *
+     * @param request
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping("cart/myCart")
+    public ModelAndView showMyCart(HttpServletRequest request,
+                           ModelMap modelMap) {
+        Cart cart = (Cart) request.getSession().getAttribute("cart");
+        modelMap.addAttribute("cart", cart);
+        modelMap.addAttribute("items",cart.getItems().keySet());
+        return new ModelAndView("user/cart");
     }
 }

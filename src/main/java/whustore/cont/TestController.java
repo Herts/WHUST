@@ -32,6 +32,6 @@ public class TestController {
     public String ttt(HttpServletRequest request) {
 
         Cart cart = (Cart) request.getSession().getAttribute("cart");
-        return "shop";
+        return "user/cart";
     }
 }
