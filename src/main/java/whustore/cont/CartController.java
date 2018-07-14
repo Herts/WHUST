@@ -37,6 +37,16 @@ public class CartController {
         request.getSession().setAttribute("cart", userCart);
     }
 
+    @RequestMapping("cart/sub")
+    public void subProductIncart(HttpServletRequest request,
+                                 @RequestParam("productID") int productID) {
+        User user = (User) request.getSession().getAttribute("user");
+        int num = 1;
+        service.subProductInCart(productID,user.getUserid());
+        Cart userCart = (Cart) request.getSession().getAttribute("cart");
+        userCart.sub(productID);
+    }
+
     /**
      * 从购物车移除商品
      *

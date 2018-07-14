@@ -223,6 +223,51 @@ public class CartDao {
     }
 
     /**
+     * 如果购物车里有该商品该商品数量减一
+     *
+     * @param productID 产品艾迪
+     * @param userID    用户艾迪
+     * @return 成功与否
+     */
+    public boolean subProductInCart(int productID, int userID) {
+        int cartID = getCartID(userID);
+        String sql = "SELECT amount FROM cartitem WHERE idproduct=? AND idcart=?";
+        try {
+            if (conn == null || conn.isClosed()) {
+                conn = DBConnector.getDBConn();
+            }
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, productID);
+            ps.setInt(2, cartID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.getFetchSize() != 0) {
+                int oldAmount = rs.getInt(1);
+                if (oldAmount == 1) {
+                    return removeProduct(productID, cartID);
+                }
+                sql = "UPDATE cartitem SET amount=? WHERE idproduct=? AND idcart=?";
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, oldAmount - 1);
+                ps.setInt(2, productID);
+                ps.setInt(3, cartID);
+                ps.executeUpdate();
+                return true;
+            } else return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (conn == null || !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
      * 从数据库中移除产品
      *
      * @param productID 产品id

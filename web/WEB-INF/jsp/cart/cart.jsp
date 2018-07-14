@@ -149,6 +149,7 @@
             var newNum = Number(oldNum) - 1;
             if (newNum < 0)
                 return;
+            sub(id);
             /*document.getElementById("num" + id).value = newNum;
             var price = document.getElementById("price" + id).innerText;
             var singleTotal = document.getElementById("total" + id).innerText;
@@ -167,8 +168,8 @@
     <%--头部引用开始--%>
     <header>
         <div class="header-container">
-            <div class="header-area header-sticky pt-30 pb-30">
-                <div class="container">
+            <div class="header-area header-absolute header-sticky pt-30 pb-30">
+                <div class="container-fluid pl-50 pr-50">
                     <%@include file="../universal/headerContent.jsp" %>
                 </div>
             </div>

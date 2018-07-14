@@ -37,7 +37,7 @@
 
         <div class="header-container">
             <div class="header-area header-sticky pt-30 pb-30">
-                <div class="container">
+                <div class="container-fluid pl-50 pr-50">
                     <%@include file="universal/headerContent.jsp" %>
                 </div>
             </div>
@@ -145,7 +145,7 @@
                                                                 <div class="price-box">
                                                                     <span class="regular-price">¥${product.price}</span>
                                                                 </div>
-                                                                <div class="add-to-cart">
+                                                                <div class="add-to-cart" tabindex="0">
                                                                     <a onclick="add(${product.id},${product.quantity},1)">加入购物车</a>
                                                                 </div>
                                                             </div>
@@ -239,8 +239,9 @@
             </div>
         </div>
         <%@include file="universal/footer.jsp" %>
+
+        <%@ include file="universal/alljs.jsp" %>
     </div>
-    <%@ include file="universal/alljs.jsp" %>
 </div>
 </body>
 </html>

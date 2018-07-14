@@ -15,6 +15,12 @@ public class CartService {
         return cart;
     }
 
+    public void subProductInCart(int productID, int userID)
+    {
+        dao.subProductInCart(productID,userID);
+        return;
+    }
+
     public void removeProduct(int productID, int cartID) {
         dao.removeProduct(productID, cartID);
     }
