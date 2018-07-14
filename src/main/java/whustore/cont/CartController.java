@@ -64,10 +64,10 @@ public class CartController {
      */
     @RequestMapping("cart/myCart")
     public ModelAndView showMyCart(HttpServletRequest request,
-                           ModelMap modelMap) {
+                                   ModelMap modelMap) {
         Cart cart = (Cart) request.getSession().getAttribute("cart");
         modelMap.addAttribute("cart", cart);
-        modelMap.addAttribute("items",cart.getItems().keySet());
-        return new ModelAndView("user/cart");
+        modelMap.addAttribute("items", cart.getItems().keySet());
+        return new ModelAndView("cart/cart");
     }
 }

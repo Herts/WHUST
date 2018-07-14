@@ -27,7 +27,7 @@
                     <li><a href="/home">首页</a></li>
                     <li><a href="/shop">找一找</a></li>
                     <li><a href="/HangingAround">逛一逛</a></li>
-                    <li><a href="single-product.html">为我推荐</a></li>
+                    <li><a href="/HangingAround">为我推荐</a></li>
                 </ul>
             </nav>
         </div>
@@ -36,7 +36,7 @@
         <div class="header-option">
             <div class="mini-cart-search">
                 <div class="mini-cart">
-                    <a href="#">
+                    <a href="/cart/myCart">
                         <span class="cart-icon">
                             <span class="cart-quantity">${sessionScope.cart.items.keySet().size()}</span>
                         </span>
@@ -75,8 +75,8 @@
                         <p class="cart-subtotal"><strong>合计:</strong> <span
                                 class="float-right">¥${sessionScope.cart.getTotal()}</span></p>
                         <p class="cart-btn">
-                            <a href="#">购物车</a>
-                            <a href="#">结算</a>
+                            <a href="/cart/myCart">购物车</a>
+                            <a href="/addorder">结算</a>
                         </p>
                     </div>
                     <!--Cart Dropdown End-->
@@ -108,8 +108,8 @@
                                                 user.getUsername() +
                                                 "的账户</a></li>" +
                                                 "<li><a href=\"#\">历史订单</a></li>\n" +
-                                                "<li><a href=\"#\">购物车</a></li>\n" +
-                                                "<li><a href=\"#\">结算</a></li>" +
+                                                "<li><a href=\"/cart/myCart\">购物车</a></li>\n" +
+                                                "<li><a href=\"/addorder\">结算</a></li>" +
                                                 "<li><a href='/logOut'>注销</a></li>");
                                     else
                                         out.println("<li><a href=\"/log\">" +

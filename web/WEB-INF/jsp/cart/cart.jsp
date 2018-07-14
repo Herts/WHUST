@@ -124,11 +124,40 @@
         }
     </style>
     <script>
-        function productAdd(id) {
+        function productAdd(id, stock) {
+            stock = Number(stock)
             var oldNum = document.getElementById("num" + id).value;
             var newNum = Number(oldNum) + 1;
+            if (newNum > stock) {
+                alert("库存不足");
+                return;
+            }
+            /*
             document.getElementById("num" + id).value = newNum;
+            var price = document.getElementById("price" + id).innerText;
+            var singleTotal = document.getElementById("total" + id).innerText;
+            var newSingleTotal = Number(singleTotal) + Number(price);
+            document.getElementById("total" + id).innerText = newSingleTotal;
+            var oldTotal = document.getElementById("total").innerText;
+            var newTotal = Number(oldTotal) + Number(price);
+            document.getElementById("total").innerText = newTotal;*/
+            add(id, 1, 1);
+        }
 
+        function productMin(id) {
+            var oldNum = document.getElementById("num" + id).value;
+            var newNum = Number(oldNum) - 1;
+            if (newNum < 0)
+                return;
+            /*document.getElementById("num" + id).value = newNum;
+            var price = document.getElementById("price" + id).innerText;
+            var singleTotal = document.getElementById("total" + id).innerText;
+            var newSingleTotal = Number(singleTotal) - Number(price);
+            document.getElementById("total" + id).innerText = newSingleTotal;
+            var oldTotal = document.getElementById("total").innerText;
+            var newTotal = Number(oldTotal) - Number(price);
+            document.getElementById("total").innerText = newTotal;
+        */
         }
     </script>
 </head>
@@ -153,7 +182,7 @@
                 <table class="tab" width="100%" border="0" cellspacing="0" cellpadding="0">
                     <thead>
                     <tr style="text-align: center">
-                        <th colspan="2">商品信息</th>
+                        <th colspan="1">商品信息</th>
                         <th style="width: 14%;">商品金额</th>
                         <th style="width: 14%;">商品数量</th>
                         <th style="width: 14%;">总金额</th>
@@ -162,9 +191,7 @@
                     </thead>
                     <tbody>
                     <c:forEach items="${items}" end="${items.size()}" var="product" varStatus="status">
-                        <tr>
-                            <td style="width: 5%;"><input id="product${product.id}" type="checkbox" class="chbsty"/>
-                            </td>
+                        <tr id="${product.id}">
                             <td class="goods">
                                 <img src="" class="goods-left"/>
                                 <div class="goods-right">
@@ -173,26 +200,26 @@
                             </td>
                             <td><p id="price${product.id}">${product.price}</p></td>
                             <td class="num">
-                                <a href="javascript">-</a>&nbsp;&nbsp;
+                                <a onclick="productMin(${product.id})">-</a>&nbsp;&nbsp;
                                 <input id="num${product.id}" value="${sessionScope.cart.items.get(product)}"
                                        type="number" disabled/>&nbsp;&nbsp;
-                                <a onclick="productAdd(${product.id})">+</a>&nbsp;&nbsp;
+                                <a onclick="productAdd(${product.id},${product.quantity})">+</a>&nbsp;&nbsp;
                             </td>
                             <td class="blackcolor"
                                 id="total${product.id}">${product.price*sessionScope.cart.items.get(product)}</td>
-                            <td class="del">删除</td>
+                            <td class="del" onclick="remove(${product.id});
+                                    document.getElementById(${product.id}).remove()">删除
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>
                     <tfoot>
-                    <tr class="footer">
-                        <td><input type="checkbox" class="chbsty " onclick=""/></td>
-                        <td>
-                            <span class="blackcolor">全选</span>&nbsp;&nbsp;
-                        </td>
-                        <td colspan="4">
-                            总计：<span>${cart.total}</span>元
-                            <button type="button" class="form-button">结账</button>
+                    <tr class="footer" style="margin-top: 40px">
+                        <td colspan="5">
+                            <h3><span id="total">${cart.total}</span>元</h3>
+                            <form action="/addorder">
+                                <button type="submit" class="form-button">结账</button>
+                            </form>
                         </td>
                     </tr>
                     </tfoot>

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import whustore.dao.OrderDao;
 import whustore.model.*;
+import whustore.service.CartService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,10 +22,14 @@ public class OrderController {
         boolean isAdd = false;
         isAdd = od.addOrder(order,cart.getCartID());
         if(isAdd){
-            return "home";
+            User user = (User) request.getSession().getAttribute("user");
+            CartService service = new CartService();
+            Cart userCart = service.getUserCart(user.getUserid());
+            request.getSession().setAttribute("cart",userCart);
+            return "homepage";
         }
         else{
-            return "home";
+            return "homepage";
         }
     }
 

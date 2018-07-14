@@ -90,7 +90,6 @@ public class CartDao {
                     conn.close();
                     return cartID;
                 } else {
-                    conn.commit();
                     cartID = (int) ((System.currentTimeMillis() % 1000000) + (userID % 1000) * 1000000);
                     sql = "INSERT INTO cart (idcart, iduser) VALUES (?, ?)";
                     ps = conn.prepareStatement(sql);
@@ -100,6 +99,7 @@ public class CartDao {
                     return cartID;
                 }
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
