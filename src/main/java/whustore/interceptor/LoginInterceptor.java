@@ -39,7 +39,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             return true;
         }
         //不符合条件的，跳转到登录界面
-        request.getRequestDispatcher("/home").forward(request, response);
+        request.getRequestDispatcher("/log").forward(request, response);
         return false;
     }
 }

@@ -31,4 +31,16 @@ public class Order {
     public void setItems(Map<Product, Integer> items) {
         this.items = items;
     }
+
+    public double getTotal() {
+        double total = 0;
+        if (items.size() > 0) {
+            for (Product product :
+                    items.keySet()) {
+                if (product != null)
+                    total += product.getPrice() * items.get(product);
+            }
+        }
+        return total;
+    }
 }
