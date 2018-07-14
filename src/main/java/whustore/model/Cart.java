@@ -53,6 +53,7 @@ public class Cart {
             items.put(product, amount);
     }
 
+
     /**
      * 获取总金额
      *
@@ -80,6 +81,22 @@ public class Cart {
             if (productID == product.getId()) {
                 items.remove(product);
                 break;
+            }
+        }
+    }
+
+    public void sub(int productID) {
+        for (Product product :
+                items.keySet()) {
+            if (productID == product.getId()) {
+                int oldAmount = items.get(product);
+                items.remove(product);
+                if (oldAmount == 1) {
+                    break;
+                } else {
+                    items.put(product,oldAmount + 1);
+                    break;
+                }
             }
         }
     }

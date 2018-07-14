@@ -150,15 +150,15 @@
     <header>
 
         <div class="header-container">
-            <div class="header-area header-sticky pt-30 pb-30">
-                <div class="container">
+            <div class="header-area header-absolute header-sticky pt-30 pb-30">
+                <div class="container-fluid pl-50 pr-50">
                     <%@include file="../universal/headerContent.jsp" %>
                 </div>
             </div>
         </div>
     </header>
     <!--Header Area End-->
-    <div class="shop-area mb-70" style="padding-top: 3%">
+    <div class="shop-area mb-70" style="padding-top: 7%">
         <div class="container">
             <div class="row">
                 <h2 class="title">历史订单</h2>
@@ -186,7 +186,7 @@
                                 </td>
                                 <td><p id="price${product.id}">${product.price}</p></td>
                                 <td class="num">
-                                        ${product.id}&nbsp;&nbsp;
+                                        ${order.items.get(product)}&nbsp;&nbsp;
                                 </td>
                                 <td class="blackcolor"
                                     id="total${product.id}">${product.price * order.items.get(product)}</td>

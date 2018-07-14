@@ -47,6 +47,23 @@
         });
     }
 
+    // 发送减商品请求
+    function sub(productID) {
+        productID =  Number(productID);
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/cart/remove",
+            cache: false,
+            data: {productID: productID},
+            error: function () {
+                location.reload(true);
+            }, success: function (data) {
+                location.reload(true);
+            }
+        });
+    }
+
 </script>
 <!--Jquery 1.12.4-->
 <script src="../../js/vendor/jquery-1.12.4.min.js"></script>

@@ -55,8 +55,8 @@
     <%--头部引用开始--%>
     <header>
         <div class="header-container">
-            <div class="header-area header-sticky pt-30 pb-30">
-                <div class="container">
+            <div class="header-area header-absolute header-sticky pt-30 pb-30">
+                <div class="container-fluid pl-50 pr-50">
                     <%@include file="../universal/headerContent.jsp" %>
                 </div>
             </div>

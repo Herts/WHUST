@@ -143,15 +143,15 @@
     <header>
 
         <div class="header-container">
-            <div class="header-area header-sticky pt-30 pb-30">
-                <div class="container">
+            <div class="header-area header-absolute header-sticky pt-30 pb-30">
+                <div class="container-fluid pl-50 pr-50">
                     <%@include file="../universal/headerContent.jsp" %>
                 </div>
             </div>
         </div>
     </header>
     <!--Header Area End-->
-    <div class="shop-area mb-70" style="padding-top: 3%">
+    <div class="shop-area mb-70" style="padding-top: 5%">
         <div class="container">
             <div class="row">
 

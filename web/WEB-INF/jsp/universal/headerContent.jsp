@@ -107,7 +107,7 @@
                                         out.println("<li><a href=\"/user/home\">" +
                                                 user.getUsername() +
                                                 "的账户</a></li>" +
-                                                "<li><a href=\"#\">历史订单</a></li>\n" +
+                                                "<li><a href=\"/order/myOrders\">历史订单</a></li>\n" +
                                                 "<li><a href=\"/cart/myCart\">购物车</a></li>\n" +
                                                 "<li><a href=\"/addorder\">结算</a></li>" +
                                                 "<li><a href='/logOut'>注销</a></li>");
