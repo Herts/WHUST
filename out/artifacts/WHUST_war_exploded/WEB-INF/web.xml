@@ -7,8 +7,15 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/applicationContext.xml</param-value>
     </context-param>
+    <context-param>
+        <param-name>webAppRootKey</param-name>
+        <param-value>rootpath</param-value>
+    </context-param>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.springframework.web.util.WebAppRootListener</listener-class>
     </listener>
     <filter>
         <filter-name>CharacterEncoding</filter-name>

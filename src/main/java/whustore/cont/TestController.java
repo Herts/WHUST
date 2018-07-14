@@ -12,22 +12,6 @@ import java.util.List;
 @Controller
 public class TestController {
 
-    /**
-     * 用于测试功能
-     *
-     * @return
-     */
-    @RequestMapping("Picture")
-    public String pictureTest() {
-        ProductService ps = new ProductService();
-        Product product = new Product();
-        Picture picture = new Picture();
-        product.setId(5);
-        picture.setIdpicture(1);
-        ps.addProductPicture(product, picture);
-        return "homepage";
-    }
-
     @RequestMapping("test")
     public String ttt(HttpServletRequest request) {
 

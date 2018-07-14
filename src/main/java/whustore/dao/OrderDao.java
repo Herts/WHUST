@@ -19,7 +19,7 @@ public class OrderDao {
      * 获取用户的历史订单
      *
      * @param userID
-     * @return
+     * @return  List<Order>
      */
     public List<Order> getOrderlist(int userID) {
         conn = DBConnector.getDBConn();
@@ -69,6 +69,12 @@ public class OrderDao {
         return orderlist;
     }
 
+    /**
+     * 新建订单
+     * @param order
+     * @param idcart
+     * @return  boolean 是否新建成功
+     */
     public boolean addOrder(Order order,int idcart){
         conn = DBConnector.getDBConn();
         PreparedStatement ps = null;
@@ -108,9 +114,22 @@ public class OrderDao {
             }
             return false;
         }
+        finally {
+            try {
+                conn.close();
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         return true;
     }
 
+    /**
+     * 删除订单
+     * @param idorder
+     * @return  boolean  是否删除成功
+     */
     public boolean deleteOrder(int idorder){
         conn = DBConnector.getDBConn();
         PreparedStatement ps = null;
@@ -132,13 +151,19 @@ public class OrderDao {
         return true;
     }
 
+    /**
+     * private
+     * 获得用户订单ID列表
+     * @param userID
+     * @return  List<Integer>
+     */
     private List<Integer> getOrderID(int userID) {
         conn = DBConnector.getDBConn();
         int orderID;
         String sql = "SELECT * FROM orders WHERE iduser=?";
         List<Integer> list = new ArrayList<Integer>();
+        PreparedStatement ps = null;
         try {
-            PreparedStatement ps = null;
             ResultSet rs;
             if (conn != null) {
                 ps = conn.prepareStatement(sql);
@@ -155,6 +180,14 @@ public class OrderDao {
             return list;
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        finally {
+            try {
+                conn.close();
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         System.out.println("获取订单ID失败");
         return list;

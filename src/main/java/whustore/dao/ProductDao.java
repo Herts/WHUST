@@ -22,7 +22,7 @@ public class ProductDao {
      */
     public Product getProduct(int productID) {
         conn = DBConnector.getDBConn();
-        PreparedStatement ps;
+        PreparedStatement ps = null;
         Product product = new Product();
 
         try {
@@ -44,20 +44,41 @@ public class ProductDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        finally {
+            try {
+                conn.close();
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         return product;
     }
 
+    /**
+     * 价格排序获取所有商品
+     * @return  List<Product>
+     */
     public List<Product> getAllProductOrderByPrice() {
         String sql = "SELECT * FROM productinfo ORDER BY price";
         return getAllProduct(sql);
     }
 
+    /**
+     * 获取所有商品
+     * @return List<Product>
+     */
     public List<Product> getAllProduct() {
         String sql = "SELECT * FROM productinfo";
         return getAllProduct(sql);
     }
 
 
+    /**
+     * 获取所有商品
+     * @param  sql
+     * @return  List<Product>
+     */
     public List<Product> getAllProduct(String sql) {
         conn = DBConnector.getDBConn();
         List<Product> list = new ArrayList<Product>();
@@ -101,91 +122,106 @@ public class ProductDao {
         }
     }
 
+    /**
+     * 添加商品
+     * @param p
+     * @return  boolean  是否添加成功
+     */
     public boolean addProduct(Product p) {
         conn = DBConnector.getDBConn();
-        PreparedStatement ps;
+        java.sql.PreparedStatement ps;
         int state = 0;
-        boolean restate = false;
-        String sql = "INSERT INTO product(pname,description,quantity,idteam,price) VALUES (?,?,?,?,?)";
-
+        boolean restate=false;
+        int idproduct =(int) (System.currentTimeMillis() / 1000);
+        List<Integer> idcategory = new ArrayList<Integer>();
+        List<Integer> idpicture = new ArrayList<Integer>();
+        String insert_product = "INSERT INTO product(idproduct,pname,description,quantity,idteam,price) VALUES (?,?,?,?,?,?)";
+        String insert_picture = "INSERT INTO picture(ppath) values(?)";
+        String select_idpicture = "SELECT * FROM picture WHERE ppath = ?";
+        String insert_procat = "INSERT INTO procat(idproduct,cname) values(?,?)";
+        String insert_productpic = "INSERT INTO productpic(idproduct,idpicture)values(?,?)";
+        ResultSet rs = null;
         try {
-            if (conn != null && p != null) {
-                ps = conn.prepareStatement(sql);
-                ps.setObject(1, p.getProductName());
-                ps.setObject(2, p.getProIntro());
-                ps.setObject(3, p.getQuantity());
-                ps.setObject(4, p.getTeamID());
-                ps.setObject(5, p.getPrice());
-                state = ps.executeUpdate();
+            conn.setAutoCommit(false);
+            if(conn!=null && p!=null) {
+                ps = conn.prepareStatement(insert_product);
+                ps.setInt(1,idproduct);
+                ps.setObject(2,p.getProductName());
+                ps.setObject(3,p.getProIntro());
+                ps.setObject(4,p.getQuantity());
+                ps.setObject(5,p.getTeamID());
+                ps.setObject(6,p.getPrice());
+                ps.executeUpdate();
+
+                if(p.getPicPath()!=null && p.getPicPath().size() >0){
+                    for (String str: p.getPicPath()) {
+                        ps = conn.prepareStatement(insert_picture);
+                        ps.setString(1,str);
+                        int a = ps.executeUpdate();
+                        ps = conn.prepareStatement(select_idpicture);
+                        ps.setString(1,str);
+                        rs = ps.executeQuery();
+                        rs.next();
+                        int id = rs.getInt("idpicture");
+                        idpicture.add(id);
+                    }
+                }
+
+                if(idpicture.size()>0){
+
+                    for (Integer in: idpicture) {
+                        ps = conn.prepareStatement(insert_productpic);
+                        ps.setInt(1,idproduct);
+                        ps.setInt(2,in);
+                        ps.executeUpdate();
+                    }
+                }
+
+                if(p.getTypes()!=null && p.getTypes().size()>0){
+                    for (String t: p.getTypes()
+                            ) {
+                        ps = conn.prepareStatement(insert_procat);
+                        ps.setObject(1,idproduct);
+                        ps.setObject(2,t);
+                        ps.executeUpdate();
+                    }
+                }
             }
+            state = 1;
+            conn.commit();
         } catch (SQLException e) {
             e.printStackTrace();
-
-        }
-        if (state == 0)
-            restate = false;
-        if (state == 1)
-            restate = false;
-
-        return restate;
-    }
-
-    public boolean addPicture(Picture p) {
-        conn = DBConnector.getDBConn();
-        PreparedStatement ps;
-        int state = 0;
-        boolean restate = false;
-        String sql = "insert into picture(ppath,ptype) values (?,?)";
-
-        try {
-            if (conn != null && p != null) {
-                ps = conn.prepareStatement(sql);
-                ps.setObject(1, p.getPpath());
-                ps.setObject(2, p.getPtype());
-                state = ps.executeUpdate();
+            try {
+                conn.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-
         }
-        if (state == 0)
+        finally {
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if(state == 0)
             restate = false;
-        if (state == 1)
+        if(state ==1)
             restate = true;
-
         return restate;
     }
 
-    public boolean addProductPicture(Product product, Picture picture) {
-        conn = DBConnector.getDBConn();
-        PreparedStatement ps;
-        int state = 0;
-        boolean restate = false;
-        String sql = "insert into productpic(idproduct,idpicture) values (?,?)";
-
-        try {
-            if (product != null && picture != null) {
-                ps = conn.prepareStatement(sql);
-                ps.setObject(1, product.getId());
-                ps.setObject(2, picture.getIdpicture());
-                state = ps.executeUpdate();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        if (state == 0)
-            restate = false;
-        if (state == 1)
-            restate = true;
-        return restate;
-    }
-
+    /**
+     * 获取所有商品
+     * @return List<Product>
+     */
     public List<Product> getAllProducts() {
         List<Product> list = new ArrayList<Product>();
         conn = DBConnector.getDBConn();
         String sql = "SELECT * FROM product";
+        PreparedStatement ps = null;
         try {
-            PreparedStatement ps;
             ResultSet rs;
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -197,9 +233,21 @@ public class ProductDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         return list;
     }
 
+    /**
+     * 通过类型获取商品
+     * @param type
+     * @return  List<Product>
+     */
     public List<Product> getProductsByType(String type) {
         List<Product> list = new ArrayList<Product>();
         conn = DBConnector.getDBConn();
@@ -224,9 +272,22 @@ public class ProductDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        finally {
+            try {
+                conn.close();
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         return list;
     }
 
+    /**
+     * 通过查询获得商品
+     * @param query
+     * @return  List<Product>
+     */
     public List<Product> getProductsByQuery(String query) {
         List<Product> list = new ArrayList<Product>();
         conn = DBConnector.getDBConn();
@@ -243,6 +304,14 @@ public class ProductDao {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        finally {
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return list;
 
@@ -283,9 +352,23 @@ public class ProductDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        finally {
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         return list;
     }
 
+    /**
+     * 改变商品库存
+     * @param idproduct
+     * @param change 该变量
+     * @return  boolean  是否修改成功
+     */
     public boolean changeQuantity ( int idproduct , int change){
         conn = DBConnector.getDBConn();
         PreparedStatement ps = null;
@@ -305,6 +388,14 @@ public class ProductDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        finally {
+            try {
+                conn.close();
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         if(state ==0){
             restate = false;
         }
@@ -314,6 +405,11 @@ public class ProductDao {
         return restate;
     }
 
+    /**
+     * 获得商品库存
+     * @param idproduct
+     * @return
+     */
     public int getQuantity (int idproduct){
         conn = DBConnector.getDBConn();
         PreparedStatement ps = null;
@@ -330,9 +426,23 @@ public class ProductDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        finally {
+            try {
+                conn.close();
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         return quantity;
     }
 
+    /**
+     * private
+     * 从ResultSet获得product
+     * @param rs
+     * @return  Product
+     */
     private Product getProductFromResultSet(ResultSet rs) {
         Product p = new Product();
         try {

@@ -18,8 +18,9 @@ public class CustomerDao {
      * 获取Customer
      *
      * @param user
-     * @return
+     * @return  Customer
      */
+
     public Customer getCustomer(User user) {
 
         //获取数据库连接
@@ -106,7 +107,7 @@ public class CustomerDao {
      *
      * @param customer
      * @param user
-     * @return
+     * @return  boolean  是否修改成功
      */
     public boolean modifyCustomer(Customer customer, User user) {
         conn = DBConnector.getDBConn();
@@ -129,7 +130,6 @@ public class CustomerDao {
             ps.setInt(6, user.getUserid());
             ps.executeUpdate();
 
-            return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -140,14 +140,14 @@ public class CustomerDao {
                 e.printStackTrace();
             }
         }
-
+        return true;
     }
 
     /**
      * 与user记录同步
      *
      * @param user
-     * @return
+     * @return  boolean
      */
     private boolean syncWithUser(User user) {
         UserDao userDao = new UserDao();

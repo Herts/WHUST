@@ -20,7 +20,7 @@ public class CartDao {
      * 获取用户的购物车
      *
      * @param userID
-     * @return
+     * @return  Cart
      */
     public Cart getUserCart(int userID) {
         Cart cart = new Cart();
@@ -65,7 +65,7 @@ public class CartDao {
      * 获取购物车的ID
      *
      * @param userID
-     * @return
+     * @return  int idcart
      */
     private int getCartID(int userID) {
         String sql = "SELECT * FROM cart WHERE iduser=?";
@@ -112,6 +112,14 @@ public class CartDao {
         return -1;
     }
 
+
+    /**
+     * 添加商品到购物车
+     * @param userID
+     * @param productID
+     * @param num
+     * @return void
+     */
     public void addProductToCart(int userID, int productID, int num) {
         try {
             int cartID = getCartID(userID);
@@ -154,6 +162,11 @@ public class CartDao {
         }
     }
 
+    /**
+     * 删除购物车
+     * @param idcart
+     * @return  boolean  是否删除成功
+     */
     public boolean deleteCart (int idcart){
         boolean isdeleteitems = false;
         conn = DBConnector.getDBConn();
@@ -169,11 +182,25 @@ public class CartDao {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            finally {
+                try {
+                    if (conn != null && !conn.isClosed()) {
+                        conn.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
 
         }
         return false;
     }
 
+    /**
+     * 删除购物车内容
+     * @param idcart
+     * @return boolean 是否删除成功
+     */
     private boolean deleteCartitem ( int idcart){
         String sql = "DELETE FROM cartitem WHERE idcart = ?";
         conn = DBConnector.getDBConn();
@@ -183,14 +210,28 @@ public class CartDao {
             ps = conn.prepareStatement(sql);
             ps.setObject(1,idcart);
             ps.executeUpdate();
-            return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
-
+        finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
     }
 
+    /**
+     * 添加购物车
+     * @param iduser
+     * @param pidANDamount
+     * @return boolean 是否添加成功
+     */
     public boolean addCart (int iduser,HashMap<Integer,Integer> pidANDamount){
         String sql = "INSERT INTO cart(idcart,iduser) values(?,?)";
         Connection conn = DBConnector.getDBConn();

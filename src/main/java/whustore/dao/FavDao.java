@@ -44,12 +44,21 @@ public class FavDao {
             ps = connection.prepareStatement(sql);
             ps.setInt(1, iduser);
             ps.setInt(2, idproduct);
-            return 0;
+
         }
         catch(SQLException e){
             e.printStackTrace();
             return 2;
         }
+        finally {
+            try {
+                connection.close();
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return 0;
     }
 
     public ArrayList<Integer> getIdproductByIduser(int iduser){
@@ -65,7 +74,7 @@ public class FavDao {
                 list.add(rs.getInt("idproduct"));
             }
             rs.next();
-            return list;
+
 
         }
         catch (SQLException e){
@@ -73,6 +82,14 @@ public class FavDao {
             e.printStackTrace();
             return null;
         }
-
+        finally {
+            try {
+                connection.close();
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
     }
 }
