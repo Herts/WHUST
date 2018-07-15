@@ -44,6 +44,13 @@ public class ProductDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         return product;
     }
 
@@ -103,32 +110,91 @@ public class ProductDao {
 
     public boolean addProduct(Product p) {
         conn = DBConnector.getDBConn();
-        PreparedStatement ps;
+        java.sql.PreparedStatement ps;
         int state = 0;
-        boolean restate = false;
-        String sql = "INSERT INTO product(pname,description,quantity,idteam,price) VALUES (?,?,?,?,?)";
-
+        boolean restate=false;
+        int idproduct =(int) (System.currentTimeMillis() / 1000);
+        List<Integer> idcategory = new ArrayList<Integer>();
+        List<Integer> idpicture = new ArrayList<Integer>();
+        String insert_product = "INSERT INTO product(idproduct,pname,description,quantity,idteam,price) VALUES (?,?,?,?,?,?)";
+        String insert_picture = "INSERT INTO picture(ppath) values(?)";
+        String select_idpicture = "SELECT * FROM picture WHERE ppath = ?";
+        String insert_procat = "INSERT INTO procat(idproduct,cname) values(?,?)";
+        String insert_productpic = "INSERT INTO productpic(idproduct,idpicture)values(?,?)";
+        ResultSet rs = null;
         try {
-            if (conn != null && p != null) {
-                ps = conn.prepareStatement(sql);
-                ps.setObject(1, p.getProductName());
-                ps.setObject(2, p.getProIntro());
-                ps.setObject(3, p.getQuantity());
-                ps.setObject(4, p.getTeamID());
-                ps.setObject(5, p.getPrice());
-                state = ps.executeUpdate();
+            conn.setAutoCommit(false);
+            if(conn!=null && p!=null) {
+                ps = conn.prepareStatement(insert_product);
+                ps.setInt(1,idproduct);
+                ps.setObject(2,p.getProductName());
+                ps.setObject(3,p.getProIntro());
+                ps.setObject(4,p.getQuantity());
+                ps.setObject(5,p.getTeamID());
+                ps.setObject(6,p.getPrice());
+                ps.executeUpdate();
+
+                if(p.getPicPath()!=null && p.getPicPath().size() >0){
+                    for (String str: p.getPicPath()) {
+                        ps = conn.prepareStatement(insert_picture);
+                        ps.setString(1,str);
+                        int a = ps.executeUpdate();
+                        ps = conn.prepareStatement(select_idpicture);
+                        ps.setString(1,str);
+                        rs = ps.executeQuery();
+                        rs.next();
+                        int id = rs.getInt("idpicture");
+                        idpicture.add(id);
+                    }
+                }
+
+
+                if(idpicture.size()>0){
+
+                    for (Integer in: idpicture) {
+                        ps = conn.prepareStatement(insert_productpic);
+                        ps.setInt(1,idproduct);
+                        ps.setInt(2,in);
+                        ps.executeUpdate();
+                    }
+                }
+
+                if(p.getTypes()!=null && p.getTypes().size()>0){
+                    for (String t: p.getTypes()
+                            ) {
+                        ps = conn.prepareStatement(insert_procat);
+                        ps.setObject(1,idproduct);
+                        ps.setObject(2,t);
+                        ps.executeUpdate();
+                    }
+                }
             }
+            state = 1;
+            conn.commit();
         } catch (SQLException e) {
             e.printStackTrace();
-
+            try {
+                conn.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
         }
-        if (state == 0)
+        finally {
+            //关闭数据库连接
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if(state == 0)
             restate = false;
-        if (state == 1)
-            restate = false;
-
+        if(state ==1)
+            restate = true;
         return restate;
     }
+
 
     public boolean addPicture(Picture p) {
         conn = DBConnector.getDBConn();
@@ -148,6 +214,15 @@ public class ProductDao {
             e.printStackTrace();
 
         }
+        finally {
+            //关闭数据库连接
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         if (state == 0)
             restate = false;
         if (state == 1)
@@ -155,7 +230,6 @@ public class ProductDao {
 
         return restate;
     }
-
     public boolean addProductPicture(Product product, Picture picture) {
         conn = DBConnector.getDBConn();
         PreparedStatement ps;
@@ -172,6 +246,15 @@ public class ProductDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        finally {
+            //关闭数据库连接
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         if (state == 0)
             restate = false;
@@ -196,6 +279,15 @@ public class ProductDao {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        finally {
+            //关闭数据库连接
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return list;
     }
@@ -224,6 +316,15 @@ public class ProductDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        finally {
+            //关闭数据库连接
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         return list;
     }
 
@@ -243,6 +344,15 @@ public class ProductDao {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        finally {
+            //关闭数据库连接
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return list;
 
@@ -283,6 +393,15 @@ public class ProductDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        finally {
+            //关闭数据库连接
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         return list;
     }
 
@@ -304,6 +423,15 @@ public class ProductDao {
             state = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        finally {
+            //关闭数据库连接
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         if (state == 0) {
             restate = false;
@@ -343,7 +471,55 @@ public class ProductDao {
             }
         }
     }
-
+    public List<Product> getProductsByidteam (int idteam){
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM product WHERE idteam = ?";
+        String select_path = "SELECT * FROM productpic natural join picture WHERE idproduct = ?";
+        String select_types = "SELECT * FROM procat WHERE idproduct = ?";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ResultSet rs_idproduct = null;
+        int idproduct = 0;
+        conn = DBConnector.getDBConn();
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setObject(1,idteam);
+            rs_idproduct = ps.executeQuery();
+            while (rs_idproduct.next()){
+                Product p = new Product();
+                idproduct = rs_idproduct.getInt("idproduct");
+                p.setId(idproduct);
+                p.setPrice(rs_idproduct.getDouble("price"));
+                p.setTeamID(idteam);
+                p.setQuantity(rs_idproduct.getInt("quantity"));
+                p.setProIntro(rs_idproduct.getString("description"));
+                p.setProductName(rs_idproduct.getString("pname"));
+                ps = conn.prepareStatement(select_types);
+                ps.setObject(1,idproduct );
+                rs = ps.executeQuery();
+                while(rs.next()){
+                    p.typeAppend(rs.getString("cname"));
+                }
+                ps = conn.prepareStatement(select_path);
+                ps.setObject(1,idproduct);
+                rs= ps.executeQuery();
+                while(rs.next()){
+                    p.picPathAppend(rs.getString("ppath"));
+                }
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
     private Product getProductFromResultSet(ResultSet rs) {
         Product p = new Product();
         try {

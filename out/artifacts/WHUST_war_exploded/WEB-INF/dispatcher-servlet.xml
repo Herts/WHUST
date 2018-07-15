@@ -15,11 +15,17 @@
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
-
+    <!--图片上传bean-->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- setting maximum upload size -->
+        <property name="maxUploadSize" value="100000000" />
+    </bean>
     <mvc:interceptors>
         <mvc:interceptor>
             <!-- 拦截所有URL中包含/user/的请求 -->
             <mvc:mapping path="/user/**"/>
+            <mvc:mapping path="/comments/**"/>
             <mvc:mapping path="/fav/**"/>
             <mvc:mapping path="/cart/**"/>
             <bean class="whustore.interceptor.LoginInterceptor"/>

@@ -6,6 +6,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import whustore.model.Recommend;
+import whustore.model.User;
 import whustore.service.RecommendService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,5 +37,13 @@ public class JumpController {
         Recommend recommend = service.getRecommendation();
         request.getSession().setAttribute("recommend", recommend);
         return new ModelAndView("HangingAroundPage");
+    }
+    @RequestMapping("/gotocustomerLogin")
+    public ModelAndView gotoCustomerLogin() {
+        return new ModelAndView("user/login", "command", new User());
+    }
+    @RequestMapping("/gototeamLogin")
+    public ModelAndView gotoTeamLogin(){
+        return new ModelAndView("user/teamLogin","command",new User());
     }
 }

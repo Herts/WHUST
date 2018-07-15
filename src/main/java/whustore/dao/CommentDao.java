@@ -51,6 +51,15 @@ public class CommentDao implements CommentDaoIntf{
             e.printStackTrace();
             return null;
         }
+        finally {
+            //关闭数据库连接
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public boolean setComment(int idproduct, int iduser, int clevel , String ctitle, String ccomment){
@@ -74,7 +83,15 @@ public class CommentDao implements CommentDaoIntf{
             return false;
 
         }
-
+        finally {
+            //关闭数据库连接
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 

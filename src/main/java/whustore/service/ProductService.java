@@ -2,7 +2,8 @@ package whustore.service;
 
 import org.springframework.stereotype.Service;
 import whustore.dao.ProductDao;
-import whustore.model.*;
+import whustore.model.Picture;
+import whustore.model.Product;
 
 import java.util.List;
 
@@ -46,5 +47,9 @@ public class ProductService {
     public List<Product> getRandomProducts(int k) {
         ProductDao pd = new ProductDao();
         return pd.getRandomProducts(k);
+    }
+    public List<Product> getProductsByidteam (int idteam){
+        ProductDao pd = new ProductDao();
+        return pd.getProductsByidteam(idteam);
     }
 }
