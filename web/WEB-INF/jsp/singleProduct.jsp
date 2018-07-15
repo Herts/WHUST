@@ -98,10 +98,6 @@
                     <!--Product Details Content Start-->
                     <div class="product-details-content">
                         <!--Product Nav Start-->
-                        <div class="product-nav">
-                            <a href="#"><i class="fa fa-angle-left"></i></a>
-                            <a href="#"><i class="fa fa-angle-right"></i></a>
-                        </div>
                         <!--Product Nav End-->
                         <h2>${product.productName}</h2>
 
@@ -131,7 +127,7 @@
                             </button>
                         </div>
                         <div class="wishlist-compare-btn">
-                            <a href="#" class="wishlist-btn">Add to Wishlist</a>
+                            <a onclick="addFav(${product.id})" class="wishlist-btn">收藏商品</a>
                         </div>
                         <div class="product-meta">
                                 <span class="posted-in">
@@ -142,13 +138,12 @@
 		                            </span>
                         </div>
                         <div class="single-product-sharing">
-                            <h3>分享商品</h3>
-                            <ul>
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <h3>联系客服</h3>
+                            <ul class="socil-icon2">
+                                <li><a target="_blank"
+                                       href="http://wpa.qq.com/msgrd?v=3&uin=2392651490&site=qq&menu=yes" title="联系客服">
+                                    <i class="fa fa-qq"></i>
+                                </a></li>
                             </ul>
                         </div>
                     </div>
@@ -208,7 +203,7 @@
                                 </div>
                                 </li>
                                 </ul>
-                                <div class="review-form-wrapper">
+                                <%--<div class="review-form-wrapper">
                                     <div class="review-form">
                                         <span class="comment-reply-title">评价商品 </span>
                                         <form action="#">
@@ -247,7 +242,7 @@
                                             </div>
                                         </form>
                                     </div>
-                                </div>
+                                </div>--%>
                             </div>
                         </div>
                     </div>
@@ -281,9 +276,13 @@
                                     </a>
                                     <div class="product-action">
                                         <ul>
-                                            <li><a href="#open-modal${i}" data-toggle="modal" title="Quick view"><i
+                                            <li><a href="#open-modal${i}" data-toggle="modal" title="浮窗预览"><i
                                                     class="fa fa-search"></i></a></li>
-                                            <li><a href="#" title="Whishlist"><i class="fa fa-heart-o"></i></a></li>
+                                            <li><a onclick="addFav(${product.id})" title="收藏商品"><i class="fa fa-heart-o"></i></a></li>
+                                            <li><a target="_blank"
+                                                   href="http://wpa.qq.com/msgrd?v=3&uin=2392651490&site=qq&menu=yes" title="联系客服">
+                                                <i class="fa fa-qq"></i>
+                                            </a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -382,13 +381,12 @@
                                         <p>${alsoLikes.get(i).proIntro}</p>
                                     </div>
                                     <div class="social-share">
-                                        <h3>分享商品</h3>
+                                        <h3>联系客服</h3>
                                         <ul class="socil-icon2">
-                                            <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                                            <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                            <li><a href=""><i class="fa fa-pinterest"></i></a></li>
-                                            <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                            <li><a href=""><i class="fa fa-linkedin"></i></a></li>
+                                            <li><a target="_blank"
+                                                   href="http://wpa.qq.com/msgrd?v=3&uin=&site=qq&menu=yes">
+                                                <i class="fa fa-qq"></i>
+                                            </a></li>
                                         </ul>
                                     </div>
                                 </div>

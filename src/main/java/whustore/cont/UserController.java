@@ -72,7 +72,7 @@ public class UserController {
     @RequestMapping("logOut")
     public ModelAndView logOut() {
         request.getSession().removeAttribute("user");
-        return new ModelAndView("hello");
+        return new ModelAndView("homepage");
     }
 
     /**

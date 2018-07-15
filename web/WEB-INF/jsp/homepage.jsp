@@ -185,6 +185,7 @@ TODO
                                                                     user.getUsername() +
                                                                     "的账户</a></li>" +
                                                                     "<li><a href=\"/order/myOrders\">历史订单</a></li>\n" +
+                                                                    "<li><a href=\"/fav/my\">我的收藏</a></li>\n" +
                                                                     "<li><a href=\"/cart/myCart\">购物车</a></li>\n" +
                                                                     "<li><a href=\"/addorder\">结算</a></li>" +
                                                                     "<li><a href='/logOut'>注销</a></li>");
@@ -229,7 +230,7 @@ TODO
                         <div class="slider-border"></div>
                         <p>第一届武汉大学校园文化创意商品线上展览</p>
                         <div class="slider-btn">
-                            <a href="#">查看商品集 <i class="fa fa-chevron-right"></i></a>
+                            <a href="shop/search?searching=校园文化">查看商品集 <i class="fa fa-chevron-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -244,7 +245,7 @@ TODO
                         <div class="slider-border"></div>
                         <p>让我在看珈一眼，从南到北。</p>
                         <div class="slider-btn">
-                            <a href="#">查看商品集 <i class="fa fa-chevron-right"></i></a>
+                            <a href="shop/search?searching=毕业">查看商品集 <i class="fa fa-chevron-right"></i></a>
                         </div>
                     </div>
                 </div>

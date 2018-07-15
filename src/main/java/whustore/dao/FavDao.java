@@ -79,7 +79,7 @@ public class FavDao {
      */
     public ArrayList<Integer> getIdproductByIduser(int iduser) {
         connection = DBConnector.getDBConn();
-        String sql = "SELECT idproduct FROM fav WHERE iduser = ? AND state = true";
+        String sql = "SELECT idproduct FROM fav WHERE iduser = ?";
         ArrayList<Integer> list = new ArrayList<Integer>();
         try {
             connection = DBConnector.getDBConn();
@@ -89,7 +89,6 @@ public class FavDao {
             while (rs.next()) {
                 list.add(rs.getInt("idproduct"));
             }
-            rs.next();
             return list;
 
         } catch (SQLException e) {

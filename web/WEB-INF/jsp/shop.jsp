@@ -47,7 +47,7 @@
     <div class="shop-area mb-70" style="padding-top: 3%">
         <div class="container">
             <div class="row">
-                <!--Product Category Widget Start-->
+                <!--商品分类查询工具-->
                 <div class="col-lg-3 order-2 order-lg-1">
 
                     <div class="shop-sidebar">
@@ -56,7 +56,7 @@
                             <form action="/shop/byCates" name="categories">
                                 <ul>
                                     <c:forEach items="${categories}" var="category" varStatus="status">
-                                        <li>
+                                        <li style="padding-left: 10%">
                                             <label>
                                                 <input name="categories" type="checkbox" value="${category}"
                                                        <c:if test="${userFilter.contains(category)}">checked</c:if> >
@@ -74,7 +74,7 @@
                     </div>
 
                 </div>
-                <!--Product Category Widget End-->
+                <!--商品分类查询工具End-->
                 <%--商品页和排序页--%>
                 <div class="col-lg-9 order-1 order-lg-2">
                     <div class="shop-layout">
@@ -128,11 +128,17 @@
                                                             <span class="onsale">特惠!</span>
                                                             <div class="product-action">
                                                                 <ul>
-                                                                        <%--<li><a href="#open-modal" data-toggle="modal"
-                                                                               title="Quick view"><i
-                                                                                class="fa fa-search"></i></a></li>--%>
-                                                                    <li><a href="#" title="Whishlist"><i
+                                                                    <li><a href="#open-modal${product.id}"
+                                                                           data-toggle="modal"
+                                                                           title="浮窗预览"><i class="fa fa-search"></i></a>
+                                                                    </li>
+                                                                    <li><a onclick="addFav(${product.id})" title="收藏商品"><i
                                                                             class="fa fa-heart-o"></i></a></li>
+                                                                    <li><a target="_blank"
+                                                                           href="http://wpa.qq.com/msgrd?v=3&uin=2392651490&site=qq&menu=yes"
+                                                                           title="联系客服">
+                                                                        <i class="fa fa-qq"></i>
+                                                                    </a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -200,9 +206,19 @@
                                                                     <a onclick="add(${product.id},${product.quantity},1)">加入购物车</a>
                                                                 </div>
                                                                 <ul>
-                                                                    <li><a href="#" title="Whishlist"><i
+                                                                    <li><a href="#open-modal${product.id}"
+                                                                           data-toggle="modal"
+                                                                           title="浮窗预览"><i class="fa fa-search"></i></a>
+                                                                    </li>
+                                                                    <li><a onclick="addFav(${product.id})" title="收藏商品"><i
                                                                             class="fa fa-heart-o"></i></a></li>
+                                                                    <li><a target="_blank"
+                                                                           href="http://wpa.qq.com/msgrd?v=3&uin=2392651490&site=qq&menu=yes"
+                                                                           title="联系客服">
+                                                                        <i class="fa fa-qq"></i>
+                                                                    </a></li>
                                                                 </ul>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -239,9 +255,96 @@
             </div>
         </div>
         <%@include file="universal/footer.jsp" %>
+        <c:forEach items="${productList}" var="product" step="1" varStatus="status">
+            <div class="modal fade" id="open-modal${product.id}" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i
+                                    class="fa fa-close"></i></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <!--Modal Img-->
+                                <div class="col-md-5">
+                                    <!--Modal Tab Content Start-->
+                                    <div class="tab-content product-details-large" id="myTabContent">
+                                        <c:forEach var="j" begin="0" end="${product.picPath.size()-1}" step="1">
+                                            <div class="tab-pane <c:if test="${j==0}"> fade show active </c:if> "
+                                                 id="single-slide${j+1}" role="tabpanel"
+                                                 aria-labelledby="single-slide-tab-1">
+                                                <!--Single Product Image Start-->
+                                                <div class="single-product-img img-full">
+                                                    <img src="${product.picPath.get(j)}" alt="">
+                                                </div>
+                                                <!--Single Product Image End-->
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                    <!--Modal Content End-->
+                                    <!--Modal Tab Menu Start-->
+                                    <div class="single-product-menu">
+                                        <div class="nav single-slide-menu owl-carousel" role="tablist">
+                                            <c:forEach var="j" begin="0" end="${product.picPath.size()-1}"
+                                                       step="1">
+                                                <div class="single-tab-menu img-full">
+                                                    <a <c:if test="${j==0}"> class="active" </c:if> data-toggle="tab"
+                                                                                                    id="single-slide-tab-1"
+                                                                                                    href="#single-slide${j+1}"><img
+                                                            src="${product.picPath.get(j)}"
+                                                            alt=""></a>
+                                                </div>
+                                            </c:forEach>
 
-        <%@ include file="universal/alljs.jsp" %>
+                                        </div>
+                                    </div>
+                                    <!--Modal Tab Menu End-->
+                                </div>
+                                <!--Modal Img-->
+                                <!--Modal Content-->
+                                <div class="col-md-7">
+                                    <div class="modal-product-info">
+                                        <h1>${product.productName}</h1>
+                                        <div class="modal-product-price">
+                                                <%--<span class="old-price"></span>--%>
+                                            <span class="new-price">¥${product.price}</span>
+                                        </div>
+                                        <a href="/product?productID=${product.id}" class="see-all">查看商品详情</a>
+                                        <div class="add-to-cart quantity">
+                                            <form class="add-quantity" action="#">
+                                                <div class="modal-quantity">
+                                                    <input type="number" value="1">
+                                                </div>
+                                                <div class="add-to-link">
+                                                    <button class="form-button" data-text="add to cart">添加至购物车</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="cart-description">
+                                            <p>${product.proIntro}</p>
+                                        </div>
+                                        <div class="social-share">
+                                            <h3>联系客服</h3>
+                                            <ul class="socil-icon2">
+                                                <li><a target="_blank"
+                                                       href="http://wpa.qq.com/msgrd?v=3&uin=2392651490&site=qq&menu=yes" title="联系客服">
+                                                    <i class="fa fa-qq"></i>
+                                                </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Modal Content-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
     </div>
+
+    <%@ include file="universal/alljs.jsp" %>
+
 </div>
 </body>
 </html>

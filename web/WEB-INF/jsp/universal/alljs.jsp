@@ -65,6 +65,24 @@
         });
     }
 
+    function addFav(productID) {
+        productID = Number(productID);
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/fav/add",
+            cache: false,
+            data: {productID: productID},
+            error: function () {
+                alert("已经加入到收藏\n" +
+                    "友情提示：加入收藏不如加入到购物车哦");
+            }, success: function (data) {
+                alert("已经加入到收藏\n" +
+                    "友情提示：加入收藏不如加入到购物车哦");
+            }
+        });
+    }
+
 </script>
 <!--Jquery 1.12.4-->
 <script src="../../js/vendor/jquery-1.12.4.min.js"></script>

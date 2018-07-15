@@ -50,201 +50,146 @@
             <!--商品们  两个一组  目标是11组 22个-->
             <div class="row">
                 <div class="product-slider-active">
-                    <%
-                        //为每一个商品添加html元素
-                        Recommend recommend = (Recommend) request.getSession().getAttribute("recommend");
-                        ArrayList<Product> list = recommend.getRecommendList();
-                        for (int i = 0; i < 22; i++) {
-                            //每两个一个列头
-                            Product product = list.get(i);
-                            out.println(i % 2 == 0 ? "<div class=\"col-md-3 col-lg-3 col-sm-4 col-xs-12\">" : "");
-                    %>
-                    <!--Single Product Start-->
-                    <div class="single-product mb-25">
-                        <div class="product-img img-full">
-                            <a href="product?productID=<%=product.getId()%>">
-                                <img src="<%="../../" + product.getPicPath().get(0)%>" alt="">
-                            </a>
-                            <span class="onsale">Sale!</span>
-                            <div class="product-action">
-                                <ul>
-                                    <li><a href="#open-modal" data-toggle="modal"
-                                           title="Quick view"><i class="fa fa-search"></i></a>
-                                    </li>
-                                    <li><a href="#" title="Whishlist"><i
-                                            class="fa fa-heart-o"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product-content">
-                            <h2><a href="product?productID=<%=product.getId()%>">Eleifend quam</a></h2>
-                            <div class="product-price">
-                                <div class="price-box">
-                                    <span class="regular-price"><%=product.getPrice()%></span>
-                                </div>
-                                <div class="add-to-cart">
-                                    <a onclick="add(<%=product.getId()%>,2,1)">加入购物车</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Single Product End-->
-                    <%
-                            out.println(i % 2 == 1 ? "</div>" : "");
-                        }
-                    %>       ﻿
-                    <%--<div class="col-md-3 col-lg-3 col-sm-4 col-xs-12">
+                    <c:forEach items="${products}" var="product" step="1" varStatus="sta">
+                        <c:if test="${(sta.index)%2 == 0}">
+                            <div class="col-md-3 col-lg-3 col-sm-4 col-xs-12">
+                        </c:if>
                         <!--Single Product Start-->
                         <div class="single-product mb-25">
                             <div class="product-img img-full">
-                                <a href="single-product.html">
-                                    <img src="img/product/product1.jpg" alt="">
+                                <a href="product?productID=${product.id}">
+                                    <img src="../../${product.picPath.get(0)}" alt="">
                                 </a>
-                                <span class="onsale">Sale!</span>
+                                <span class="onsale">特惠!</span>
                                 <div class="product-action">
                                     <ul>
-                                        <li><a href="#open-modal" data-toggle="modal"
-                                               title="Quick view"><i class="fa fa-search"></i></a>
+                                        <li><a href="#open-modal${product.id}" data-toggle="modal"
+                                               title="浮窗预览"><i class="fa fa-search"></i></a>
                                         </li>
-                                        <li><a href="#" title="Whishlist"><i
+                                        <li><a onclick="addFav(${product.id})" title="收藏商品"><i
                                                 class="fa fa-heart-o"></i></a></li>
+                                        <li><a target="_blank"
+                                               href="http://wpa.qq.com/msgrd?v=3&uin=2392651490&site=qq&menu=yes" title="联系客服">
+                                            <i class="fa fa-qq"></i>
+                                        </a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="product-content">
-                                <h2><a href="single-product.html">Eleifend quam</a></h2>
+                                <h2><a href="product?productID=${product.id}">
+                                        ${product.productName}
+                                </a></h2>
                                 <div class="product-price">
                                     <div class="price-box">
-                                        <span class="regular-price">￥115.00</span>
+                                        <span class="regular-price">${product.price}</span>
                                     </div>
                                     <div class="add-to-cart">
-                                        <a href="#">加入购物车</a>
+                                        <a onclick="add(${product.id},2,1)">加入购物车</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!--Single Product End-->
-                        <!--Single Product Start-->
-                        <div class="single-product mb-25">
-                            <div class="product-img img-full">
-                                <a href="single-product.html">
-                                    <img src="img/product/product2.jpg" alt="">
-                                </a>
-                                <div class="product-action">
-                                    <ul>
-                                        <li><a href="#open-modal" data-toggle="modal"
-                                               title="Quick view"><i class="fa fa-search"></i></a>
-                                        </li>
-                                        <li><a href="#" title="Whishlist"><i
-                                                class="fa fa-heart-o"></i></a></li>
-                                    </ul>
-                                </div>
+                        <c:if test="${sta.index % 2==1}">
                             </div>
-                            <div class="product-content">
-                                <h2><a href="single-product.html">Odio tortor consequat</a></h2>
-                                <div class="product-price">
-                                    <div class="price-box">
-                                        <span class="regular-price">￥90.00</span>
-                                    </div>
-                                    <div class="add-to-cart">
-                                        <a href="#">加入购物车</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--Single Product End-->
-                    </div>--%>
-                    <%--<%
-                        String groupHead = "<div class=\"col-md-3 col-lg-3 col-sm-4 col-xs-12\">";
-                        String groupFoot = "</div>";
-                        String beforeUrl = "<!--Single Product Start-->\n" +
-                                "                        <div class=\"single-product mb-25\">\n" +
-                                "                            <div class=\"product-img img-full\">\n" +
-                                "                                <a href=\"";
-                        String afterUrlBeforeImgSrc = "\">\n" +
-                                "                                    <img src=\"";
-                        String afterImgSrcBeforeSale = "\" alt=\"\">\n" +
-                                "                                </a>";
-                        String sale = "<span class=\"促销!\">Sale!</span>";
-                        //等待添加打开悬浮商品界面和添加到心仪列表功能
-                        String afterSaleBeforeUrl2 = "<div class=\"product-action\">\n" +
-                                "                                    <ul>\n" +
-                                "                                        <li><a href=\"#open-modal\" data-toggle=\"modal\"\n" +
-                                "                                               title=\"Quick view\"><i class=\"fa fa-search\"></i></a>\n" +
-                                "                                        </li>\n" +
-                                "                                        <li><a href=\"#\" title=\"Whishlist\"><i\n" +
-                                "                                                class=\"fa fa-heart-o\"></i></a></li>\n" +
-                                "                                    </ul>\n" +
-                                "                                </div>\n" +
-                                "                            </div>\n" +
-                                "                            <div class=\"product-content\">\n" +
-                                "                                <h2><a href=\"";
-                        String afterUrl2BeforeName = "\">";
-                        String afterNameBeforePrice = "</a></h2>\n" +
-                                "                                <div class=\"product-price\">\n" +
-                                "                                    <div class=\"price-box\">\n" +
-                                "                                        <span class=\"regular-price\">￥";
-                        //等待添加加入购物车功能
-                        String afterPrice = "</span>\n" +
-                                "                                    </div>\n" +
-                                "                                    <div class=\"add-to-cart\">\n" +
-                                "                                        <a href=\"#\">加入购物车</a>\n" +
-                                "                                    </div>\n" +
-                                "                                </div>\n" +
-                                "                            </div>\n" +
-                                "                        </div>\n" +
-                                "                        <!--Single Product End-->";
-                        //根据传入的List生产商品
-                        Recommend recommend = (Recommend) request.getSession().getAttribute("recommend");
-                        ArrayList<Product> list = recommend.getRecommendList();
-                        int num = list.size();
-                        if (num >= 22) {
-                            for (int i = 0; i < 22; i++) {
-                                String temp = "";
-                                Product current = list.get(i);
-                                //组头
-                                if (i % 2 == 0)
-                                    out.println(groupHead);
-
-                                out.println(beforeUrl);
-                                //url
-                                out.println("#");
-
-                                temp += afterUrlBeforeImgSrc;
-                                out.println(afterUrlBeforeImgSrc);
-                                //图片地址
-                                temp += "../../" + current.getPicPath().get(0);
-                                out.println("../../" + current.getPicPath().get(0));
-                                temp += afterImgSrcBeforeSale;
-                                out.println(afterImgSrcBeforeSale);
-                                //促销？
-                                //out.println(sale);
-                                out.println(afterSaleBeforeUrl2);
-                                //url2
-                                out.println("#open-modal");
-                                out.println(afterUrl2BeforeName);
-                                //商品名
-                                out.println(list.get(i).getProductName());
-                                out.println(afterNameBeforePrice);
-                                //价格
-                                out.println(current.getPrice());
-                                out.println(afterPrice);
-
-                                //组尾
-                                if (i % 2 == 1)
-                                    out.println(groupFoot);
-                            }
-                        }
-                    %>--%>
+                        </c:if>
+                    </c:forEach>
                 </div>
+
             </div>
-            <!--商品完-->
         </div>
+        <!--商品完-->
     </div>
     <%@include file="universal/footer.jsp" %>
 
-</div>
 
+    <c:forEach items="${products}" var="product" step="1" varStatus="status">
+        <div class="modal fade" id="open-modal${product.id}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i
+                                class="fa fa-close"></i></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <!--Modal Img-->
+                            <div class="col-md-5">
+                                <!--Modal Tab Content Start-->
+                                <div class="tab-content product-details-large" id="myTabContent">
+                                    <c:forEach var="j" begin="0" end="${product.picPath.size()-1}" step="1">
+                                        <div class="tab-pane <c:if test="${j==0}"> fade show active </c:if> "
+                                             id="single-slide${j+1}" role="tabpanel"
+                                             aria-labelledby="single-slide-tab-1">
+                                            <!--Single Product Image Start-->
+                                            <div class="single-product-img img-full">
+                                                <img src="${product.picPath.get(j)}" alt="">
+                                            </div>
+                                            <!--Single Product Image End-->
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                                <!--Modal Content End-->
+                                <!--Modal Tab Menu Start-->
+                                <div class="single-product-menu">
+                                    <div class="nav single-slide-menu owl-carousel" role="tablist">
+                                        <c:forEach var="j" begin="0" end="${product.picPath.size()-1}"
+                                                   step="1">
+                                            <div class="single-tab-menu img-full">
+                                                <a <c:if test="${j==0}"> class="active" </c:if> data-toggle="tab"
+                                                                                                id="single-slide-tab-1"
+                                                                                                href="#single-slide${j+1}"><img
+                                                        src="${product.picPath.get(j)}"
+                                                        alt=""></a>
+                                            </div>
+                                        </c:forEach>
+
+                                    </div>
+                                </div>
+                                <!--Modal Tab Menu End-->
+                            </div>
+                            <!--Modal Img-->
+                            <!--Modal Content-->
+                            <div class="col-md-7">
+                                <div class="modal-product-info">
+                                    <h1>${product.productName}</h1>
+                                    <div class="modal-product-price">
+                                            <%--<span class="old-price"></span>--%>
+                                        <span class="new-price">¥${product.price}</span>
+                                    </div>
+                                    <a href="/product?productID=${product.id}" class="see-all">查看商品详情</a>
+                                    <div class="add-to-cart quantity">
+                                        <form class="add-quantity" action="#">
+                                            <div class="modal-quantity">
+                                                <input type="number" value="1">
+                                            </div>
+                                            <div class="add-to-link">
+                                                <button class="form-button" data-text="add to cart">添加至购物车</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="cart-description">
+                                        <p>${product.proIntro}</p>
+                                    </div>
+                                    <div class="social-share">
+                                        <h3>联系客服</h3>
+                                        <ul class="socil-icon2">
+                                            <li><a target="_blank"
+                                                   href="http://wpa.qq.com/msgrd?v=3&uin=2392651490&site=qq&menu=yes" title="联系客服">
+                                                <i class="fa fa-qq"></i>
+                                            </a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Modal Content-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </c:forEach>
+</div>
 <%@ include file="universal/alljs.jsp" %>
 </body>
 </html>
