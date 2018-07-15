@@ -126,7 +126,7 @@
                             <div class="product-quantity">
                                 <input id="add-quantity" value="1" type="number">
                             </div>
-                            <button onclick="add(${product.id},document.getElementById('stock').innerTex,document.getElementById('add-quantity').value)"
+                            <button onclick="add(${product.id},document.getElementById('stock').innerText,document.getElementById('add-quantity').value)"
                                     class="product-btn">添加至购物车
                             </button>
                         </div>

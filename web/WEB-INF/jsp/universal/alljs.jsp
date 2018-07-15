@@ -11,8 +11,8 @@
 <script>
     // 发送添加到购物车请求
     function add(productID, stock, addAmount) {
-        Number(stock);
-        Number(addAmount);
+        stock = Number(stock);
+        addAmount = Number(addAmount);
         if (stock < addAmount) {
             alert("库存不足")
             return;
@@ -22,14 +22,15 @@
             dataType: 'json',
             url: "/cart/add",
             cache: false,
-            data: {productID: productID, addAmount},
+            data: {productID: productID, number: addAmount},
             error: function () {
                 location.reload(true);
             }, success: function (data) {
-                    location.reload(true);
+                location.reload(true);
             }
         });
     }
+
     // 发送从购物车移除请求
     function remove(productID) {
         Number(productID);
@@ -49,11 +50,11 @@
 
     // 发送减商品请求
     function sub(productID) {
-        productID =  Number(productID);
+        productID = Number(productID);
         $.ajax({
             type: "GET",
             dataType: 'json',
-            url: "/cart/remove",
+            url: "/cart/sub",
             cache: false,
             data: {productID: productID},
             error: function () {

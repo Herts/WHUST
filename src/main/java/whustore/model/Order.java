@@ -7,6 +7,10 @@ public class Order {
     private int idOrder;
     private int iduser;
     private Map<Product, Integer> items;
+    private String status;
+    private String address;
+    private String phone;
+    private String name;
 
     public int getIdOrder() {
         return idOrder;
@@ -42,5 +46,37 @@ public class Order {
             }
         }
         return total;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

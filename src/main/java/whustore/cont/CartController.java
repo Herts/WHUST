@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import whustore.model.Cart;
+import whustore.model.Customer;
 import whustore.model.User;
 import whustore.service.CartService;
+import whustore.service.CustomerService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -42,7 +44,7 @@ public class CartController {
                                  @RequestParam("productID") int productID) {
         User user = (User) request.getSession().getAttribute("user");
         int num = 1;
-        service.subProductInCart(productID,user.getUserid());
+        service.subProductInCart(productID, user.getUserid());
         Cart userCart = (Cart) request.getSession().getAttribute("cart");
         userCart.sub(productID);
     }
@@ -78,6 +80,14 @@ public class CartController {
         Cart cart = (Cart) request.getSession().getAttribute("cart");
         modelMap.addAttribute("cart", cart);
         modelMap.addAttribute("items", cart.getItems().keySet());
+        CustomerService cs = new CustomerService();
+        Customer customer = cs.getCustomer((User) request.getSession().getAttribute("user"));
+        String name = customer.getLname() + customer.getFname();
+        String address = customer.getAddress();
+        String phone = customer.getPhone();
+        modelMap.addAttribute("name",name);
+        modelMap.addAttribute("address",address);
+        modelMap.addAttribute("phone",phone);
         return new ModelAndView("cart/cart");
     }
 }

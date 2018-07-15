@@ -94,7 +94,7 @@ public class Cart {
                 if (oldAmount == 1) {
                     break;
                 } else {
-                    items.put(product,oldAmount + 1);
+                    items.put(product,oldAmount - 1);
                     break;
                 }
             }

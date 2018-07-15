@@ -194,6 +194,12 @@
                         </c:forEach>
                         </tbody>
                         <tfoot>
+                        <tr>
+                            <td><h5>地址：${order.address}</h5></td>
+                            <td><h5>姓名：${order.name}</h5></td>
+                            <td><h5>电话：${order.phone}</h5></td>
+                            <br/>
+                        </tr>
                         <tr class="footer" style="margin-top: 40px">
                             <td colspan="5">
                                 <h3><span id="total">${order.total}</span>元</h3>

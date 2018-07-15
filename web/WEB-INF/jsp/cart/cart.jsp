@@ -176,7 +176,7 @@
         </div>
     </header>
     <!--Header Area End-->
-    <div class="blog-area ml-50 mr-50 mt-105">
+    <div class="blog-area ml-50 mr-50 mt-105" style="padding-top: 10%">
         <div class="container">
             <div id="app">
                 <h2 class="title">购物车</h2>
@@ -191,10 +191,13 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <c:if test="${items.size()==0}">
+                        <h2 style="text-align: center">当前购物车为空</h2>
+                    </c:if>
                     <c:forEach items="${items}" end="${items.size()}" var="product" varStatus="status">
                         <tr id="${product.id}">
                             <td class="goods">
-                                <img src="" class="goods-left"/>
+                                <img src="../../${product.picPath.get(0)}" class="goods-left"/>
                                 <div class="goods-right">
                                     <p>${product.productName}</p>
                                 </div>
@@ -217,14 +220,45 @@
                     <tfoot>
                     <tr class="footer" style="margin-top: 40px">
                         <td colspan="5">
-                            <h3><span id="total">${cart.total}</span>元</h3>
-                            <form action="/addorder">
-                                <button type="submit" class="form-button">结账</button>
-                            </form>
+                            合计：<h1><span id="total">${cart.total}</span>元</h1>
                         </td>
                     </tr>
                     </tfoot>
+
                 </table>
+
+                <div class="review-form-wrapper" style="padding-left: 25%; padding-right: 25%; text-align: center">
+                    <HR size="2" style="color: #abd373">
+                    <div class="review-form">
+                        <h2>收货信息</h2>
+                        <form action="/addorder">
+                            <p class="comment-notes">
+                                <br>
+                                <br>
+                                <span id="email-notes">请如实填写以下全部信息</span>
+                            </p>
+                            <br>
+                            <div class="input-element">
+                                <div class="comment-form-comment">
+                                    <label>收货地址</label>
+                                    <textarea name="address" cols="40" rows="8" >${address}</textarea>
+                                </div>
+                                <div class="review-comment-form-author">
+                                    <label>姓名</label>
+                                    <input name="name" required="required" value="${name}" type="text">
+                                </div>
+                                <div class="review-comment-form-email">
+                                    <label>电话</label>
+                                    <input name="phone" required="required" value="${phone}" type="text">
+                                </div>
+                                <div class="comment-submit">
+                                    <button type="submit" class="form-button">结算</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
