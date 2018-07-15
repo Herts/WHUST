@@ -126,9 +126,9 @@
             vertical-align: center;
         }
 
-        .chbsty {
-            height: 15px;
-            width: 15px;
+        .tab{
+            padding-right: 15%;
+            padding-right: 15%;
         }
     </style>
 </head>
@@ -151,7 +151,7 @@
         </div>
     </header>
     <!--Header Area End-->
-    <div class="shop-area mb-70" style="padding-top: 5%">
+    <div class="shop-area mb-70" style="padding-top: 10%">
         <div class="container">
             <div class="row">
 
@@ -170,7 +170,7 @@
                         <c:forEach items="${items}" end="${items.size()}" var="product" varStatus="status">
                             <tr id="${product.id}">
                                 <td class="goods">
-                                    <img src="${product.picPath.get(0)}" class="goods-left"/>
+                                    <img src="../../${product.picPath.get(0)}" class="goods-left"/>
                                     <div class="goods-right">
                                         <p>${product.productName}</p>
                                     </div>
@@ -188,14 +188,40 @@
                         <tfoot>
                         <tr class="footer" style="margin-top: 40px">
                             <td colspan="5">
-                                <h3><span id="total">${order.total}</span>元</h3>
-                                <form>
-                                    <button type="submit" class="form-button">付款</button>
-                                </form>
+                                <p>合计：</p>
+                                <h1><span id="total">${order.total}</span>元</h1>
                             </td>
                         </tr>
                         </tfoot>
                     </table>
+                    <div class="review-form-wrapper" style="padding-left: 25%; padding-right: 25%; text-align: center">
+                        <HR size="2" style="color: #abd373">
+                        <div class="review-form">
+                            <h2>收货信息</h2>
+                            <form action="/addorder">
+                                    <br>
+                                    <br>
+                                <br>
+                                <div class="input-element">
+                                    <div class="comment-form-comment">
+                                        <label>收货地址:</label>
+                                        <h3>${order.address}</h3>
+                                    </div>
+                                    <div class="review-comment-form-author">
+                                        <label>姓名:</label>
+                                        <h3>${order.name}</h3>
+                                    </div>
+                                    <div class="review-comment-form-email">
+                                        <label>电话:</label>
+                                        <h3>${order.phone}</h3>
+                                    </div>
+                                    <div class="comment-submit">
+                                        <button type="button" class="form-button">付款</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

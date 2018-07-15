@@ -38,7 +38,15 @@ public class OrderDao {
                 rs = ps.executeQuery();
                 Order order = new Order();
                 HashMap<Product, Integer> items = new HashMap<Product, Integer>();
+                boolean statusAdded = false;
                 while (rs.next()) {
+                    if (!statusAdded) {
+                        order.setPhone(rs.getString("phone"));
+                        order.setStatus(rs.getString("ostatus"));
+                        order.setName(rs.getString("name"));
+                        order.setAddress(rs.getString("address"));
+                        statusAdded = true;
+                    }
                     Product current = new Product();
                     int id = rs.getInt("idproduct");
                     current = ProductData.getProductByID(id);
@@ -49,6 +57,7 @@ public class OrderDao {
                 order.setIduser(userID);
                 order.setItems(items);
                 orderlist.add(order);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,7 +79,7 @@ public class OrderDao {
         ProductDao pd = new ProductDao();
         CartDao cd = new CartDao();
         int lastquantity = 0;
-        String insert_order = "INSERT INTO orders(idorder, iduser) values(?,?)";
+        String insert_order = "INSERT INTO orders(idorder, iduser, phone, address, name) values(?,?,?,?,?)";
         String insert_orderitem = "INSERT INTO orderitem(idorder,idproduct,amount,price) values(?,?,?,?)";
         String changequantity = "UPDATE product SET quantity = ? WHERE idproduct = ?";
         try {
@@ -78,10 +87,15 @@ public class OrderDao {
                 conn = DBConnector.getDBConn();
             conn.setAutoCommit(false);
             cd.deleteCart(idcart);
+            System.out.println("删除cart" + idcart);
             ps = conn.prepareStatement(insert_order);
             ps.setObject(1, order.getIdOrder());
             ps.setObject(2, order.getIduser());
+            ps.setString(3, order.getPhone());
+            ps.setObject(4, order.getAddress());
+            ps.setString(5, order.getName());
             ps.executeUpdate();
+            System.out.println("插入order" + order.getIdOrder());
             for (Product product : order.getItems().keySet()) {
                 ps = conn.prepareStatement(insert_orderitem);
                 ps.setObject(1, order.getIdOrder());
@@ -95,6 +109,7 @@ public class OrderDao {
                 ps.setObject(2, product.getId());
                 ps.executeUpdate();
             }
+            System.out.println("添加完毕order" + order.getIdOrder() + "所有商品");
             conn.commit();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -104,6 +119,14 @@ public class OrderDao {
                 e1.printStackTrace();
             }
             return false;
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return true;
     }
@@ -125,8 +148,15 @@ public class OrderDao {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-
         return true;
     }
 
@@ -153,6 +183,14 @@ public class OrderDao {
             return list;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         System.out.println("获取订单ID失败");
         return list;

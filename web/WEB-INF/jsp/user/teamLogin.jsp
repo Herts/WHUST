@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>注册WHUStore</title>
+    <title>team用户登陆</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/user.css">
     <script>
         function changeRAndL() {
@@ -25,13 +25,14 @@
     <script src="${pageContext.request.contextPath}/js/user.js"></script>
 
     <div class="login" id="logDiv" style="visibility: visible">
-        <h1>WHU Store</h1>
-        <form action="/gototeamLogin">
-            <button type="submit" class="btn btn-primary btn-block btn-large" name="user">团队用户登录</button>
+        <h1>welcome to WHU Store team</h1>
+        <form action="/gotocustomerLogin">
+            <button type="submit" class="btn btn-primary btn-block btn-large" name="user">普通用户登录</button>
         </form>
-        <form action="/login" method="post">
+        <form action="teamLogin" method="post">
             <input type="text" name="username" placeholder="用户名" required="required"/>
             <input type="password" name="password" placeholder="密码" required="required"/>
+            <input type="text" name="idteam" placeholder="团队代号" required="required"/>
             <br>
             <button type="submit" class="btn btn-primary btn-block btn-large" name="user">登录</button>
 
@@ -46,7 +47,7 @@
 
     <div class="login" id="RegDiv" style="visibility: hidden">
         <h1>WHU Store</h1>
-        <form action="/reg" method="post">
+        <form action="reg" method="post">
             <input type="text" name="username" placeholder="用户名" required="required"/>
             <input type="password" name="password" placeholder="密码" required="required"/>
             <input type="text" name="email" placeholder="邮箱" required="required"/>
@@ -56,7 +57,7 @@
         </form>
         <form>
             <button type="button" class="btn btn-primary btn-block btn-large" name="toRegister" onclick="changeRAndL()">
-                登录
+                登陆
             </button>
         </form>
         <b>${message}</b>
