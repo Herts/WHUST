@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class UserDao {
@@ -60,6 +62,15 @@ public class UserDao {
                 e1.printStackTrace();
             }
             return null;
+        }
+        finally {
+            //关闭数据库连接
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -138,5 +149,41 @@ public class UserDao {
             }
         }
     }
-
+    /**
+     * 检查用户是否属于某个team
+     * @param iduser
+     * @param idteam
+     * @return
+     */
+    public boolean checkTeamid (int iduser, int idteam){
+        conn = DBConnector.getDBConn();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Integer> iduserinteam = new ArrayList<>();
+        String sql = "SELECT * FROM team WHERE idteam = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setObject(1,idteam);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                iduserinteam.add(rs.getInt("iduser"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                conn.close();
+                ps.close();
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if(iduserinteam.contains(iduser)){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }

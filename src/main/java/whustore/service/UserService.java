@@ -1,6 +1,5 @@
 package whustore.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import whustore.dao.UserDao;
 import whustore.model.User;
@@ -28,5 +27,9 @@ public class UserService {
     public boolean userReg(User user) {
         UserDao userDao = new UserDao();
         return userDao.userReg(user);
+    }
+    public boolean checkTeamid (int iduser, int idteam){
+        UserDao ud = new UserDao();
+        return ud.checkTeamid(iduser, idteam);
     }
 }

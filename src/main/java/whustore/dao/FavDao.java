@@ -60,6 +60,15 @@ public class FavDao {
             e.printStackTrace();
             return 2;
         }
+        finally {
+            //关闭数据库连接
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -87,6 +96,15 @@ public class FavDao {
 
             e.printStackTrace();
             return null;
+        }
+        finally {
+            //关闭数据库连接
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
     }

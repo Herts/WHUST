@@ -128,6 +128,15 @@ public class OrderDao {
                 }
             }
         }
+        finally {
+            //关闭数据库连接
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         return true;
     }
 
@@ -157,7 +166,15 @@ public class OrderDao {
                 }
             }
         }
-
+        finally {
+            //关闭数据库连接
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         return true;
     }
 
@@ -191,6 +208,15 @@ public class OrderDao {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+            }
+        }
+        finally {
+            //关闭数据库连接
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
         System.out.println("获取订单ID失败");
