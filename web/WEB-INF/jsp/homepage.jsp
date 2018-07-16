@@ -179,8 +179,10 @@ TODO
                                                 <ul class="menu-top-menu">
                                                     <%
                                                         User user = (User) session.getAttribute("user");
-                                                        if (user != null)
-
+                                                        Integer idteam = (Integer) session.getAttribute("idteam");
+                                                        if (user != null) {
+                                                            if (idteam != null)
+                                                                out.println("<li><a href=\"/gototeamAccout\">团队账户</a></li>");
                                                             out.println("<li><a href=\"/user/home\">" +
                                                                     user.getUsername() +
                                                                     "的账户</a></li>" +
@@ -189,6 +191,7 @@ TODO
                                                                     "<li><a href=\"/cart/myCart\">购物车</a></li>\n" +
                                                                     "<li><a href=\"/addorder\">结算</a></li>" +
                                                                     "<li><a href='/logOut'>注销</a></li>");
+                                                        }
                                                         else
                                                             out.println("<li><a href=\"/log\">" +
                                                                     "请登录" +
