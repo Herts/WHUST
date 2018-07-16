@@ -85,7 +85,7 @@
             </div>
             <br/>
 
-            <form action="" onsubmit="submit_sure()" method="post">
+            <form action="/comments/add" onsubmit="submit_sure()" method="post">
 
                 <div class="single-feature mb-35" style="width: 60%;margin: 0 auto;min-width: 500px">
                     <div class="p_photo" style=" width: 30%;float: left;margin-left: 5%">
@@ -109,8 +109,13 @@
                                 <span><i class="high"></i><i class="nohigh"></i></span>
                             </p>
                         </div>
-                        <textarea type="t" id="cancel_description" value="" name=""></textarea>
-                        <!--<input type="hidden" value="">-->
+                        <input type="hidden" value="1" id="rate" name="level">
+                        <input type="hidden" name="idproduct" value="${product.id}">
+                        <input type="hidden" name="clevel" value="${comment.clevel}">
+                        <input name="title" type="text" value="${comment.ctitle}" placeholder="请填写评价标题">
+                        <br/>
+                        <textarea type="t" id="comment-content" value="" name="content" placeholder="请填写评价内容">${comment.ccontent}</textarea>
+
                         <br/><br/>
                         <button type="submit" class="form-button" value="comment_product" style="margin-left: 45%">提交评价</button>
                     </div>
@@ -152,7 +157,7 @@
                     $(this).prevAll().find('.high').css('z-index',1)
                     $(this).find('.high').css('z-index',1)
                     starRating = index*2;
-
+                    document.getElementById("rate").value = Number(starRating/2);
                 })
                 //取消评分
                 //确定评分

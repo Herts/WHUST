@@ -1,5 +1,3 @@
-<%@ page import="java.util.List" %>
-<%@ page import="whustore.model.Product" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
@@ -172,9 +170,12 @@
                             <th style="width: 14%;">商品金额</th>
                             <th style="width: 14%;">商品数量</th>
                             <th style="width: 14%;">总金额</th>
+                            <th style="width: 14%;">订单状态</th>
+                            <th style="width: 14%;">操作</th>
                         </tr>
                         </thead>
                         <tbody>
+                        <tr><h4>${order.idOrder}</h4></tr>
                         <c:forEach items="${order.items.keySet()}" end="${order.items.keySet().size()}" var="product"
                                    varStatus="status">
                             <tr id="${product.id}" style="padding-bottom: 1%">
@@ -188,8 +189,18 @@
                                 <td class="num">
                                         ${order.items.get(product)}&nbsp;&nbsp;
                                 </td>
-                                <td class="blackcolor"
-                                    id="total${product.id}">${product.price * order.items.get(product)}</td>
+                                <td class="blackcolor" id="total${product.id}">
+                                        ${product.price * order.items.get(product)}
+                                </td>
+                                <c:if test="${status.index==0}">
+                                    <td class="blackcolor" id="status${product.id}">
+                                            ${order.status}
+                                    </td>
+                                </c:if>
+                                <td class="blackcolor" id="comment${product.id}">
+                                    <a href="/comments/comment?idproduct=${product.id}">评价此商品</a>
+
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>
