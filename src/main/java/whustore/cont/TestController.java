@@ -31,7 +31,9 @@ public class TestController {
     @RequestMapping("test")
     public String ttt(HttpServletRequest request) {
 
-        Cart cart = (Cart) request.getSession().getAttribute("cart");
-        return "user/cart";
+        ProductService ps = new ProductService();
+        Product product = ps.getProduct(12);
+        request.getSession().setAttribute("product", product);
+        return "user/comment";
     }
 }
