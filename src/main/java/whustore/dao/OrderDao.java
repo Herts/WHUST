@@ -221,13 +221,17 @@ public class OrderDao {
      */
     public boolean orderPaid(int orderId) {
         try {
-            String sql = "SELECT * orders WHRER idorder =" + orderId;
+            String sql = "SELECT * FROM orders WHERE idorder=?";
             if (conn == null || conn.isClosed())
                 conn = DBConnector.getDBConn();
-            ResultSet rs = conn.createStatement().executeQuery(sql);
-            if (rs.next() && rs.getString("status").equals("未支付")) {
-                sql = "UPDATE orders SET status = '已付款' WHERE idorder =" + orderId;
-                conn.createStatement().executeUpdate(sql);
+            PreparedStatement ps= conn.prepareStatement(sql);
+            ps.setInt(1,orderId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next() && rs.getString("ostatus").equals("未付款")) {
+                sql = "UPDATE orders SET ostatus = '已付款' WHERE idorder=?";
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1,orderId);
+                ps.executeUpdate();
                 return true;
             }
             return false;

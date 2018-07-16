@@ -19,7 +19,7 @@ public class OrderService {
         return dao.getOrder(orderId, userId);
     }
 
-    public boolean oderPaid(int orderId)
+    public boolean orderPaid(int orderId)
     {
         return dao.orderPaid(orderId);
     }
