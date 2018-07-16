@@ -108,7 +108,7 @@
                                                     User user = (User) session.getAttribute("user");
                                                     Integer idteam = (Integer) session.getAttribute("idteam");
                                                     if (idteam != null){
-                                                        out.println("<li><a href=\"/gototeamAccout\">团队账户</a></li>");
+                                                        out.println("<li><a href=\"/gototeamAccount\">团队账户</a></li>");
                                                     out.println("<li><a href=\"/user/home\">" +
                                                             user.getUsername() +
                                                             "的账户</a></li>" +
