@@ -162,68 +162,74 @@
                 <h2 class="title">历史订单</h2>
 
                 <c:forEach items="${orders}" var="order">
-                    <table id="${order.idOrder}" class="tab" width="100%" border="0" cellspacing="0" cellpadding="0"
-                           style="padding-bottom: 2%;padding-bottom: 2%">
-                        <thead>
-                        <tr style="text-align: center">
-                            <th colspan="1">商品信息</th>
-                            <th style="width: 8%;">商品金额</th>
-                            <th style="width: 8%;">商品数量</th>
-                            <th style="width: 14%;">总金额</th>
-                            <th style="width: 14%;">订单状态</th>
-                            <th style="width: 12%;">操作</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr></tr>
-                        <c:forEach items="${order.items.keySet()}" end="${order.items.keySet().size()}" var="product"
-                                   varStatus="status">
-                            <tr id="${product.id}" style="padding-bottom: 1%">
-                                <td class="goods">
-                                    <img src="../../${product.picPath.get(0)}" class="goods-left"/>
-                                    <div class="goods-right">
-                                        <p>${product.productName}</p>
-                                    </div>
-                                </td>
-                                <td><p id="price${product.id}">${product.price}</p></td>
-                                <td class="num">
-                                        ${order.items.get(product)}&nbsp;&nbsp;
-                                </td>
-                                <td class="blackcolor" id="total${product.id}">
-                                        ${product.price * order.items.get(product)}
-                                </td>
-                                <c:if test="${status.index==0}">
-                                    <td class="blackcolor" id="status${product.id}">
-                                            ${order.status}
-                                    </td>
-                                </c:if>
-                                <td class="blackcolor" id="comment${product.id}">
-                                    <a href="/comments/comment?idproduct=${product.id}">评价此商品</a>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                        <tfoot>
-                        <tr>
-
-                            <td><h5>地址：${order.address}</h5></td>
-                            <td><h5>姓名：${order.name}</h5></td>
-                            <td><h5>电话：${order.phone}</h5></td>
-                            <td><h5>订单号：${order.idOrder}</h5></td>
-                            <br/>
-                        </tr>
-                        <tr class="footer" style="margin-top: 40px">
-                            <td colspan="5">
-                                <h3><span id="total">${order.total}</span>元</h3>
-                                <form>
-                                    <button type="button" class="form-button" onclick="hid(${order.idOrder})">
-                                        隐藏
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        </tfoot>
-                    </table>
+                <table id="${order.idOrder}" class="tab" width="100%" border="0" cellspacing="0" cellpadding="0"
+                       style="padding-bottom: 2%;padding-bottom: 2%">
+                    <thead>
+                    <tr style="text-align: center">
+                        <th colspan="1" style="width: 10%">商品信息</th>
+                        <th style="width: 8%;">商品单价</th>
+                        <th style="width: 10%;">总金额</th>
+                        <th style="width: 10%;">订单状态</th>
+                        <th style="width: 10%;">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr></tr>
+                    <td style="text-align: left"><h5>订单号：${order.idOrder}</h5></td>
+                    <c:forEach items="${order.items.keySet()}" end="${order.items.keySet().size()}" var="product"
+                               varStatus="status">
+                    <tr id="${product.id}" style="padding-bottom: 1%">
+                        <td class="goods">
+                            <img src="../../${product.picPath.get(0)}" class="goods-left"/>
+                            <div class="goods-right">
+                                <p>${product.productName}</p>
+                            </div>
+                        </td>
+                        <td class="blackcolor">
+                            ¥${product.price}
+                        </td>
+                        <td class="blackcolor" id="total${product.id}">
+                                ${product.price}&nbsp;*&nbsp;${order.items.get(product)}&nbsp;=&nbsp;${product.price * order.items.get(product)}
+                        </td>
+                        <c:if test="${status.index==0}">
+                        <td class="blackcolor" id="status${product.id}">
+                            <c:if test="${order.status.equals('未付款')}">
+                            <a href="/pay/payOrder?orderId=${order.idOrder}">去付款</a>
+                            </c:if>
+                            <c:if test="${order.status.equals('已付款')}">
+                                ${order.status}
+                            </c:if>
+                        </td>
+                        </c:if>
+                        <c:if test="${status.index!=0}">
+                        <td/>
+                        </c:if>
+                        <td class="blackcolor" id="comment${product.id}">
+                            <a href="/comments/comment?idproduct=${product.id}">评价此商品</a>
+                        </td>
+                    </tr>
+                    </c:forEach>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td><h5>地址：${order.address}</h5></td>
+                        <td><h5>姓名：${order.name}</h5></td>
+                        <td></td>
+                        <td><h5>电话：${order.phone}</h5></td>
+                        <br/>
+                    </tr>
+                    <tr class="footer" style="margin-top: 40px">
+                        <td colspan="5">
+                            <h3><span id="total">${order.total}</span>元</h3>
+                            <form>
+                                <button type="button" class="form-button" onclick="hid(${order.idOrder})">
+                                    隐藏
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
                 </c:forEach>
             </div>
         </div>

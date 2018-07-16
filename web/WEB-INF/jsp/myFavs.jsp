@@ -119,7 +119,7 @@
                             <!--Single Product Start-->
                             <div class="single-product mb-25">
                                 <div class="product-img img-full">
-                                    <a href="product?productID=${product.id}">
+                                    <a href="/product?productID=${product.id}">
                                         <img src="../../${product.picPath.get(0)}" alt="">
                                     </a>
                                     <span class="onsale">特惠!</span>
@@ -137,7 +137,7 @@
                                     </div>
                                 </div>
                                 <div class="product-content">
-                                    <h2><a href="product?productID=${product.id}">
+                                    <h2><a href="/product?productID=${product.id}">
                                             ${product.productName}
                                     </a></h2>
                                     <div class="product-price">

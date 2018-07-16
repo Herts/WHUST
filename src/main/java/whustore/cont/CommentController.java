@@ -6,6 +6,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import whustore.data.ProductData;
 import whustore.model.Comment;
 import whustore.model.Product;
 import whustore.model.User;
@@ -31,8 +32,7 @@ public class CommentController {
     @RequestMapping(path = "/comments/comment")
     public ModelAndView toSetComment(HttpServletRequest request, @RequestParam int idproduct,
                                      ModelMap modelMap){
-        ProductService ps = new ProductService();
-        Product product = ps.getProduct(idproduct);
+        Product product = ProductData.getProductByID(idproduct);
         User user = (User) request.getSession().getAttribute("user");
         Comment comment = commentService.getCommentByIduserAndIdproduct(user.getUserid(), idproduct);
         modelMap.addAttribute("product", product);

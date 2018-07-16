@@ -30,7 +30,7 @@ public class PayController {
         AlipayClient alipayClient = AlipayController.getAlipayClient();
         AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();//创建API对应的request
         alipayRequest.setReturnUrl("http://localhost:8080/home");
-        alipayRequest.setNotifyUrl("http://202.114.113.167/");//在公共参数中设置回跳和通知地址
+        alipayRequest.setNotifyUrl("http://localhost:8080/order/myOrders");//在公共参数中设置回跳和通知地址
         alipayRequest.setBizContent("{" +
                 "    \"out_trade_no\":\"" + order.getIdOrder() + "\"," +
                 "    \"product_code\":\"FAST_INSTANT_TRADE_PAY\"," +
@@ -46,9 +46,7 @@ public class PayController {
             response.getWriter().flush();
             response.getWriter().close();
             service.oderPaid(orderId);
-        } catch (AlipayApiException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (AlipayApiException | IOException e) {
             e.printStackTrace();
         }
     }
