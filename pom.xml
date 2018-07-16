@@ -27,7 +27,7 @@
             <version>4.0.0</version>
         </dependency>
 
-      <!--   https://mvnrepository.com/artifact/mysql/mysql-connector-java-->
+        <!--   https://mvnrepository.com/artifact/mysql/mysql-connector-java-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -75,10 +75,22 @@
             <version>3.1.0</version>
         </dependency>
 
+        <!--支付宝api-->
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>3.3.4.ALL</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
 
     </dependencies>
-
-
 
 
 </project>
