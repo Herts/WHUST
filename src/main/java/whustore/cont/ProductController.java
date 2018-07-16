@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import whustore.data.ProductData;
+import whustore.model.Comment;
 import whustore.model.Product;
+import whustore.service.CommentService;
 import whustore.service.ProductService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,14 +31,21 @@ public class ProductController {
     public ModelAndView getSingleProduct(@RequestParam("productID") int productID, ModelMap modelMap) {
         Product product = ProductData.getProductByID(productID);
         modelMap.addAttribute("product",product);
+
+        CommentService cs = new CommentService();
+        List<Comment> comments = cs.getCommentByIdproduct(productID);
+        modelMap.addAttribute("comments", comments);
+
         List<Product> alsoLikes = ProductData.getProductList().subList(2,8);
         modelMap.addAttribute("alsoLikes",alsoLikes);
+
         return new ModelAndView("singleProduct");
     }
     @RequestMapping("gotoAddproduct")
     public String gotoAddproduct(){
         return "addproduct";
     }
+
     @RequestMapping("addproducts")
     public String addproduct(HttpServletRequest request, String[] type, @RequestParam MultipartFile[] pics) {
         ProductService ps = new ProductService();

@@ -20,12 +20,12 @@ public class CommentController {
     private CommentService commentService = new CommentService();
 
     @RequestMapping(path = "/comments/add")
-    public void setComment(HttpServletRequest request, @RequestParam int idproduct, @RequestParam int level,
+    public String setComment(HttpServletRequest request, @RequestParam int idproduct, @RequestParam int level,
                            @RequestParam String title, @RequestParam String content, @RequestParam int clevel){
         boolean isCommented  = (clevel != 0);
         User user = (User) request.getSession().getAttribute("user");
         commentService.setComment(idproduct, user.getUserid(), level, title, content, isCommented);
-
+        return "redirect:/order/myOrders";
     }
 
     @RequestMapping(path = "/comments/comment")

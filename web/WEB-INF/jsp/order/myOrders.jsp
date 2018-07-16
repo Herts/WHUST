@@ -167,15 +167,15 @@
                         <thead>
                         <tr style="text-align: center">
                             <th colspan="1">商品信息</th>
-                            <th style="width: 14%;">商品金额</th>
-                            <th style="width: 14%;">商品数量</th>
+                            <th style="width: 8%;">商品金额</th>
+                            <th style="width: 8%;">商品数量</th>
                             <th style="width: 14%;">总金额</th>
                             <th style="width: 14%;">订单状态</th>
-                            <th style="width: 14%;">操作</th>
+                            <th style="width: 12%;">操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr><h4>${order.idOrder}</h4></tr>
+                        <tr></tr>
                         <c:forEach items="${order.items.keySet()}" end="${order.items.keySet().size()}" var="product"
                                    varStatus="status">
                             <tr id="${product.id}" style="padding-bottom: 1%">
@@ -199,16 +199,17 @@
                                 </c:if>
                                 <td class="blackcolor" id="comment${product.id}">
                                     <a href="/comments/comment?idproduct=${product.id}">评价此商品</a>
-
                                 </td>
                             </tr>
                         </c:forEach>
                         </tbody>
                         <tfoot>
                         <tr>
+
                             <td><h5>地址：${order.address}</h5></td>
                             <td><h5>姓名：${order.name}</h5></td>
                             <td><h5>电话：${order.phone}</h5></td>
+                            <td><h5>订单号：${order.idOrder}</h5></td>
                             <br/>
                         </tr>
                         <tr class="footer" style="margin-top: 40px">

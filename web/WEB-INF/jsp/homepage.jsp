@@ -174,7 +174,7 @@ TODO
                                     </div>
                                     <div class="currency">
                                         <div class="currency-box">
-                                            <a href="#"><i class="fa fa-th"></i></a>
+                                            <a href="#"><i class="fa fa-user"></i></a>
                                             <div class="currency-dropdown">
                                                 <ul class="menu-top-menu">
                                                     <%

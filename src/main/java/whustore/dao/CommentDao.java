@@ -103,7 +103,7 @@ public class CommentDao implements CommentDaoIntf{
 
 
     public boolean setComment(int idproduct, int iduser, int clevel, String ctitle, String ccontent, Boolean isCommented) {
-        if(!isCommented){   
+        if(!isCommented){
             return  insertComment(idproduct, iduser, clevel, ctitle, ccontent);
         }
         return updateComment(idproduct,iduser,clevel, ctitle, ccontent);

@@ -1,5 +1,7 @@
 package whustore.model;
 
+import java.sql.Timestamp;
+
 public class Comment {
     private int iduser;
     private int idproduct;
@@ -7,6 +9,15 @@ public class Comment {
     private String ctitle;
     private String ccontent;
     private boolean isBought;
+    private Timestamp commentsince;
+
+    public Timestamp getCommentsince() {
+        return commentsince;
+    }
+
+    public void setCommentsince(Timestamp commentsince) {
+        this.commentsince = commentsince;
+    }
 
     public int getIduser() {
         return iduser;

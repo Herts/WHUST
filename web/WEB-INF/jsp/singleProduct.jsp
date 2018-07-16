@@ -179,26 +179,33 @@
                             </div>
                             <div class="tab-pane fade" id="reviews">
                                 <div class="review-page-comment">
-                                    <h2>商品评价(待实现)</h2>
+                                    <h2>商品评价</h2>
+
                                     <ul>
+                                        <c:forEach items="${comments}"  var="comment">
                                         <li>
                                             <div class="product-comment">
                                                 <img src="img/icon/author.png" alt="">
                                                 <div class="product-comment-content">
                                                     <div class="product-reviews">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o"></i>
+                                                        <c:forEach var="i" begin="1" end="5">
+                                                            <c:if test="i <= ${comment.clevel}">
+                                                                <i class="fa fa-star"></i>
+                                                            </c:if>
+                                                            <c:if test="i > ${comment.clevel}">
+                                                                <i class="fa fa-star-o"></i>
+                                                            </c:if>
+                                                        </c:forEach>
                                                     </div>
                                                     <p class="meta">
-                                                        <strong>admin</strong> - <span>November 22, 2016</span>
-                                                        <div class="description">
-                                                    <p>Good Product</p>
+                                                        <strong>${comment.iduser}</strong> - <span>${comment.ctitle}</span><span><c:if test="${comment.bought}"><h6>已确认购买</h6></c:if></span>
+
+                                                        <div class="description">${comment.ccontent}</div>
+
                                                 </div>
                                             </div>
                                         </li>
+                                        </c:forEach>
                                     </ul>
                                 </div>
                                 </li>
