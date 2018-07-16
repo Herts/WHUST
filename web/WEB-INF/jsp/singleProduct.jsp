@@ -162,10 +162,10 @@
                         <!--Review And Description Tab Menu Start-->
                         <ul class="nav dec-and-review-menu">
                             <li>
-                                <a class="active" data-toggle="tab" href="#description">Description</a>
+                                <a class="active" data-toggle="tab" href="#description">商品详情</a>
                             </li>
                             <li>
-                                <a data-toggle="tab" href="#reviews">Reviews (1)</a>
+                                <a data-toggle="tab" href="#reviews">商品评价</a>
                             </li>
                         </ul>
                         <!--Review And Description Tab Menu End-->
