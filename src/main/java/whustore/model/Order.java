@@ -79,4 +79,33 @@ public class Order {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public String getOrderItemNames() {
+        String names = "";
+        int counter = 0;
+        for (Product product :
+                items.keySet()) {
+            names = names + product.getProductName() + ",";
+            counter++;
+            if (counter > 3) {
+                names = names + "等" + items.size() + "件商品,";
+                break;
+            }
+        }
+        names = names.substring(0, names.length() - 1);
+        return names;
+    }
+
+    public String getOrderDetails() {
+        String details = "";
+        for (Product product :
+                items.keySet()) {
+            details = details + product.getProductName() +
+                    "*" +
+                    items.get(product) +
+                    ",";
+        }
+        details = details.substring(0, details.length() - 1);
+        return details;
+    }
 }

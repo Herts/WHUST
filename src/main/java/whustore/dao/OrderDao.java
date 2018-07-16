@@ -74,6 +74,13 @@ public class OrderDao {
         return orderlist;
     }
 
+    /**
+     * 添加Order
+     *
+     * @param order  order对象
+     * @param idcart 购物车号码
+     * @return 是否成功
+     */
     public boolean addOrder(Order order, int idcart) {
         PreparedStatement ps = null;
         ProductDao pd = new ProductDao();
@@ -131,6 +138,10 @@ public class OrderDao {
         return true;
     }
 
+    /**
+     * @param idorder 订单号
+     * @return 是否成功
+     */
     public boolean deleteOrder(int idorder) {
         conn = DBConnector.getDBConn();
         PreparedStatement ps = null;
@@ -160,6 +171,12 @@ public class OrderDao {
         return true;
     }
 
+    /**
+     * 根据用户id获取用户的全部订单号
+     *
+     * @param userID 用户id
+     * @return 订单号List
+     */
     private List<Integer> getOrderID(int userID) {
         conn = DBConnector.getDBConn();
         int orderID;
@@ -194,6 +211,84 @@ public class OrderDao {
         }
         System.out.println("获取订单ID失败");
         return list;
+    }
+
+    /**
+     * 支付订单完成后修改数据库的操作
+     *
+     * @param orderId 订单id
+     * @return 是否成功
+     */
+    public boolean orderPaid(int orderId) {
+        try {
+            String sql = "SELECT * orders WHRER idorder =" + orderId;
+            if (conn == null || conn.isClosed())
+                conn = DBConnector.getDBConn();
+            ResultSet rs = conn.createStatement().executeQuery(sql);
+            if (rs.next() && rs.getString("status").equals("未支付")) {
+                sql = "UPDATE orders SET status = '已付款' WHERE idorder =" + orderId;
+                conn.createStatement().executeUpdate(sql);
+                return true;
+            }
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * 获取某一个订单
+     *
+     * @param orderId 订单id
+     * @param userID 用户id
+     * @return 订单
+     */
+    public Order getOrder(int orderId, int userID) {
+        Order order = new Order();
+        String sql = "SELECT * FROM orderInfo WHERE idorder=?";
+        PreparedStatement ps = null;
+        int amount;
+        ResultSet rs;
+        try {
+            if (conn == null || conn.isClosed())
+                conn = DBConnector.getDBConn();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, orderId);
+            rs = ps.executeQuery();
+            HashMap<Product, Integer> items = new HashMap<Product, Integer>();
+            boolean statusAdded = false;
+            while (rs.next()) {
+                if (!statusAdded) {
+                    order.setPhone(rs.getString("phone"));
+                    order.setName(rs.getString("name"));
+                    order.setStatus(rs.getString("ostatus"));
+                    order.setAddress(rs.getString("address"));
+                    statusAdded = true;
+                }
+                Product current = new Product();
+                int id = rs.getInt("idproduct");
+                current = ProductData.getProductByID(id);
+                amount = rs.getInt("amount");
+                items.put(current, amount);
+            }
+            order.setIdOrder(orderId);
+            order.setIduser(userID);
+            order.setItems(items);
+            return order;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            //关闭数据库连接
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
     }
 
 }
