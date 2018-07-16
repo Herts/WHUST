@@ -241,7 +241,7 @@
                             <div class="input-element">
                                 <div class="comment-form-comment">
                                     <label>收货地址</label>
-                                    <textarea name="address" cols="40" rows="8" >${address}</textarea>
+                                    <textarea name="address" required="required" cols="40" rows="8" >${address}</textarea>
                                 </div>
                                 <div class="review-comment-form-author">
                                     <label>姓名</label>

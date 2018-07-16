@@ -52,6 +52,7 @@ public class OrderController {
             CartService service = new CartService();
             Cart userCart = service.getUserCart(user.getUserid());
             request.getSession().setAttribute("cart", userCart);
+            request.getSession().setAttribute("order", order);
             modelMap.addAttribute("order", order);
             modelMap.addAttribute("items", order.getItems().keySet());
             return "order/order";

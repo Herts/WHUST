@@ -126,7 +126,7 @@
             vertical-align: center;
         }
 
-        .tab{
+        .tab {
             padding-right: 15%;
             padding-right: 15%;
         }
@@ -198,28 +198,27 @@
                         <HR size="2" style="color: #abd373">
                         <div class="review-form">
                             <h2>收货信息</h2>
-                            <form action="/addorder">
-                                    <br>
-                                    <br>
-                                <br>
-                                <div class="input-element">
-                                    <div class="comment-form-comment">
-                                        <label>收货地址:</label>
-                                        <h3>${order.address}</h3>
-                                    </div>
-                                    <div class="review-comment-form-author">
-                                        <label>姓名:</label>
-                                        <h3>${order.name}</h3>
-                                    </div>
-                                    <div class="review-comment-form-email">
-                                        <label>电话:</label>
-                                        <h3>${order.phone}</h3>
-                                    </div>
-                                    <div class="comment-submit">
-                                        <button type="button" class="form-button">付款</button>
-                                    </div>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="input-element">
+                                <div class="comment-form-comment">
+                                    <label>收货地址:</label>
+                                    <h3>${order.address}</h3>
                                 </div>
-                            </form>
+                                <div class="review-comment-form-author">
+                                    <label>姓名:</label>
+                                    <h3>${order.name}</h3>
+                                </div>
+                                <div class="review-comment-form-email">
+                                    <label>电话:</label>
+                                    <h3>${order.phone}</h3>
+                                </div>
+                                <form action="/pay/payOrder">
+                                    <input type="hidden" value="${order.idOrder}" name="orderId">
+                                    <button type="submit" class="form-button">付款</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

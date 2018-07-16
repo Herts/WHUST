@@ -33,8 +33,18 @@
     </header>
     <!--Header Area End-->
     <c:if test="${products.size()<4}">
-        <div class="shop-product" style="padding-left: 10%;padding-right: 10%;padding-top: 20%">
+        <div class="shop-product" style="padding-left: 10%;padding-right: 10%;padding-top: 10%">
             <div id="myTabContent-2" class="tab-content">
+                <div class="row">
+                    <!--Section Title Start-->
+                    <div class="col-12">
+                        <div class="section-title text-center mb-35">
+                            <h3>喜欢就加入购物车吧</h3>
+                            <br/><br/>
+                        </div>
+                    </div>
+                    <!--Section Title End-->
+                </div>
                 <div id="grid" class="tab-pane fade active show">
                     <div class="product-grid-view">
                         <div class="row">
@@ -92,7 +102,7 @@
                     <!--Section Title Start-->
                     <div class="col-12">
                         <div class="section-title text-center mb-35">
-                            <h3>喜欢就加入购物车把</h3>
+                            <h3>喜欢就加入购物车吧</h3>
                             <br/><br/>
                         </div>
                     </div>
@@ -152,7 +162,7 @@
             <!--商品完-->
         </div>
     </c:if>
-    <c:if test="${products.size() <= 8}">
+    <c:if test="${products.size() <= 8 && products.size()>3}">
         <div class="also-like-product" style="padding-top: 10%">
             <div class="container">
                 <div class="row">
