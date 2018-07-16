@@ -158,7 +158,7 @@ public class ShopController {
             return getShopByPage(modelMap, request);
     }
 
-    private List<String> getCategoryList() {
+    public static List<String> getCategoryList() {
         List<String> categoryList = new ArrayList<String>();
         categoryList.add("上衣");
         categoryList.add("下装");

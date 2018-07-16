@@ -14,7 +14,7 @@
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
-    <title>逛一逛————WHU STORE</title>
+    <title>我的收藏</title>
 
     <%@ include file="universal/allcss.jsp" %>
 
