@@ -175,7 +175,7 @@
                                         <p>${product.productName}</p>
                                     </div>
                                 </td>
-                                <td><p id="price${product.id}">${product.price}</p></td>
+                                <td class="blackcolor">${product.price}</td>
                                 <td class="num">
                                     <input id="num${product.id}" value="${order.items.get(product)}"
                                            type="number" readonly disabled/>&nbsp;&nbsp;
@@ -186,7 +186,7 @@
                         </c:forEach>
                         </tbody>
                         <tfoot>
-                        <tr class="footer" style="margin-top: 40px">
+                        <tr class="footer">
                             <td colspan="5">
                                 <p>合计：</p>
                                 <h1><span id="total">${order.total}</span>元</h1>

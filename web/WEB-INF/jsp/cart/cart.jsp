@@ -202,7 +202,7 @@
                                     <p>${product.productName}</p>
                                 </div>
                             </td>
-                            <td><p id="price${product.id}">${product.price}</p></td>
+                            <td class="blackcolor">${product.price}</td>
                             <td class="num">
                                 <a onclick="productMin(${product.id})">-</a>&nbsp;&nbsp;
                                 <input id="num${product.id}" value="${sessionScope.cart.items.get(product)}"

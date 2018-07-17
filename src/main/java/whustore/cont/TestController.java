@@ -1,4 +1,5 @@
 package whustore.cont;
+
 import org.ansj.splitWord.analysis.NlpAnalysis;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,9 +32,6 @@ public class TestController {
     @RequestMapping("test")
     public String ttt(HttpServletRequest request) {
 
-        ProductService ps = new ProductService();
-        Product product = ps.getProduct(12);
-        request.getSession().setAttribute("product", product);
-        return "user/comment";
+        return "userStory";
     }
 }
