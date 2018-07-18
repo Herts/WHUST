@@ -212,7 +212,7 @@ public class UserController {
         User user = (User) request.getSession().getAttribute("user");
         Num orderSize = new Num();
         orderSize.setINT(0);
-        Map<Product, Integer> productNumMap = service.getUserProductRecords(user, orderSize);
+        Map<Product, Integer> productNumMap = userService.getUserProductRecords(user, orderSize);
         Num productNumber = new Num();
         productNumber.setINT(0);
         Map<String, Integer> cateMap = cateNums(productNumMap, productNumber);
