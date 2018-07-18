@@ -204,8 +204,6 @@ TODO
                     <input type="number" id="product_quantity" name="quantity" value="" maxlength="25">
                     <p>商品价格</p>
                     <input type="number" id="product_price" name="price">
-                    <p>小组编号</p>
-                    <input type="number" id = "product_type" name = "teamID">
                     <p>商品分类标签</p>
                     <!--根据需求增减-->
                     <%--<input type="checkbox" name="type" class="p_tag" value="" hidden="hidden" checked="checked">--%>

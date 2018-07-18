@@ -74,6 +74,8 @@ public class UserController {
     @RequestMapping("logOut")
     public ModelAndView logOut() {
         request.getSession().removeAttribute("user");
+        request.getSession().removeAttribute("cart");
+        request.getSession().removeAttribute("super");
         return new ModelAndView("homepage");
     }
 

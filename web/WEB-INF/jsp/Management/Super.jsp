@@ -22,8 +22,44 @@
         </div>
     </div>
 </header>
-<a href="/gotoLowerGoods">下架商品</a>
-<a href="/gotoShelfGoods">上架商品</a>
+<div class="team-sidebar" style="width: 30%;float: left">
+
+    <div class="categori-checkbox" style="height: 1000px; margin-left: 100px">
+        <h3>管理员操作</h3>
+        <ul>
+            <li>
+                <button class="form-button" style="width:50%"><a href="/gotoShelfGoods" style="color: white;font-size: larger;margin: auto auto">上架商品</a>
+                </button>
+            </li>
+            <br/>
+            <li>
+                <button class="form-button" style="width:50%"><a href="/gotoLowerGoods" style="color: white;font-size: larger;margin: auto auto">下架商品</a>
+                </button>
+            </li>
+            <br/>
+            <li>
+                <button class="form-button" style="width:50%"><p style="color: white;font-size: larger"></p>
+                </button>
+            </li>
+            <br/>
+            <li>
+                <button class="form-button" style="width:50%"><p style="color: white;font-size: larger"></p>
+                </button>
+            </li>
+            <br/>
+            <li>
+                <button class="form-button" style="width:50%"><p style="color: white;font-size: larger"></p>
+                </button>
+            </li>
+            <br/>
+            <li>
+                <button class="form-button" style="width:50%"><p style="color: white;font-size: larger"></p>
+                </button>
+            </li>
+            <br/>
+        </ul>
+    </div>
+</div>
 <%@ include file="../universal/alljs.jsp" %>
 </body>
 </html>

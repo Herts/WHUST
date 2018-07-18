@@ -25,7 +25,7 @@ public class ProductDao {
         PreparedStatement ps = null;
         Product product = new Product();
         String select_paths = "SELECT * FROM productpic NATURAL JOIN picture WHERE idproduct = ?";
-        String select_types = "SELECT * FROM product NATURAL JOIN product WHERE idproduct = ?";
+        String select_types = "SELECT * FROM product NATURAL JOIN procat WHERE idproduct = ?";
         try {
             ResultSet rs;
             String sql = "SELECT * FROM product WHERE idproduct=?";

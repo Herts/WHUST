@@ -55,7 +55,7 @@ public class ProductController {
         product.setProductName(pname);
         product.setProIntro(request.getParameter("proIntro"));
         product.setQuantity(Integer.valueOf(request.getParameter("quantity")));
-        product.setTeamID(Integer.valueOf(request.getParameter("teamID")));
+        product.setTeamID((int)request.getSession().getAttribute("idteam"));
         try {
             if (pics!=null && pics.length >0) {
                 for (MultipartFile mpf: pics
@@ -63,6 +63,7 @@ public class ProductController {
                     String basesqlpath = "img/product/";
                     String sqlpath = null;
                     String loadpath = System.getProperty("rootpath") + "img\\product\\";
+                    String test = request.getServletContext().getRealPath("/");
                     String originalFileName = mpf.getOriginalFilename();
                     String newFileName = UUID.randomUUID() + originalFileName.substring(originalFileName.lastIndexOf("."));
                     loadpath = loadpath + newFileName;
