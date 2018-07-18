@@ -33,7 +33,8 @@ public class OrderDao {
             if (conn == null || conn.isClosed())
                 conn = DBConnector.getDBConn();
             ps = conn.prepareStatement(sql);
-            for (Integer i : orderidList) {
+            for (Integer i :
+                    orderidList) {
                 ps.setInt(1, i);
                 rs = ps.executeQuery();
                 Order order = new Order();
@@ -45,6 +46,7 @@ public class OrderDao {
                         order.setStatus(rs.getString("ostatus"));
                         order.setName(rs.getString("name"));
                         order.setAddress(rs.getString("address"));
+                        order.setCreateDate(rs.getDate("createdsince"));
                         statusAdded = true;
                     }
                     Product current = new Product();
@@ -224,13 +226,13 @@ public class OrderDao {
             String sql = "SELECT * FROM orders WHERE idorder=?";
             if (conn == null || conn.isClosed())
                 conn = DBConnector.getDBConn();
-            PreparedStatement ps= conn.prepareStatement(sql);
-            ps.setInt(1,orderId);
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, orderId);
             ResultSet rs = ps.executeQuery();
             if (rs.next() && rs.getString("ostatus").equals("未付款")) {
                 sql = "UPDATE orders SET ostatus = '已付款' WHERE idorder=?";
                 ps = conn.prepareStatement(sql);
-                ps.setInt(1,orderId);
+                ps.setInt(1, orderId);
                 ps.executeUpdate();
                 return true;
             }
@@ -245,7 +247,7 @@ public class OrderDao {
      * 获取某一个订单
      *
      * @param orderId 订单id
-     * @param userID 用户id
+     * @param userID  用户id
      * @return 订单
      */
     public Order getOrder(int orderId, int userID) {
@@ -268,6 +270,7 @@ public class OrderDao {
                     order.setName(rs.getString("name"));
                     order.setStatus(rs.getString("ostatus"));
                     order.setAddress(rs.getString("address"));
+                    order.setCreateDate(rs.getDate("createdsince"));
                     statusAdded = true;
                 }
                 Product current = new Product();

@@ -1,5 +1,6 @@
 package whustore.model;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ public class Order {
     private String address;
     private String phone;
     private String name;
+    private Date createDate;
 
     public int getIdOrder() {
         return idOrder;
@@ -107,5 +109,13 @@ public class Order {
         }
         details = details.substring(0, details.length() - 1);
         return details;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 }
