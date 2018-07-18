@@ -1,13 +1,12 @@
 package whustore.cont;
-import org.ansj.splitWord.analysis.NlpAnalysis;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import whustore.data.ProductData;
-import whustore.model.*;
+import whustore.model.Picture;
+import whustore.model.Product;
 import whustore.service.ProductService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 public class TestController {
@@ -33,7 +32,6 @@ public class TestController {
 
         ProductService ps = new ProductService();
         Product product = ps.getProduct(12);
-        request.getSession().setAttribute("product", product);
-        return "user/comment";
+        return "user/userlist";
     }
 }
