@@ -15,6 +15,7 @@ import whustore.service.ProductService;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -82,5 +83,46 @@ public class ProductController {
             e.printStackTrace();
         }
         return "addproduct";
+    }
+    /**
+     * 下架商品
+     * @return
+     */
+    @RequestMapping("/gotoShelfGoods")
+    public ModelAndView gotoShelfGoods(ModelAndView  modelAndView){
+        modelAndView = new ModelAndView("/Management/ShelfGoods");
+        ProductService ps = new ProductService();
+        List<Product> list = new ArrayList<>();
+        list = ps.getProductsByStatus(0);
+        modelAndView.addObject("productList",list);
+        return modelAndView;
+    }
+
+    /**
+     * 上架商品
+     * @return
+     */
+    @RequestMapping("/gotoLowerGoods")
+    public ModelAndView gotoLowerGoods(ModelAndView  modelAndView){
+        modelAndView = new ModelAndView("/Management/LowerGoods");
+        ProductService ps = new ProductService();
+        List<Product> list = new ArrayList<>();
+        list = ps.getProductsByStatus(1);
+        modelAndView.addObject("productList",list);
+        return modelAndView;
+    }
+    @RequestMapping("/ShelfGoods")
+    public String ShelfGoods(HttpServletRequest request){
+        int idproduct = Integer.parseInt(request.getParameter("idproduct"));
+        ProductService productService = new ProductService();
+        productService.changeStatus(idproduct,1);
+        return "/Management/ShelfGoods";
+    }
+    @RequestMapping("/LowerGoods")
+    public String LowerGoods(HttpServletRequest request){
+        int idproduct = Integer.parseInt(request.getParameter("idproduct"));
+        ProductService productService = new ProductService();
+        productService.changeStatus(idproduct,0);
+        return "/Management/LowerGoods";
     }
 }

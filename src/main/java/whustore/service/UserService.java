@@ -10,9 +10,10 @@ import whustore.model.User;
 
 import java.util.*;
 
-@Service
-public class UserService {
 
+@Service
+public class UserService implements UserServiceIntf {
+    UserDao userDao = new UserDao();
     /**
      * 登陆检查
      *
@@ -31,7 +32,7 @@ public class UserService {
      * @return 是否成功
      */
     public boolean userReg(User user) {
-        UserDao userDao = new UserDao();
+
         return userDao.userReg(user);
     }
 
@@ -45,6 +46,33 @@ public class UserService {
     public boolean checkTeamid(int iduser, int idteam) {
         UserDao ud = new UserDao();
         return ud.checkTeamid(iduser, idteam);
+    }
+
+    public List<User> getAllUser(){
+        return userDao.getAllUser();
+    }
+
+    public User getUserByIduser(int iduser){
+        return userDao.getUserByIduser(iduser);
+    }
+
+    public User getUserByUsername(String username){
+        return userDao.getUserByUsername(username);
+    }
+
+    public boolean isUsernameUnique(String username){
+        if(getUserByUsername(username) == null) {
+            return true;
+        }
+        return false;
+    }
+
+    public void updateUser(User user){
+        userDao.userModify(user);
+    }
+
+    public boolean deleteUserByIduser(int iduser) {
+        return userDao.deleteUserByIduser(iduser);
     }
 
     /**
