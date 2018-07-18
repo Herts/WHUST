@@ -10,14 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import whustore.model.Cart;
-import whustore.model.Customer;
-import whustore.model.User;
+import whustore.model.*;
 import whustore.service.CartService;
 import whustore.service.CustomerService;
 import whustore.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 
 @Controller
@@ -64,6 +63,9 @@ public class UserController {
         CartService service = new CartService();
         Cart userCart = service.getUserCart(userInDB.getUserid());
         request.getSession().setAttribute("cart", userCart);
+        if(userInDB.getUserid()==0){
+            request.getSession().setAttribute("super",userInDB.getUserid());
+        }
         return new ModelAndView("homepage");
     }
 
@@ -203,4 +205,130 @@ public class UserController {
     }
 
 
+
+    @RequestMapping("/user/myStory")
+    public ModelAndView userStory(HttpServletRequest request,
+                                  ModelMap modelMap) {
+        User user = (User) request.getSession().getAttribute("user");
+        Num orderSize = new Num();
+        orderSize.setINT(0);
+        Map<Product, Integer> productNumMap = service.getUserProductRecords(user, orderSize);
+        Num productNumber = new Num();
+        productNumber.setINT(0);
+        Map<String, Integer> cateMap = cateNums(productNumMap, productNumber);
+        List<String> sorted = sortedCates(cateMap);
+        modelMap.addAttribute("favCates", sorted);
+        List<Product> favParoduct = getFavProducts(productNumMap);
+        modelMap.addAttribute("favProducts", favParoduct);
+        modelMap.addAttribute("productNumber", productNumber.getINT());
+        modelMap.addAttribute("orderSize", orderSize.getINT());
+
+        int totalMoney = 0;
+        List<Integer> teams = new ArrayList<>();
+        for (Product product :
+                productNumMap.keySet()) {
+            totalMoney += product.getPrice() * productNumMap.get(product);
+            if (!teams.contains(product.getTeamID()))
+                teams.add(product.getTeamID());
+        }
+        modelMap.addAttribute("productNumMap",productNumMap);
+        modelMap.addAttribute("cateNumMap",cateMap);
+        modelMap.addAttribute("teamSize",teams.size());
+        modelMap.addAttribute("totalMoney",totalMoney);
+        return new ModelAndView("userStory");
+    }
+
+    /**
+     * 获取购买最多的商品
+     *
+     * @param productNumMap 商品销量map
+     * @return 前五的商品
+     */
+    private List<Product> getFavProducts(Map<Product, Integer> productNumMap) {
+        List<Product> favProducts = new ArrayList<>();
+        int maxBought = 0;
+        for (Product product :
+                productNumMap.keySet()) {
+            if (productNumMap.get(product) > maxBought)
+                maxBought = productNumMap.get(product);
+        }
+
+        for (int i = maxBought; i > 0 && favProducts.size() < 4; i--) {
+            for (Product product :
+                    productNumMap.keySet()) {
+                if (productNumMap.get(product) == i)
+                    if (favProducts.size() < 4)
+                        favProducts.add(product);
+                    else break;
+            }
+        }
+        return favProducts;
+    }
+
+    /**
+     * 获取用户买过的商品的分类分布情况
+     *
+     * @param historyProductRecords 用户购买过的商品和商品的数量
+     * @return 用户买过的商品的分类分布情况
+     */
+    private Map<String, Integer> cateNums(Map<Product, Integer> historyProductRecords, Num productNumber) {
+        Map<String, Integer> result = new HashMap<>();
+        //遍历产品
+        int originNum = 0;
+        int productNum = 0;
+        for (Product product :
+                historyProductRecords.keySet()) {
+            productNumber.setINT(historyProductRecords.get(product) + productNumber.getINT());
+            //没有分类跳过该商品
+            if (product.getTypes() == null) continue;
+            //遍历单个产品的分类
+            for (String currentProductType :
+                    product.getTypes()) {
+                if (currentProductType == null) continue;
+                productNum = historyProductRecords.get(product);
+                if (result.get(currentProductType) != null) {
+                    //结果map里已经包含当前分类
+                    originNum = result.get(currentProductType);
+                    result.remove(currentProductType);
+                    result.put(currentProductType, originNum + productNum);
+                } else {
+                    //结果map不包含当前分类
+                    result.put(currentProductType, productNum);
+                }
+            }
+        }
+        return result;
+    }
+
+
+    /**
+     * 获取按商品数量排序的购买过的分类的列表
+     *
+     * @param cateMap 分类购买过商品数量map
+     * @return 排序过的分类list
+     */
+    private List<String> sortedCates(Map<String, Integer> cateMap) {
+        int maxNum = 0;
+        List<String> sortedCates = new ArrayList<>();
+        for (String string :
+                cateMap.keySet()) {
+            if (cateMap.get(string) > maxNum)
+                maxNum = cateMap.get(string);
+        }
+
+        for (int i = maxNum; i > 0 && sortedCates.size() < 5; i--) {
+            for (String string :
+                    cateMap.keySet()) {
+                if (cateMap.get(string) == i) {
+                    if (sortedCates.size() < 5) {
+                        sortedCates.add(string);
+                    } else {
+                        break;
+                    }
+
+                }
+            }
+        }
+        return sortedCates;
+    }
 }

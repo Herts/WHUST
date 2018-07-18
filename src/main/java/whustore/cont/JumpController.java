@@ -53,4 +53,6 @@ public class JumpController {
     public ModelAndView gotoTeamLogin() {
         return new ModelAndView("user/teamLogin", "command", new User());
     }
+    @RequestMapping("/administrator")
+    public String administrator(){return "/Management/Super";}
 }

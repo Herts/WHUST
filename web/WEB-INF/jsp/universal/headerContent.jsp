@@ -8,6 +8,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="whustore.model.User" %>
+<%@ page import="static sun.java2d.cmm.ColorTransform.In" %>
 <div class="row">
     <!--Header Logo Start-->
     <div class="col-lg-3 col-md-3">
@@ -103,10 +104,15 @@
                                 <%
                                     User user = (User) session.getAttribute("user");
                                     Integer idteam = (Integer) session.getAttribute("idteam");
+                                    Integer administrator = (Integer) session.getAttribute("super");
                                     if (user != null) {
-                                        if (idteam != null)
-                                            out.println("<li><a href=\"/gototeamAccount\">团队账户</a></li>");
-                                        out.println("<li><a href=\"/user/home\">" +
+                                        if(administrator!=null){
+                                            out.println("<li><a href=\"/administrator\">管理员</a></li>");
+                                        }
+                                        if (idteam != null){
+                                        out.println("<li><a href=\"/gototeamAccount\">团队账户</a></li>");
+                                        }
+                                                out.println("<li><a href=\"/user/home\">" +
                                                 user.getUsername() +
                                                 "的账户</a></li>" +
                                                 "<li><a href=\"/order/myOrders\">历史订单</a></li>\n" +
@@ -115,7 +121,6 @@
                                                 "<li><a href=\"/addorder\">结算</a></li>" +
                                                 "<li><a href='/logOut'>注销</a></li>");
                                         }
-
                                     else
                                         out.println("<li><a href=\"/log\">" +
                                                 "请登录" +

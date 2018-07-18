@@ -52,4 +52,12 @@ public class ProductService {
         ProductDao pd = new ProductDao();
         return pd.getProductsByidteam(idteam);
     }
+    public boolean changeStatus (int idproduct, int status){
+        ProductDao pd = new ProductDao();
+        return pd.changeStatus(idproduct, status);
+    }
+    public List<Product> getProductsByStatus (int status){
+        ProductDao pd = new ProductDao();
+        return pd.getProductsByStatus(status);
+    }
 }
