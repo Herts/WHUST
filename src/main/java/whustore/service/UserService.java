@@ -8,10 +8,7 @@ import whustore.model.Order;
 import whustore.model.Product;
 import whustore.model.User;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 @Service
@@ -83,15 +80,44 @@ public class UserService implements UserServiceIntf {
      *
      * @return 产品和数量的Map
      */
-    public Map<Product, Integer> getUserProductRecords(User user, Num orderSize) {
+    public Map<Product, Integer> getUserProductRecords(User user,
+                                                       Num orderSize,
+                                                       Map<Date, Double> totalGrow,
+                                                       Map<Date, Integer[]> orderGrow) {
+
         Map<Product, Integer> resultProductNums = new HashMap<>();
         OrderDao orderDao = new OrderDao();
-        int num = 0;
-        int orderNum = 0;
+        double total = 0;
+        int totalOrder = 0;
+        int totalProduct = 0;
+        int orderNum;
+        int num;
         List<Order> orderList = orderDao.getOrderlist(user.getUserid());
         orderSize.setINT(orderList.size());
         for (Order order :
                 orderList) {
+            //花费增长和订单增长计算区
+            Date createDate = order.getCreateDate();
+            total += order.getTotal();
+            totalOrder++;
+            totalProduct += order.getItems().size();
+            Integer[] newArrayData = {totalOrder, totalProduct};
+            if (totalGrow.get(createDate) == null) {
+                //该日期没有订单
+                totalGrow.put(createDate, total);
+            } else {
+                //该日期已有订单
+                totalGrow.remove(createDate);
+                totalGrow.put(createDate, total);
+            }
+            if (orderGrow.get(createDate) == null) {
+                //该日期没有放入订单数
+                orderGrow.put(createDate, newArrayData);
+            } else {
+                //该日期已有订单数
+                orderGrow.remove(createDate);
+                orderGrow.put(createDate, newArrayData);
+            }
             //遍历每一个订单
             Map<Product, Integer> orderNumMap = order.getItems();
             Set<Product> orderItems = order.getItems().keySet();
@@ -108,7 +134,6 @@ public class UserService implements UserServiceIntf {
                     //结果Map里尚没有这个产品，把订单的产品放入Map
                     resultProductNums.put(product, orderNumMap.get(product));
                 }
-
             }
         }
         return resultProductNums;

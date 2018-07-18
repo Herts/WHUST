@@ -212,17 +212,35 @@ public class UserController {
         User user = (User) request.getSession().getAttribute("user");
         Num orderSize = new Num();
         orderSize.setINT(0);
-        Map<Product, Integer> productNumMap = userService.getUserProductRecords(user, orderSize);
+        Map<Date, Double> totalGrow = new TreeMap<>();
+        Map<Date, Integer[]> orderGrow = new TreeMap<>();
+        modelMap.addAttribute("totalGrow", totalGrow);
+        modelMap.addAttribute("orderGrow", orderGrow);
+        //获取购买过的商品和购买数的map
+        Map<Product, Integer> productNumMap = userService.getUserProductRecords(user, orderSize, totalGrow, orderGrow);
         Num productNumber = new Num();
         productNumber.setINT(0);
+        //根据购买的商品获取购买过的商品种类的map
         Map<String, Integer> cateMap = cateNums(productNumMap, productNumber);
+        //获取种类map中数目前4的
         List<String> sorted = sortedCates(cateMap);
+        int cateOthers = productNumber.getINT();
+        //购买次数最多的单个分类的数量
+        int maxSingleCateNums = 0;
+        for (String cate :
+                sorted) {
+            if (cateMap.get(cate) > maxSingleCateNums)
+                maxSingleCateNums = cateMap.get(cate);
+            cateOthers -= cateMap.get(cate);
+        }
+        modelMap.addAttribute("maxSingleCateNums", maxSingleCateNums);
+        modelMap.addAttribute("otehrCateSize", cateOthers);
         modelMap.addAttribute("favCates", sorted);
         List<Product> favParoduct = getFavProducts(productNumMap);
         modelMap.addAttribute("favProducts", favParoduct);
         modelMap.addAttribute("productNumber", productNumber.getINT());
         modelMap.addAttribute("orderSize", orderSize.getINT());
-
+        //获取总消费额
         int totalMoney = 0;
         List<Integer> teams = new ArrayList<>();
         for (Product product :
@@ -231,10 +249,12 @@ public class UserController {
             if (!teams.contains(product.getTeamID()))
                 teams.add(product.getTeamID());
         }
-        modelMap.addAttribute("productNumMap",productNumMap);
-        modelMap.addAttribute("cateNumMap",cateMap);
-        modelMap.addAttribute("teamSize",teams.size());
-        modelMap.addAttribute("totalMoney",totalMoney);
+
+
+        modelMap.addAttribute("productNumMap", productNumMap);
+        modelMap.addAttribute("cateNumMap", cateMap);
+        modelMap.addAttribute("teamSize", teams.size());
+        modelMap.addAttribute("totalMoney", totalMoney);
         return new ModelAndView("userStory");
     }
 
@@ -325,7 +345,6 @@ public class UserController {
                     } else {
                         break;
                     }
-
                 }
             }
         }
