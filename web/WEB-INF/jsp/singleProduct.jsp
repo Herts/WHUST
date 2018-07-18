@@ -189,12 +189,16 @@
                                                 <div class="product-comment-content">
                                                     <div class="product-reviews">
                                                         <c:forEach var="i" begin="1" end="5">
-                                                            <c:if test="i <= ${comment.clevel}">
-                                                                <i class="fa fa-star"></i>
-                                                            </c:if>
-                                                            <c:if test="i > ${comment.clevel}">
-                                                                <i class="fa fa-star-o"></i>
-                                                            </c:if>
+                                                            <c:choose>
+                                                                <c:when test="i <= ${comment.clevel}">
+                                                                    <i class="fa fa-star"></i>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <i class="fa fa-star-o"></i>
+                                                                </c:otherwise>
+
+                                                            </c:choose>
+
                                                         </c:forEach>
                                                     </div>
                                                     <p class="meta">
@@ -210,46 +214,6 @@
                                 </div>
                                 </li>
                                 </ul>
-                                <%--<div class="review-form-wrapper">
-                                    <div class="review-form">
-                                        <span class="comment-reply-title">评价商品 </span>
-                                        <form action="#">
-                                            <p class="comment-notes">
-                                                <span id="email-notes">您的email将会被公开.</span>
-                                                必填项由
-                                                <span class="required">*</span>
-                                                标记
-                                            </p>
-                                            <div class="comment-form-rating">
-                                                <label>Your rating</label>
-                                                <div class="rating">
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                </div>
-                                            </div>
-                                            <div class="input-element">
-                                                <div class="comment-form-comment">
-                                                    <label>评论</label>
-                                                    <textarea name="message" cols="40" rows="8"></textarea>
-                                                </div>
-                                                <div class="review-comment-form-author">
-                                                    <label>姓名 </label>
-                                                    <input required="required" type="text">
-                                                </div>
-                                                <div class="review-comment-form-email">
-                                                    <label>Email </label>
-                                                    <input required="required" type="text">
-                                                </div>
-                                                <div class="comment-submit">
-                                                    <button type="submit" class="form-button">Submit</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>--%>
                             </div>
                         </div>
                     </div>

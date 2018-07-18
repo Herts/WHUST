@@ -23,10 +23,11 @@
     <meta name="robots" content="noindex, follow"/>
     <%@ include file="universal/allcss.jsp" %>
     <script>
-        function changeTimes(newNum){
-            document.getElementById("counter").innerHTML = newNum +"次";
+        function changeTimes(newNum) {
+            document.getElementById("counter").innerHTML = newNum + "次";
         }
     </script>
+    <script src="../../js/echarts.min.js"></script>
 </head>
 
 
@@ -88,6 +89,12 @@
                             在我们的用户中排名前90%<br/>
                             支持了${teamSize}个文化创意团队的发展</p>
                     </div>
+
+                    <div style="text-align: center">
+                        <a href="/user/myStory?userId=???">
+                            右键复制链接向他人分享您的用户故事
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -121,7 +128,7 @@
                 <!--Section Title End-->
             </div>
             <div class="row" style="padding-top: 3%">
-                <div class="product-slider-active slick-initialized slick-slider slick-dotted">
+                <div class="product-slider-active slick-initialized slick-slider">
                     <div class="slick-list draggable">
                         <div class="slick-track"
                              style="padding-left: 10%;padding-right: 10%;opacity: 1; width: 1152px; transform: translate3d(0px, 0px, 0px);">
@@ -129,7 +136,7 @@
                                 <div class="col-md-3 col-lg-3 col-sm-4 col-xs-12 slick-slide slick-active"
                                      data-slick-index="2" aria-hidden="false" style="width: 240px;" tabindex="0"
                                      role="tabpanel" id="slick-slide02" aria-describedby="slick-slide-control02"
-                                onmouseover="changeTimes('${productNumMap.get(product)}')">
+                                     onmouseover="changeTimes('${productNumMap.get(product)}')">
                                     <!--Single Product Start-->
                                     <div class="single-product mb-25">
                                         <div class="product-img img-full">
@@ -191,7 +198,8 @@
             <div class="row">
                 <div class="cat-1 col-md-4">
                     <div class="categories-img img-full mb-30">
-                        <a href="/shop/byCates?categories=${favCates.get(0)}"><img src="../../img/category/home1-category-1.jpg" alt=""></a>
+                        <a href="/shop/byCates?categories=${favCates.get(0)}"><img
+                                src="../../img/category/home1-category-1.jpg" alt=""></a>
                         <div class="categories-content">
                             <h3>${favCates.get(0)}</h3>
                             <h4>${cateNumMap.get(favCates.get(0))}次购买</h4>
@@ -254,15 +262,193 @@
                     </div>
                 </div>
                 <!--Section Title End-->
-            </div>
-            <div class="row">
-                <div class="col-lg-8 ml-auto mr-auto">
-                    <div class="history-area-content text-center">
-                        <h1>Content</h1>
+                <div class="row">
+                    <div class="col-lg-8 ml-auto mr-auto">
+                        <div class="history-area-content text-center">
+                            <%--商品分类表--%>
+                            <div id="cates" style="padding-left: 10%;padding-right: 10%;width: 890px;height: 600px">
+                                <script>
+                                    var myChart = echarts.init(document.getElementById('cates'));
+
+                                    // 指定图表的配置项和数据
+                                    var option = {
+                                        backgroundColor: '#ccc',
+
+                                        title: {
+                                            text: '各分类商品数量图'
+                                        },
+
+                                        tooltip: {
+                                            trigger: 'item',
+                                            formatter: "{a} <br/>{b} : {c} ({d}%)"
+                                        },
+
+                                        visualMap: {
+                                            show: false,
+                                            min: 0,
+                                            max: ${maxSingleCateNums*1.5},
+                                            inRange: {
+                                                colorLightness: [0, 1]
+                                            }
+                                        },
+                                        series: [
+                                            {
+                                                name: '各分类商品数量图',
+                                                type: 'pie',
+                                                radius: '55%',
+                                                center: ['50%', '50%'],
+                                                data: [
+                                                    <c:forEach items="${favCates}" var="cate">
+                                                    {value: ${cateNumMap.get(cate)}, name: '${cate}'},
+                                                    </c:forEach>
+                                                    {value: ${otehrCateSize}, name: '其他分类'}
+                                                ].sort(function (a, b) {
+                                                    return a.value - b.value;
+                                                }),
+                                                roseType: 'radius',
+                                                label: {
+                                                    normal: {
+                                                        textStyle: {
+                                                            color: 'rgba(255, 255, 255, 0.3)'
+                                                        }
+                                                    }
+                                                },
+                                                labelLine: {
+                                                    normal: {
+                                                        lineStyle: {
+                                                            color: 'rgba(255, 255, 255, 0.3)'
+                                                        },
+                                                        smooth: 0.2,
+                                                        length: 10,
+                                                        length2: 20
+                                                    }
+                                                },
+                                                itemStyle: {
+                                                    normal: {
+                                                        color: '#abd373',
+                                                        shadowBlur: 200,
+                                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                                    }
+                                                },
+
+                                                animationType: 'scale',
+                                                animationEasing: 'elasticOut',
+                                                animationDelay: function (idx) {
+                                                    return Math.random() * 200;
+                                                }
+                                            }
+                                        ]
+                                    };
+
+                                    // 使用刚指定的配置项和数据显示图表。
+                                    myChart.setOption(option);
+                                </script>
+                            </div>
+                            <div id="totalGrow" style="padding-left: 10%;padding-right: 10%;width: 890px;height: 600px">
+                                <script>
+                                    var myChart = echarts.init(document.getElementById('totalGrow'));
+
+                                    // 指定图表的配置项和数据
+                                    var option = {
+                                        xAxis: {
+                                            type: 'category',
+                                            data: [
+                                                <c:forEach items="${totalGrow.keySet()}" var="date">
+                                                '${date}',
+                                                </c:forEach>]
+                                        },
+                                        title: {
+                                            text: '消费数额增长图'
+                                        },
+                                        yAxis: {
+                                            type: 'value'
+                                        },
+                                        series: [{
+                                            data: [
+                                                <c:forEach items="${totalGrow.keySet()}" var="date">
+                                                ${totalGrow.get(date)},
+                                                </c:forEach>
+                                            ],
+                                            type: 'line',
+                                            smooth: true
+                                        }]
+                                    };
+
+                                    // 使用刚指定的配置项和数据显示图表。
+                                    myChart.setOption(option);
+                                </script>
+                            </div>
+                            <div id="orderGrow" style="padding-left: 10%;padding-right: 10%;width: 890px;height: 600px">
+                                <script>
+                                    var myChart = echarts.init(document.getElementById('orderGrow'));
+
+                                    var option = {
+                                        title: {
+                                            text: '购买商品数&订单数 增长图'
+                                        },
+                                        tooltip: {
+                                            trigger: 'axis'
+                                        },
+                                        legend: {
+                                            data: ['订单数', '商品数']
+                                        },
+                                        grid: {
+                                            left: '3%',
+                                            right: '4%',
+                                            bottom: '3%',
+                                            containLabel: true
+                                        },
+                                        toolbox: {
+                                            feature: {
+                                                saveAsImage: {}
+                                            }
+                                        },
+                                        xAxis: {
+                                            type: 'category',
+                                            boundaryGap: false,
+                                            data: [
+                                                <c:forEach items="${orderGrow.keySet()}" var="date">
+                                                '${date}',
+                                                </c:forEach>
+                                            ]
+                                        },
+                                        yAxis: {
+                                            type: 'value'
+                                        },
+                                        series: [
+                                            {
+                                                name: '订单数',
+                                                type: 'line',
+                                                smooth: true,
+                                                data: [
+                                                    <c:forEach items="${orderGrow.keySet()}" var="date">
+                                                    ${orderGrow.get(date)[0]},
+                                                    </c:forEach>
+                                                ]
+                                            },
+                                            {
+                                                name: '商品数',
+                                                type: 'line',
+                                                smooth: true,
+                                                data: [
+                                                    <c:forEach items="${orderGrow.keySet()}" var="date">
+                                                    ${orderGrow.get(date)[1]},
+                                                    </c:forEach>
+                                                ]
+                                            }
+                                        ]
+                                    };
+
+
+                                    myChart.setOption(option);
+                                </script>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
 
         <%--数据展示end--%>
         <!--Footer Area Start-->

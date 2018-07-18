@@ -1,14 +1,8 @@
 package whustore.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import whustore.model.User;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-import java.beans.PropertyVetoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,68 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class UserDao {
-
+public class UserDao implements UserDaoIntf{
     private Connection conn = null;
-    private Context context = null;
-    private DataSource dataSource = null;
+    private String sql;
+    private PreparedStatement ps;
+    private ResultSet rs;
 
-    /**
-     * 登陆密码检查
-     *
-     * @param user
-     * @return
-     */
-    public User loginCheck(User user) {
-
-        //获取数据库连接
-        conn = DBConnector.getDBConn();
-        if (conn == null)
-            return null;
-
-        String sql = "SELECT * FROM user WHERE username = ?";
-
-        try {//查询数据库
-            User result;
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, user.getUsername());
-            ResultSet rs = ps.executeQuery();
-            rs.next();
-            String userPw = rs.getString("password");
-            if (user.getPassword().equals(userPw)) {
-                result = new User();
-                result.setUserid(rs.getInt("iduser"));
-                result.setEmail(rs.getString("email"));
-                result.setPhone(rs.getString("phone"));
-                result.setUsername(rs.getString("username"));
-                result.setPassword(rs.getString("password"));
-                return result;
-            } else return null;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            try {
-                conn.close();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
-            return null;
-        }
-        finally {
-            //关闭数据库连接
-            try {
-                if (conn != null)
-                    conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     /**
      * 用户注册
      *
-     * @param user
-     * @return
+     * @param user 传入用户
+     * @return 返回是否插入
      */
     public boolean userReg(User user) {
         conn = DBConnector.getDBConn();
@@ -186,4 +130,119 @@ public class UserDao {
             return false;
         }
     }
+
+    public User getUserByIduser(int iduser){
+        sql = "SELECT * FROM user WHERE iduser = ?";
+        return  findBy(iduser, sql);
+    }
+
+    public List<User> getAllUser(){
+        List<User> userList= new ArrayList<>();
+        conn = DBConnector.getDBConn();
+        sql = "SELECT * FROM user";
+        try{
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                User u = new User();
+                u.setUserid(rs.getInt("iduser"));
+                u.setUsername(rs.getString("username"));
+                u.setPassword(rs.getString("password"));
+                u.setEmail(rs.getString("email"));
+                u.setPhone(rs.getString("phone"));
+                userList.add(u);
+            }
+            rs.next();
+            return userList;
+
+        }
+        catch (SQLException e){
+
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+
+    public <T> User findBy(T key, String sql){
+        conn = DBConnector.getDBConn();
+        if (conn == null)
+            return null;
+        try {//查询数据库
+
+            ps = conn.prepareStatement(sql);
+            ps.setObject(1, key);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                User result = new User();
+                result.setUserid(rs.getInt("iduser"));
+                result.setEmail(rs.getString("email"));
+                result.setPhone(rs.getString("phone"));
+                result.setUsername(rs.getString("username"));
+                result.setPassword(rs.getString("password"));
+                return result;
+            }
+             else return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                conn.close();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            return null;
+        }
+        finally {
+            //关闭数据库连接
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public User getUserByUsername(String username){
+        sql = "SELECT * FROM user WHERE username = ?";
+        return findBy(username, sql);
+    }
+
+    /**
+     * 登陆密码检查
+     *
+     * @param loginUser
+     * @return
+     */
+    public User loginCheck(User loginUser) {
+
+
+        User findUser = getUserByUsername(loginUser.getUsername());
+        if (loginUser.getPassword().equals(findUser.getPassword())) {
+            return findUser;
+        }
+        return null;
+    }
+
+    public boolean deleteUserByIduser(int iduser){
+        sql = "DELETE FROM user WHERE iduser = ?";
+        return deleteUserBy(iduser, sql);
+
+
+    }
+
+    public <T> boolean deleteUserBy(T key, String sql){
+        conn = DBConnector.getDBConn();
+        try{
+            ps = conn.prepareStatement(sql);
+            ps.setObject(1, key);
+            return ps.execute();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
