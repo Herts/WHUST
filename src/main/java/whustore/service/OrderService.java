@@ -23,4 +23,6 @@ public class OrderService {
     {
         return dao.orderPaid(orderId);
     }
+
+    public List<Order> getOrdersByidteam (int idteam){ return dao.getOrdersByidteam(idteam);}
 }

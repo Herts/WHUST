@@ -3,6 +3,7 @@ package whustore.cont;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import whustore.dao.OrderDao;
 import whustore.model.*;
 import whustore.service.CartService;
@@ -39,7 +40,7 @@ public class OrderController {
         Order order = new Order();
         order.setIduser(cart.getUserID());
         order.setItems(cart.getItems());
-        order.setIdOrder((int) System.currentTimeMillis() / 1000);
+        order.setIdOrder( Math.abs((int)System.currentTimeMillis() / 1000));
         order.setName(name);
         order.setAddress(address);
         order.setPhone(phone);
@@ -61,7 +62,7 @@ public class OrderController {
         }
     }
 
-    @RequestMapping("order/myOrders")
+    @RequestMapping("/order/myOrders")
     public String myOrders(HttpServletRequest request,
                            ModelMap modelMap) {
         User user = (User) request.getSession().getAttribute("user");
@@ -69,6 +70,20 @@ public class OrderController {
         List<Order> orderList = service.getUserOrderList(userId);
         modelMap.addAttribute("orders", orderList);
         return "order/myOrders";
+    }
+    @RequestMapping("gototeamOrderManage")
+    public ModelAndView gototeamOrderManagement (HttpServletRequest request, ModelAndView modelAndView){
+        int idteam = (int)request.getSession().getAttribute("idteam");
+        OrderService orderService = new OrderService();
+        List<Order> orderList = orderService.getOrdersByidteam(idteam);
+        modelAndView = new ModelAndView("order/ordermanage");
+        modelAndView.addObject("orders",orderList);
+        return modelAndView;
+    }
+    @RequestMapping("teamOrderManagement")
+    public String teamOrderManagement(HttpServletRequest request){
+
+        return "/order/ordermanage";
     }
 
 }

@@ -219,7 +219,7 @@ public class UserController {
         modelMap.addAttribute("totalGrow", totalGrow);
         modelMap.addAttribute("orderGrow", orderGrow);
         //获取购买过的商品和购买数的map
-        Map<Product, Integer> productNumMap = service.getUserProductRecords(user, orderSize, totalGrow, orderGrow);
+        Map<Product, Integer> productNumMap = userService.getUserProductRecords(user, orderSize, totalGrow, orderGrow);
         Num productNumber = new Num();
         productNumber.setINT(0);
         //根据购买的商品获取购买过的商品种类的map
