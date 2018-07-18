@@ -209,17 +209,21 @@ TODO
                     <p>商品分类标签</p>
                     <!--根据需求增减-->
                     <%--<input type="checkbox" name="type" class="p_tag" value="" hidden="hidden" checked="checked">--%>
-                    <input type="checkbox" name="type" class="p_tag" value="书籍" >书籍
-                    <input type="checkbox" name="type" class="p_tag" value="服饰" >服饰
+                    <input type="checkbox" name="type" class="p_tag" value="上衣" >上衣
+                    <input type="checkbox" name="type" class="p_tag" value="下装" >下装
+                    <input type="checkbox" name="type" class="p_tag" value="配件" >配件
+                    <input type="checkbox" name="type" class="p_tag" value="虚拟" >虚拟
+                    <input type="checkbox" name="type" class="p_tag" value="纸品" >纸品
+                    <input type="checkbox" name="type" class="p_tag" value="宿舍" >宿舍
+                    <input type="checkbox" name="type" class="p_tag" value="回忆" >回忆
+                    <input type="checkbox" name="type" class="p_tag" value="纪念" >纪念<br>
+                    <input type="checkbox" name="type" class="p_tag" value="独创" >独创
                     <input type="checkbox" name="type" class="p_tag" value="其他" >其他
-                    <input type="checkbox" name="type" class="p_tag" value="" >1
-                    <input type="checkbox" name="type" class="p_tag" value="" >1
-                    <input type="checkbox" name="type" class="p_tag" value="" >1
                     <p>商品简述</p>
                     <textarea id="product_description" name="proIntro"></textarea>
                     <!--<input type="hidden" value="">-->
                     <br/><br/>
-                    <input type="submit" value="添加商品">
+                    <button style="margin-left: 70%" type="submit" value="添加商品" class="form-button">添加商品</button>
                 </div>
 
             </div>

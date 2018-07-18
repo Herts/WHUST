@@ -13,6 +13,15 @@ public class Product {
     private List<String> types;
     private double price;
     private List<String> picPath;
+    private int status;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public int getId() {
         return id;

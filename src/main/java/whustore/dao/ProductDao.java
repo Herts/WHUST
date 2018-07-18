@@ -22,9 +22,10 @@ public class ProductDao {
      */
     public Product getProduct(int productID) {
         conn = DBConnector.getDBConn();
-        PreparedStatement ps;
+        PreparedStatement ps = null;
         Product product = new Product();
-
+        String select_paths = "SELECT * FROM productpic NATURAL JOIN picture WHERE idproduct = ?";
+        String select_types = "SELECT * FROM product NATURAL JOIN product WHERE idproduct = ?";
         try {
             ResultSet rs;
             String sql = "SELECT * FROM product WHERE idproduct=?";
@@ -32,15 +33,33 @@ public class ProductDao {
                 ps = conn.prepareStatement(sql);
                 ps.setInt(1, productID);
                 rs = ps.executeQuery();
-                rs.next();
-                product.setId(rs.getInt("idproduct"));
-                product.setProductName(rs.getString("pname"));
-                product.setProIntro(rs.getString("description"));
-                product.setQuantity(rs.getInt("quantity"));
-                //setType等待进一步实现
-                product.setTypes(null);
-            }
+                while(rs.next()){
+                    product.setId(rs.getInt("idproduct"));
+                    product.setProductName(rs.getString("pname"));
+                    product.setProIntro(rs.getString("description"));
+                    product.setQuantity(rs.getInt("quantity"));
+                    product.setTeamID(rs.getInt("idteam"));
+                    product.setPrice(rs.getDouble("price"));
+                    product.setStatus(rs.getInt("status"));
 
+                }
+                ps = conn.prepareStatement(select_paths);
+                ps.setObject(1,productID);
+                rs = ps.executeQuery();
+                while (rs.next()){
+                    if(rs.getString("ppath")!=null){
+                        product.picPathAppend(rs.getString("ppath"));
+                    }
+                }
+                ps = conn.prepareStatement(select_types);
+                ps.setObject(1,productID);
+                rs = ps.executeQuery();
+                while(rs.next()){
+                    if(rs.getString("cname")!=null){
+                        product.typeAppend(rs.getString("cname"));
+                    }
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -110,7 +129,7 @@ public class ProductDao {
 
     public boolean addProduct(Product p) {
         conn = DBConnector.getDBConn();
-        java.sql.PreparedStatement ps;
+        PreparedStatement ps;
         int state = 0;
         boolean restate=false;
         int idproduct =(int) (System.currentTimeMillis() / 1000);
@@ -520,6 +539,68 @@ public class ProductDao {
         }
         return list;
     }
+
+    public boolean changeStatus (int idproduct, int status){
+        String select_sql = "SELECT * FROM product WHERE idproduct= ?";
+        String update_sql = "UPDATE product SET status = ? WHERE idproduct = ?";
+        conn = DBConnector.getDBConn();
+        PreparedStatement ps = null;
+        int oldStatus = 0;
+        ResultSet rs = null;
+        try {
+            ps = conn.prepareStatement(select_sql);
+            ps.setObject(1,idproduct);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                oldStatus = rs.getInt("status");
+                if(oldStatus ==status){
+                    return true;
+                }
+            }else {
+                return true;
+            }
+            ps = conn.prepareStatement(update_sql);
+            ps.setObject(1,status);
+            ps.setObject(2,idproduct);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
+    }
+    public List<Product> getProductsByStatus (int status){
+        conn = DBConnector.getDBConn();
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        String sql = "SELECT * FROM product WHERE status = ?";
+        List<Product> list = new ArrayList<>();
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setObject(1,status);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                int idproduct = rs.getInt("idproduct");
+                list.add(this.getProduct(idproduct));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
+
     private Product getProductFromResultSet(ResultSet rs) {
         Product p = new Product();
         try {

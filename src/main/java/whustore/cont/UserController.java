@@ -60,6 +60,9 @@ public class UserController {
         CartService service = new CartService();
         Cart userCart = service.getUserCart(userInDB.getUserid());
         request.getSession().setAttribute("cart", userCart);
+        if(userInDB.getUserid()==0){
+            request.getSession().setAttribute("super",userInDB.getUserid());
+        }
         return new ModelAndView("homepage");
     }
 
