@@ -166,7 +166,7 @@
                         <c:forEach items="${orders}" var="order">
                             <table id="${order.idOrder}" class="tab" width="100%" border="0" cellspacing="0"
                                    cellpadding="0"
-                                   style="padding-bottom: 2%;padding-bottom: 2%">
+                                   style="padding-bottom: 2%;">
                                 <thead>
                                 <tr style="text-align: center">
                                     <th colspan="1" style="width: 10%">商品信息</th>
