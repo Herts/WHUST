@@ -226,12 +226,12 @@
                     </tfoot>
 
                 </table>
-
+            <c:if test="${items.size()!=0}">
                 <div class="review-form-wrapper" style="padding-left: 25%; padding-right: 25%; text-align: center">
                     <HR size="2" style="color: #abd373">
                     <div class="review-form">
                         <h2>收货信息</h2>
-                        <form action="/addorder">
+                        <form action="/addorder" method="post">
                             <p class="comment-notes">
                                 <br>
                                 <br>
@@ -258,7 +258,7 @@
                         </form>
                     </div>
                 </div>
-
+            </c:if>
             </div>
         </div>
     </div>
