@@ -7,6 +7,7 @@ import whustore.model.User;
 
 @Service
 public class CustomerService {
+    CustomerDao customerDao = new CustomerDao();
 
     /**
      * 获取Customer实体类
@@ -15,9 +16,7 @@ public class CustomerService {
      * @return
      */
     public Customer getCustomer(User user) {
-        CustomerDao customerDao = new CustomerDao();
-        Customer customer = customerDao.getCustomer(user);
-        return customer;
+        return customerDao.getCustomer(user);
     }
 
     /**
@@ -28,7 +27,6 @@ public class CustomerService {
      * @return
      */
     public boolean modifyCustomer(Customer customer, User user) {
-        CustomerDao customerDao = new CustomerDao();
         return customerDao.modifyCustomer(customer, user);
     }
 }

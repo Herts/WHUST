@@ -9,9 +9,8 @@
   Time: 下午4:37
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
@@ -204,15 +203,15 @@
                             <div class="input-element">
                                 <div class="comment-form-comment">
                                     <label>收货地址:</label>
-                                    <h3>${order.address}</h3>
+                                    <h3>${info.addr}</h3>
                                 </div>
                                 <div class="review-comment-form-author">
                                     <label>姓名:</label>
-                                    <h3>${order.name}</h3>
+                                    <h3>${info.name}</h3>
                                 </div>
                                 <div class="review-comment-form-email">
                                     <label>电话:</label>
-                                    <h3>${order.phone}</h3>
+                                    <h3>${info.tel}</h3>
                                 </div>
                                 <form action="/pay/payOrder">
                                     <input type="hidden" value="${order.idOrder}" name="orderId">

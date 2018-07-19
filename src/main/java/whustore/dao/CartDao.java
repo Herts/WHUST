@@ -8,12 +8,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-public class CartDao {
+public class CartDao implements CartDaoIntf{
     Connection conn;
 
     /**
@@ -67,7 +64,7 @@ public class CartDao {
      * 获取购物车的ID
      *
      * @param userID 用户ID
-     * @return 返还购物车
+     * @return 购物车ID
      */
     private int getCartID(int userID) {
         String sql = "SELECT * FROM cart WHERE iduser=?";

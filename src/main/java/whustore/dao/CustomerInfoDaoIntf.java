@@ -11,4 +11,6 @@ public interface CustomerInfoDaoIntf {
     CustomerInfo getLastCustomerInfoByIduser(int iduser);
 
     int initializeCustomerInfo(Customer customer, int iduser);
+
+    CustomerInfo getCustomerInfoByIdcustomerInfo(int id);
 }

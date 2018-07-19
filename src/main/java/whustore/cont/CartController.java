@@ -43,7 +43,6 @@ public class CartController {
     public void subProductIncart(HttpServletRequest request,
                                  @RequestParam("productID") int productID) {
         User user = (User) request.getSession().getAttribute("user");
-        int num = 1;
         service.subProductInCart(productID, user.getUserid());
         Cart userCart = (Cart) request.getSession().getAttribute("cart");
         userCart.sub(productID);

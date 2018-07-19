@@ -54,7 +54,7 @@ public class CustomerInfoDao implements CustomerInfoDaoIntf{
      * @return 用户信息的ID
      */
     public int isCustomerInfoUnique(String name, String addr, String tel, int iduser){
-        sql = "SELECT * WHERE name = ? AND addr = ? AND tel = ? AND iduer = ?";
+        sql = "SELECT * FROM customerInfo WHERE name = ? AND addr = ? AND tel = ? AND iduser = ?";
         try (Connection connection = HakariDB.getDataSource().getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)){
             ps.setString(1, name);
@@ -62,7 +62,7 @@ public class CustomerInfoDao implements CustomerInfoDaoIntf{
             ps.setString(3, tel);
             ps.setInt(4, iduser);
             rs = ps.executeQuery();
-            if( rs.next() || rs.getInt("iduser")== iduser){
+            if( rs.next() && rs.getInt("iduser")== iduser){
                 return rs.getInt("idcustomerInfo");
             }
             return -1;
@@ -74,14 +74,24 @@ public class CustomerInfoDao implements CustomerInfoDaoIntf{
     }
 
     /**
-     * @param iduser 用户ID
+     * @param idUser 用户ID
      * @return 最新的CustomerInfo
      */
-    public CustomerInfo getLastCustomerInfoByIduser(int iduser){
-        sql = "SELECT * FROM customerInfo WHERE iduser = ?  ORDER BY createsince";
+    public CustomerInfo getLastCustomerInfoByIduser(int idUser){
+        sql = "SELECT * FROM customerInfo WHERE iduser = ?  ORDER BY createsince DESC";
+        return findBy(idUser, sql);
+    }
+
+    public CustomerInfo getCustomerInfoByIdcustomerInfo(int id){
+        sql = "SELECT * FROM customerInfo WHERE idcustomerInfo = ?";
+        return findBy(id, sql);
+
+    }
+
+    private CustomerInfo findBy(int id, String sql){
         try (Connection connection = HakariDB.getDataSource().getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)){
-            ps.setInt(1, iduser);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
             if(rs.next()){
                 CustomerInfo info = new CustomerInfo();

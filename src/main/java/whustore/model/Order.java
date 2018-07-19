@@ -9,10 +9,20 @@ public class Order {
     private int iduser;
     private Map<Product, Integer> items;
     private String status;
-    private String address;
+   /* private String address;
     private String phone;
     private String name;
+   */
     private Date createDate;
+    private CustomerInfo info;
+
+    public CustomerInfo getInfo() {
+        return info;
+    }
+
+    public void setInfo(CustomerInfo info) {
+        this.info = info;
+    }
 
     public int getIdOrder() {
         return idOrder;
@@ -58,7 +68,7 @@ public class Order {
         this.status = status;
     }
 
-    public String getName() {
+ /*   public String getName() {
         return name;
     }
 
@@ -81,7 +91,7 @@ public class Order {
     public void setAddress(String address) {
         this.address = address;
     }
-
+*/
     public String getOrderItemNames() {
         String names = "";
         int counter = 0;
