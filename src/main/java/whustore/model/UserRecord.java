@@ -16,6 +16,8 @@ public class UserRecord {
 
     private UserRecordDao dao = new UserRecordDao();
 
+    private String favProductNames;
+
     /**
      * 搜索过的信息的记录
      */
@@ -74,6 +76,15 @@ public class UserRecord {
     private void upDate() {
         if (changeTimes > 2) {
             dao.saveUserRecord(this);
+            changeTimes = 0;
         }
+    }
+
+    public String getFavProductNames() {
+        return favProductNames;
+    }
+
+    public void setFavProductNames(String favProductNames) {
+        this.favProductNames = favProductNames;
     }
 }

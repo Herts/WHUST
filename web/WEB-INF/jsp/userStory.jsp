@@ -301,7 +301,7 @@
                                                     <c:forEach items="${favCates}" var="cate">
                                                     {value: ${cateNumMap.get(cate)}, name: '${cate}'},
                                                     </c:forEach>
-                                                    {value: ${otehrCateSize}, name: '其他分类'}
+                                                    {value: ${otehrCateSize}, name: '商家自定义分类'}
                                                 ].sort(function (a, b) {
                                                     return a.value - b.value;
                                                 }),
