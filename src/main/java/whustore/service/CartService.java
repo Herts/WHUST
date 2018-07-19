@@ -1,8 +1,9 @@
 package whustore.service;
 
+import org.springframework.stereotype.Service;
 import whustore.dao.CartDao;
 import whustore.model.Cart;
-
+@Service
 public class CartService {
     private CartDao dao = new CartDao();
 
@@ -18,7 +19,6 @@ public class CartService {
     public void subProductInCart(int productID, int userID)
     {
         dao.subProductInCart(productID,userID);
-        return;
     }
 
     public void removeProduct(int productID, int cartID) {

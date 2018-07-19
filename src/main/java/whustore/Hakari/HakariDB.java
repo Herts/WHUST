@@ -4,14 +4,17 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import javax.sql.DataSource;
+
 
 public class HakariDB {
+
     // Examines both filesystem and classpath for .properties file
     private static HikariConfig config = new HikariConfig();
     private static HikariDataSource ds;
+
     static {
+        config.setDriverClassName("com.mysql.jdbc.Driver");
         config.setJdbcUrl( "jdbc:mysql://104.199.177.163:3306/WHUStore" );
         config.setUsername( "springtest" );
         config.setPassword( "wsspring" );
@@ -21,33 +24,8 @@ public class HakariDB {
         ds = new HikariDataSource( config );
     }
 
-
-
-
-    public static Connection getConnection(){
-        HikariConfig config = new HikariConfig("/Hakari/hikari.properties");
-        HikariDataSource ds = new HikariDataSource(config);
-        Connection connection = null;
-        try{
-            connection = ds.getConnection();
-            return connection;
-        }
-        catch (SQLException e){
-            try{
-                connection.rollback();
-            }
-            catch (SQLException e1){
-                e1.printStackTrace();
-                return null;
-            }
-            e.printStackTrace();
-            return null;
-
-
+    public static DataSource getDataSource(){
+        return ds;
     }
-    }
-
-
-
 
 }

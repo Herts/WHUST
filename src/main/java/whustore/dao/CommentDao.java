@@ -1,5 +1,6 @@
 package whustore.dao;
 
+import whustore.Hakari.HakariDB;
 import whustore.model.Comment;
 
 import java.sql.Connection;
@@ -10,10 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommentDao implements CommentDaoIntf{
-    private Connection connection;
-    private PreparedStatement ps;
     private String sql;
-    ResultSet rs;
+    private ResultSet rs;
 
 
     public List<Comment> getCommentByIduser(int iduser){
@@ -27,11 +26,9 @@ public class CommentDao implements CommentDaoIntf{
     }
 
     private List<Comment> findBy(String sql, int id){
-        connection =  DBConnector.getDBConn();
 
-        try {
-
-            ps = connection.prepareStatement(sql);
+        try(Connection connection = HakariDB.getDataSource().getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, id);
             rs = ps.executeQuery();
             List<Comment> comments = new ArrayList<>();
@@ -51,7 +48,8 @@ public class CommentDao implements CommentDaoIntf{
             e.printStackTrace();
             return null;
         }
-        finally {
+/*        finally {
+
             //关闭数据库连接
             try {
                 if (connection != null)
@@ -59,16 +57,16 @@ public class CommentDao implements CommentDaoIntf{
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
     }
 
 
     public Comment getCommentByIduserAndIdproduct(int iduser, int idproduct){
-        connection =  DBConnector.getDBConn();
-        sql = "SELECT * FROM commentsInfo WHERE iduser = ? AND idproduct=?";
-        try {
 
-            ps = connection.prepareStatement(sql);
+        sql = "SELECT * FROM commentsInfo WHERE iduser = ? AND idproduct=?";
+        try (Connection connection = HakariDB.getDataSource().getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)){
+
             ps.setInt(1, iduser);
             ps.setInt(2, idproduct);
             rs = ps.executeQuery();
@@ -89,7 +87,7 @@ public class CommentDao implements CommentDaoIntf{
             e.printStackTrace();
             return null;
         }
-        finally {
+  /*      finally {
             //关闭数据库连接
             try {
                 if (connection != null)
@@ -97,7 +95,7 @@ public class CommentDao implements CommentDaoIntf{
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
     }
 
 
@@ -121,10 +119,10 @@ public class CommentDao implements CommentDaoIntf{
             return false;
         }
         sql = "UPDATE comments SET clevel = ?, ctitle = ?, ccontent = ? WHERE iduser = ? AND idproduct = ?";
-        connection  = DBConnector.getDBConn();
 
-        try {
-            ps = connection.prepareStatement(sql);
+
+        try (Connection connection = HakariDB.getDataSource().getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)){
             ps.setInt(5, idproduct);
             ps.setInt(4, iduser);
             ps.setInt(1, clevel);
@@ -137,6 +135,7 @@ public class CommentDao implements CommentDaoIntf{
             return false;
 
         }
+/*
         finally {
             //关闭数据库连接
             try {
@@ -146,16 +145,17 @@ public class CommentDao implements CommentDaoIntf{
                 e.printStackTrace();
             }
         }
+*/
     }
 
     public boolean updateExe(int idproduct, int iduser, int clevel , String ctitle, String ccontent, String sql){
         if(clevel < 1 || clevel > 5){
             return false;
         }
-        connection  = DBConnector.getDBConn();
 
-        try {
-            ps = connection.prepareStatement(sql);
+
+        try (Connection connection = HakariDB.getDataSource().getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)){
             ps.setInt(1, idproduct);
             ps.setInt(2,iduser);
             ps.setInt(3, clevel);
@@ -168,7 +168,7 @@ public class CommentDao implements CommentDaoIntf{
             return false;
 
         }
-        finally {
+/*        finally {
             //关闭数据库连接
             try {
                 if (connection != null)
@@ -176,7 +176,7 @@ public class CommentDao implements CommentDaoIntf{
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
 
     }
 

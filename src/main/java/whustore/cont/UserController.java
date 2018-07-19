@@ -133,7 +133,7 @@ public class UserController {
         } else {
             //注册成功
             modelMap.addAttribute("message","注册成功");
-            return new ModelAndView("reg");
+            return new ModelAndView("user/login");
         }
     }
 

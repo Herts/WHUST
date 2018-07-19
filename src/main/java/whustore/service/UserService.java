@@ -1,5 +1,6 @@
 package whustore.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import whustore.dao.OrderDao;
 import whustore.dao.UserDao;
@@ -13,6 +14,8 @@ import java.util.*;
 
 @Service
 public class UserService implements UserServiceIntf {
+    @Autowired OrderService orderService;
+
     UserDao userDao = new UserDao();
     /**
      * 登陆检查
@@ -86,13 +89,14 @@ public class UserService implements UserServiceIntf {
                                                        Map<Date, Integer[]> orderGrow) {
 
         Map<Product, Integer> resultProductNums = new HashMap<>();
-        OrderDao orderDao = new OrderDao();
+
         double total = 0;
         int totalOrder = 0;
         int totalProduct = 0;
         int orderNum;
         int num;
-        List<Order> orderList = orderDao.getOrderlist(user.getUserid());
+
+        List<Order> orderList = orderService.getAllOrderByIduser(user.getUserid());
         orderSize.setINT(orderList.size());
         for (Order order :
                 orderList) {
