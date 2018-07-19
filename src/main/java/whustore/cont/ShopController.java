@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import whustore.data.ProductData;
-import whustore.model.Product;
-import whustore.model.ProductComparatorName;
-import whustore.model.ProductComparatorPrice;
-import whustore.model.Recommend;
+import whustore.data.UserRecordData;
+import whustore.model.*;
 import whustore.service.RecommendService;
 import whustore.service.ShopService;
 
@@ -138,7 +136,19 @@ public class ShopController {
                                      ModelMap modelMap) {
         if (service == null)
             service = new ShopService();
-        if (request.getParameter("searching") != null || request.getParameter("searchinfo").toString().length() == 0) {
+        //保存搜索记录
+
+        if (request.getParameter("searching") != null || request.getParameter("searchinfo").toString().length() != 0) {
+
+            //保存搜索记录
+            if (request.getSession().getAttribute("user") != null) {
+                User user = (User) request.getSession().getAttribute("user");
+                if (UserRecordData.getUserRecord(user.getUserid()) != null) {
+                    UserRecord userRecord = UserRecordData.getUserRecord(user.getUserid());
+                    userRecord.addSearchInfo(request.getParameter("searchinfo"));
+                }
+            }
+            //搜索逻辑
             request.getSession().setAttribute("userFilterCates", getCategoryList());
             String searching = request.getParameter("searching");
             List<Product> results = service.getProductsBySearch(searching);

@@ -3,10 +3,9 @@ package whustore.service;
 import org.springframework.stereotype.Service;
 import whustore.dao.OrderDao;
 import whustore.dao.UserDao;
-import whustore.model.Num;
-import whustore.model.Order;
-import whustore.model.Product;
-import whustore.model.User;
+import whustore.dao.UserRecordDao;
+import whustore.data.UserRecordData;
+import whustore.model.*;
 
 import java.util.*;
 
@@ -14,6 +13,7 @@ import java.util.*;
 @Service
 public class UserService implements UserServiceIntf {
     UserDao userDao = new UserDao();
+
     /**
      * 登陆检查
      *
@@ -48,26 +48,23 @@ public class UserService implements UserServiceIntf {
         return ud.checkTeamid(iduser, idteam);
     }
 
-    public List<User> getAllUser(){
+    public List<User> getAllUser() {
         return userDao.getAllUser();
     }
 
-    public User getUserByIduser(int iduser){
+    public User getUserByIduser(int iduser) {
         return userDao.getUserByIduser(iduser);
     }
 
-    public User getUserByUsername(String username){
+    public User getUserByUsername(String username) {
         return userDao.getUserByUsername(username);
     }
 
-    public boolean isUsernameUnique(String username){
-        if(getUserByUsername(username) == null) {
-            return true;
-        }
-        return false;
+    public boolean isUsernameUnique(String username) {
+        return getUserByUsername(username) == null;
     }
 
-    public void updateUser(User user){
+    public void updateUser(User user) {
         userDao.userModify(user);
     }
 
@@ -139,5 +136,11 @@ public class UserService implements UserServiceIntf {
         return resultProductNums;
     }
 
+
+
+    public UserRecord getUserRecord(int userId){
+        UserRecordDao userRecordDao = new UserRecordDao();
+        return userRecordDao.loadRecord(userId);
+    }
 
 }
