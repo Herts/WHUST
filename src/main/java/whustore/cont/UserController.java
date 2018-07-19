@@ -14,6 +14,7 @@ import whustore.data.UserRecordData;
 import whustore.model.*;
 import whustore.service.CartService;
 import whustore.service.CustomerService;
+import whustore.service.RecommendService;
 import whustore.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -209,6 +210,17 @@ public class UserController {
         return "redirect:/manageUser";
     }
 
+    @RequestMapping("/user/recommendForMe")
+    public ModelAndView recommend(HttpServletRequest request,
+                                  ModelMap modelMap){
+        User user = (User) request.getSession().getAttribute("user");
+        List<Product> recommendList;
+        RecommendService recommendService = new RecommendService();
+        List<Product> products = recommendService.getUsersRecommend(user.getUserid());
+        modelMap.addAttribute("products",products);
+        return new ModelAndView("recommend");
+    }
+
 
     @RequestMapping("/user/myStory")
     public ModelAndView userStory(HttpServletRequest request,
@@ -237,6 +249,7 @@ public class UserController {
                 maxSingleCateNums = cateMap.get(cate);
             cateOthers -= cateMap.get(cate);
         }
+        maxSingleCateNums = Math.max(cateOthers,maxSingleCateNums);
         modelMap.addAttribute("maxSingleCateNums", maxSingleCateNums);
         modelMap.addAttribute("otehrCateSize", cateOthers);
         modelMap.addAttribute("favCates", sorted);

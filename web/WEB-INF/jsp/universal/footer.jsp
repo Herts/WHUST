@@ -23,7 +23,7 @@
                                 <li><a href="/user/home">我的账户</a></li>
                                 <li><a href="/order/myOrders">历史订单</a></li>
                                 <li><a href="/cart/myCart">购物车</a></li>
-                                <li><a href="/HangingAround">为我推荐</a></li>
+                                <li><a href="/user/recommendForMe">为我推荐</a></li>
                                 <li><a href="/user/myStory">我的故事</a></li>
                             </ul>
                         </div>

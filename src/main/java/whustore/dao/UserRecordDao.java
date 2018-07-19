@@ -1,10 +1,12 @@
 package whustore.dao;
 
+import whustore.data.ProductData;
 import whustore.model.UserRecord;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +30,7 @@ public class UserRecordDao {
             if (conn == null || conn.isClosed()) {
                 conn = DBConnector.getDBConn();
             }
+            //读取搜索记录
             String sql = "SELECT * FROM usersearch WHERE iduser=" + userId;
             assert conn != null;
             ResultSet rs = conn.createStatement().executeQuery(sql);
@@ -37,6 +40,7 @@ public class UserRecordDao {
             }
             userRecord.setSearchRecord(searchInfos);
 
+            //读取分类检索记录
             sql = "SELECT * FROM usercatehis WHERE iduser=" + userId;
             rs = conn.createStatement().executeQuery(sql);
             Map<String, Integer> cateMap = new TreeMap<>();
@@ -44,6 +48,14 @@ public class UserRecordDao {
                 cateMap.put(rs.getString("info"), rs.getInt("times"));
             }
             userRecord.setFiltedCates(cateMap);
+            //读取收藏列表记录
+            dao.getIdproductByIduser(userId);
+            StringBuilder favProductNames = new StringBuilder();
+            for (int id:
+                 dao.getIdproductByIduser(userId)) {
+                favProductNames.append(ProductData.getProductByID(id).getProductName());
+            }
+            userRecord.setFavProductNames(favProductNames.toString());
             return userRecord;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,13 +82,15 @@ public class UserRecordDao {
             assert conn != null;
             conn.createStatement().executeUpdate(sql);
             StringBuilder sqlBuilder = new StringBuilder();
+            Statement statement = conn.createStatement();
             for (String info :
                     searInfos) {
                 sqlBuilder.append("INSERT INTO usersearch (iduser, info) VALUES (").append(userId).append(", '").append(info).append("');");
+                statement.addBatch(sqlBuilder.toString());
+                sqlBuilder = new StringBuilder();
             }
             //添加新纪录
-            sql = sqlBuilder.toString();
-            conn.createStatement().executeUpdate(sql);
+            statement.executeBatch();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -103,13 +117,15 @@ public class UserRecordDao {
             assert conn != null;
             conn.createStatement().executeUpdate(sql);
             StringBuilder sqlBuilder = new StringBuilder();
+            Statement statement = conn.createStatement();
             for (String info :
                     cateRecord.keySet()) {
                 sqlBuilder.append("INSERT INTO usercatehis (iduser, info, times) VALUES (").append(userId).append(", '").append(info).append("', ").append(cateRecord.get(info)).append(");");
+                statement.addBatch(sqlBuilder.toString());
+                sqlBuilder = new StringBuilder();
             }
-            sql = sqlBuilder.toString();
             //添加新纪录
-            conn.createStatement().executeUpdate(sql);
+            statement.executeBatch();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
