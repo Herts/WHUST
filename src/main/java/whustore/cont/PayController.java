@@ -26,7 +26,8 @@ public class PayController {
                            ModelMap modelMap) {
         int orderId = Integer.parseInt(request.getParameter("orderId"));
         User user = (User) request.getSession().getAttribute("user");
-        Order order = service.getOrder(orderId,user.getUserid());
+
+        Order order = service.getOrderByIduser(orderId,user.getUserid());
         AlipayClient alipayClient = AlipayController.getAlipayClient();
         AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();//创建API对应的request
         alipayRequest.setReturnUrl("http://localhost:8080/order/myOrders");
