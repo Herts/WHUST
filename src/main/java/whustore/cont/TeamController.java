@@ -48,13 +48,6 @@ public class TeamController {
     public String gototeamAccount(){
         return "user/teamAccount";
     }
-    @RequestMapping("tp")
-    public String tp (){
-        ProductService ps = new ProductService();
-        List<Product> list = new ArrayList<Product>();
-        list =ps.getProductsByidteam(1);
-        return "homepage";
-    }
     @RequestMapping("teamProductList")
     public ModelAndView gototeamProductList(ModelMap modelMap, HttpServletRequest request){
         int idteam = (int)request.getSession().getAttribute("idteam");
@@ -64,6 +57,11 @@ public class TeamController {
         ModelAndView modelAndView = new ModelAndView("teamProductList");
         modelAndView.addObject("productList",list);
         return modelAndView;
+    }
+    @RequestMapping("modifyProduct")
+    public String modifyProduct(HttpServletRequest request){
+        String pname = request.getParameter("pname");
+        return "teamProductList";
     }
 
 }
