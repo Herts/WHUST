@@ -201,12 +201,12 @@
                                     <td/>
                                 </c:if>
                                 <c:if test="${order.status.equals('已付款')}">
-                                    <c:if test="${order.post.equals('未发货')}">
+                                    <c:if test="${order.status.equals('未发货')}">
                                         <td class="blackcolor" id="post${product.id}">
                                            <button class="form-button" type="submit" value="1" name="postStatus">确认发货</button>
                                         </td>
                                     </c:if>
-                                    <c:if test="${order.post.equals('已发货')}">
+                                    <c:if test="${order.status.equals('已发货')}">
                                         <td>
                                             <p>已发货</p>
                                         </td>

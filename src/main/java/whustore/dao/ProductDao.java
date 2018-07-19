@@ -25,7 +25,7 @@ public class ProductDao {
         PreparedStatement ps = null;
         Product product = new Product();
         String select_paths = "SELECT * FROM productpic NATURAL JOIN picture WHERE idproduct = ?";
-        String select_types = "SELECT * FROM product NATURAL JOIN product WHERE idproduct = ?";
+        String select_types = "SELECT * FROM product NATURAL JOIN procat WHERE idproduct = ?";
         try {
             ResultSet rs;
             String sql = "SELECT * FROM product WHERE idproduct=?";
@@ -33,15 +33,8 @@ public class ProductDao {
                 ps = conn.prepareStatement(sql);
                 ps.setInt(1, productID);
                 rs = ps.executeQuery();
-                while(rs.next()){
-                    product.setId(rs.getInt("idproduct"));
-                    product.setProductName(rs.getString("pname"));
-                    product.setProIntro(rs.getString("description"));
-                    product.setQuantity(rs.getInt("quantity"));
-                    product.setTeamID(rs.getInt("idteam"));
-                    product.setPrice(rs.getDouble("price"));
-                    product.setStatus(rs.getInt("status"));
-
+                if(rs.next()){
+                    product = this.getProductFromResultSet(rs);
                 }
                 ps = conn.prepareStatement(select_paths);
                 ps.setObject(1,productID);
@@ -97,14 +90,7 @@ public class ProductDao {
                 //是一个新的产品时新建产品
                 if (lastProduct.getId() != idproduct) {
                     Product current = new Product();
-                    current.setId(idproduct);
-                    current.setProductName(rs.getString("pname"));
-                    current.setProIntro(rs.getString("description"));
-                    current.setQuantity(rs.getInt("quantity"));
-                    current.setTeamID(rs.getInt("idteam"));
-                    current.setPrice(rs.getDouble("price"));
-                    current.picPathAppend(rs.getString("ppath"));
-                    current.typeAppend(rs.getString("category"));
+                    current = this.getProductFromResultSet(rs);
                     list.add(current);
                     lastProduct = current;
                 } else {
@@ -513,6 +499,7 @@ public class ProductDao {
                 p.setQuantity(rs_idproduct.getInt("quantity"));
                 p.setProIntro(rs_idproduct.getString("description"));
                 p.setProductName(rs_idproduct.getString("pname"));
+                p.setStatus(rs_idproduct.getInt("status"));
                 ps = conn.prepareStatement(select_types);
                 ps.setObject(1,idproduct );
                 rs = ps.executeQuery();
@@ -600,7 +587,6 @@ public class ProductDao {
         }
         return list;
     }
-
     private Product getProductFromResultSet(ResultSet rs) {
         Product p = new Product();
         try {
@@ -610,6 +596,7 @@ public class ProductDao {
             p.setQuantity(rs.getInt("quantity"));
             p.setTeamID(rs.getInt("idteam"));
             p.setPrice(rs.getDouble("price"));
+            p.setStatus(rs.getInt("status"));
         } catch (SQLException e) {
             e.printStackTrace();
         }

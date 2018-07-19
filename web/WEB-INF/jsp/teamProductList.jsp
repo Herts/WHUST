@@ -155,26 +155,29 @@
                    style="padding-bottom: 2%;padding-bottom: 2%">
                 <thead>
                 <tr style="text-align: center">
-                    <th colspan="1">商品信息</th>
-                    <th style="width: 14%;">商品金额</th>
-                    <th style="width: 14%;">商品数量</th>
-                    <th style="width: 14%;">编辑</th>
+                    <th style="width: 15%">图片</th>
+                    <th style="width: 15%">商品名称</th>
+                    <th style="width: 15%;">商品金额</th>
+                    <th style="width: 15%;">商品数量</th>
+                    <th style="width: 15%">商品状态</th>
+                    <th style="width: 15%;">编辑</th>
                 </tr>
                 </thead>
 
             <c:forEach items="${productList}" var="product" varStatus="status">
-                <tr id="${product.id}" style="padding-bottom: 1%">
-                    <td class="goods">
-                        <img src="../../${product.picPath.get(0)}" class="goods-left"/>
-                        <div class="goods-right">
-                            <a href="">${product.productName}</a>
-                        </div>
-                    </td>
-                    <td><p>${product.price}</p></td>
-                    <td class="num">${product.quantity}&nbsp;&nbsp;</td>
-                    <td><button class="form-button">修改商品</button> </td>
-                </tr>
-                <hr/>
+                <form method="post" action="/modifyProduct" onsubmit="submit_sure()">
+                    <tr id="${product.id}" name="${product.id}" style="padding-bottom: 1%">
+                        <td><img style="width: 150px;" src="../../${product.picPath.get(0)}" class="goods-left"/></td>
+                        <td><input name="pname" value="${product.productName}"></td>
+                        <td><input name="price" value="${product.price}"></td>
+                        <td ><input name="quantity" value="${product.quantity}"></td>
+                        <td>
+                            <c:if test="${product.status == 1}" ><p>上架</p></c:if>
+                            <c:if test="${product.status == 0}" ><p>等待上架</p></c:if>
+                        </td>
+                        <td><button type="submit" class="form-button"><a >修改商品</a></button></td>
+                    </tr>
+                </form>
             </c:forEach>
             </table>
         </div>

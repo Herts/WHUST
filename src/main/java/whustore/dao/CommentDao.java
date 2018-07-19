@@ -15,7 +15,7 @@ public class CommentDao implements CommentDaoIntf{
     private ResultSet rs;
 
 
-    public List<Comment> getCommentByIduser(int iduser){
+    public List<Comment> getCommentByIduser(int iduser) {
         sql = "SELECT * FROM commentsInfo WHERE iduser =?";
         return findBy(sql, iduser);
     }
@@ -99,23 +99,22 @@ public class CommentDao implements CommentDaoIntf{
     }
 
 
-
     public boolean setComment(int idproduct, int iduser, int clevel, String ctitle, String ccontent, Boolean isCommented) {
-        if(!isCommented){
-            return  insertComment(idproduct, iduser, clevel, ctitle, ccontent);
+        if (!isCommented) {
+            return insertComment(idproduct, iduser, clevel, ctitle, ccontent);
         }
-        return updateComment(idproduct,iduser,clevel, ctitle, ccontent);
+        return updateComment(idproduct, iduser, clevel, ctitle, ccontent);
     }
 
-    public boolean insertComment(int idproduct,int iduser,int clevel ,String ctitle, String ccontent){
-        sql  = "INSERT INTO `comments` (`idproduct`, `iduser`, `clevel`, `ctitle`, `ccontent`) " +
+    public boolean insertComment(int idproduct, int iduser, int clevel, String ctitle, String ccontent) {
+        sql = "INSERT INTO `comments` (`idproduct`, `iduser`, `clevel`, `ctitle`, `ccontent`) " +
                 "VALUES (?, ?, ?, ?, ?);";
         return updateExe(idproduct, iduser, clevel, ctitle, ccontent, sql);
     }
 
-    public boolean updateComment(int idproduct, int iduser, int clevel, String ctitle, String ccontent){
+    public boolean updateComment(int idproduct, int iduser, int clevel, String ctitle, String ccontent) {
 
-        if(clevel < 1 || clevel > 5){
+        if (clevel < 1 || clevel > 5) {
             return false;
         }
         sql = "UPDATE comments SET clevel = ?, ctitle = ?, ccontent = ? WHERE iduser = ? AND idproduct = ?";
@@ -148,8 +147,8 @@ public class CommentDao implements CommentDaoIntf{
 */
     }
 
-    public boolean updateExe(int idproduct, int iduser, int clevel , String ctitle, String ccontent, String sql){
-        if(clevel < 1 || clevel > 5){
+    public boolean updateExe(int idproduct, int iduser, int clevel, String ctitle, String ccontent, String sql) {
+        if (clevel < 1 || clevel > 5) {
             return false;
         }
 
@@ -157,7 +156,7 @@ public class CommentDao implements CommentDaoIntf{
         try (Connection connection = HakariDB.getDataSource().getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)){
             ps.setInt(1, idproduct);
-            ps.setInt(2,iduser);
+            ps.setInt(2, iduser);
             ps.setInt(3, clevel);
             ps.setString(4, ctitle);
             ps.setString(5, ccontent);

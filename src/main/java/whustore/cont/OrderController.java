@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import whustore.model.*;
 import whustore.service.CartService;
 import whustore.service.CustomerInfoService;
@@ -69,6 +70,21 @@ public class OrderController {
 
         modelMap.addAttribute("orders", orderList);
         return "order/myOrders";
+    }
+
+    @RequestMapping("gototeamOrderManage")
+    public ModelAndView gototeamOrderManagement (HttpServletRequest request, ModelAndView modelAndView){
+        int idteam = (int)request.getSession().getAttribute("idteam");
+        OrderService orderService = new OrderService();
+        List<Order> orderList = orderService.getOrdersByidteam(idteam);
+        modelAndView = new ModelAndView("order/ordermanage");
+        modelAndView.addObject("orders",orderList);
+        return modelAndView;
+    }
+    @RequestMapping("teamOrderManagement")
+    public String teamOrderManagement(HttpServletRequest request){
+
+        return "/order/ordermanage";
     }
 
 }

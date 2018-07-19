@@ -319,4 +319,18 @@ public class OrderDao implements OrderDaoIntf {
         return null;
     }
 
+    public void changeOstatus (int idorder, String status){
+
+        String sql = "UPDATE orders SET ostatus = ? WHERE idorder = ?";
+        try (Connection connection = HakariDB.getDataSource().getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)){
+
+            ps.setObject(1,idorder);
+            ps.setObject(2,status);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

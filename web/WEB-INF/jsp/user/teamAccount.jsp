@@ -82,7 +82,7 @@
                     </li>
                     <br/>
                     <li>
-                        <button class="form-button" style="width:50%"><p style="color: white;font-size: larger">添加商品</p>
+                        <button class="form-button" style="width:50%"><a href="/gototeamOrderManage" style="color: white;font-size: larger;margin: auto auto">查看订单</a>
                         </button>
                     </li>
                     <br/>
