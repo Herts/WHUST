@@ -27,7 +27,7 @@ public class UserRecordDao {
             userRecord.setUserId(userId);
             ps.setInt(1, userId);
             //读取搜索记录
-            ResultSet rs = ps.executeQuery(sql);
+            ResultSet rs = ps.executeQuery();
             List<String> searchInfos = new ArrayList<>();
             while (rs.next()) {
                 searchInfos.add(rs.getString("info"));
