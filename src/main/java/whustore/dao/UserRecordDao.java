@@ -1,12 +1,10 @@
 package whustore.dao;
 
+import whustore.Hakari.HakariDB;
 import whustore.data.ProductData;
 import whustore.model.UserRecord;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +13,6 @@ import java.util.TreeMap;
 public class UserRecordDao {
     private FavDao dao = new FavDao();
 
-    private Connection conn;
-
     public boolean saveUserRecord(UserRecord userRecord) {
         saveSearchRecord(userRecord.getSearchRecord(), userRecord.getUserId());
         saveCateRecord(userRecord.getFiltedCates(), userRecord.getUserId());
@@ -24,16 +20,14 @@ public class UserRecordDao {
     }
 
     public UserRecord loadRecord(int userId) {
-        try {
+        String sql = "SELECT * FROM usersearch WHERE iduser= ?";
+        try (Connection conn = HakariDB.getDataSource().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)){
             UserRecord userRecord = new UserRecord();
             userRecord.setUserId(userId);
-            if (conn == null || conn.isClosed()) {
-                conn = DBConnector.getDBConn();
-            }
+            ps.setInt(1, userId);
             //读取搜索记录
-            String sql = "SELECT * FROM usersearch WHERE iduser=" + userId;
-            assert conn != null;
-            ResultSet rs = conn.createStatement().executeQuery(sql);
+            ResultSet rs = ps.executeQuery(sql);
             List<String> searchInfos = new ArrayList<>();
             while (rs.next()) {
                 searchInfos.add(rs.getString("info"));
@@ -41,8 +35,11 @@ public class UserRecordDao {
             userRecord.setSearchRecord(searchInfos);
 
             //读取分类检索记录
-            sql = "SELECT * FROM usercatehis WHERE iduser=" + userId;
-            rs = conn.createStatement().executeQuery(sql);
+            sql = "SELECT * FROM usercatehis WHERE iduser= ? ";
+            PreparedStatement ps2 = conn.prepareStatement(sql);
+            ps2.setInt(1, userId);
+            rs = ps2.executeQuery();
+
             Map<String, Integer> cateMap = new TreeMap<>();
             while (rs.next()) {
                 cateMap.put(rs.getString("info"), rs.getInt("times"));
@@ -60,13 +57,6 @@ public class UserRecordDao {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
-        } finally {
-            try {
-                assert conn != null;
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -75,12 +65,12 @@ public class UserRecordDao {
      */
     private boolean saveSearchRecord(List<String> searInfos, int userId) {
         //删除愿有记录
-        String sql = "DELETE FROM usersearch WHERE iduser=" + userId;
-        try {
-            if (conn == null || conn.isClosed())
-                conn = DBConnector.getDBConn();
-            assert conn != null;
+        String sql = "DELETE FROM usersearch WHERE iduser = ?";
+        try (Connection conn = HakariDB.getDataSource().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setInt(1, userId);
             conn.createStatement().executeUpdate(sql);
+
             StringBuilder sqlBuilder = new StringBuilder();
             Statement statement = conn.createStatement();
             for (String info :
@@ -95,13 +85,6 @@ public class UserRecordDao {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
-        } finally {
-            try {
-                assert conn != null;
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -110,12 +93,12 @@ public class UserRecordDao {
      */
     private boolean saveCateRecord(Map<String, Integer> cateRecord, int userId) {
         //删除原纪录
-        String sql = "DELETE FROM usercatehis WHERE iduser=" + userId;
-        try {
-            if (conn == null || conn.isClosed())
-                conn = DBConnector.getDBConn();
-            assert conn != null;
-            conn.createStatement().executeUpdate(sql);
+        String sql = "DELETE FROM usercatehis WHERE iduser = ?";
+        try (Connection conn = HakariDB.getDataSource().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setInt(1, userId);
+            ps.executeUpdate();
+
             StringBuilder sqlBuilder = new StringBuilder();
             Statement statement = conn.createStatement();
             for (String info :
@@ -130,13 +113,6 @@ public class UserRecordDao {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
-        } finally {
-            try {
-                assert conn != null;
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 }
