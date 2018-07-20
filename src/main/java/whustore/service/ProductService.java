@@ -44,10 +44,6 @@ public class ProductService {
         return pd.getProductsByQuery(query);
     }
 
-    public List<Product> getRandomProducts(int k) {
-        ProductDao pd = new ProductDao();
-        return pd.getRandomProducts(k);
-    }
     public List<Product> getProductsByidteam (int idteam){
         ProductDao pd = new ProductDao();
         return pd.getProductsByidteam(idteam);
