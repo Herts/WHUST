@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommentDao implements CommentDaoIntf{
+public class CommentDao implements CommentDaoIntf {
     private String sql;
     private ResultSet rs;
 
@@ -25,10 +25,10 @@ public class CommentDao implements CommentDaoIntf{
         return findBy(sql, idproduct);
     }
 
-    private List<Comment> findBy(String sql, int id){
+    private List<Comment> findBy(String sql, int id) {
 
-        try(Connection connection = HakariDB.getDataSource().getConnection();
-            PreparedStatement ps = connection.prepareStatement(sql)) {
+        try (Connection connection = HakariDB.getDataSource().getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, id);
             rs = ps.executeQuery();
             List<Comment> comments = new ArrayList<>();
@@ -48,24 +48,14 @@ public class CommentDao implements CommentDaoIntf{
             e.printStackTrace();
             return null;
         }
-/*        finally {
-
-            //关闭数据库连接
-            try {
-                if (connection != null)
-                    connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }*/
     }
 
 
-    public Comment getCommentByIduserAndIdproduct(int iduser, int idproduct){
+    public Comment getCommentByIduserAndIdproduct(int iduser, int idproduct) {
 
         sql = "SELECT * FROM commentsInfo WHERE iduser = ? AND idproduct=?";
         try (Connection connection = HakariDB.getDataSource().getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)){
+             PreparedStatement ps = connection.prepareStatement(sql)) {
 
             ps.setInt(1, iduser);
             ps.setInt(2, idproduct);
@@ -87,15 +77,6 @@ public class CommentDao implements CommentDaoIntf{
             e.printStackTrace();
             return null;
         }
-  /*      finally {
-            //关闭数据库连接
-            try {
-                if (connection != null)
-                    connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }*/
     }
 
 
@@ -121,30 +102,17 @@ public class CommentDao implements CommentDaoIntf{
 
 
         try (Connection connection = HakariDB.getDataSource().getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)){
+             PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(5, idproduct);
             ps.setInt(4, iduser);
             ps.setInt(1, clevel);
             ps.setString(2, ctitle);
             ps.setString(3, ccontent);
             return (ps.executeUpdate() == 1);
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
-
         }
-/*
-        finally {
-            //关闭数据库连接
-            try {
-                if (connection != null)
-                    connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-*/
     }
 
     public boolean updateExe(int idproduct, int iduser, int clevel, String ctitle, String ccontent, String sql) {
@@ -154,29 +122,17 @@ public class CommentDao implements CommentDaoIntf{
 
 
         try (Connection connection = HakariDB.getDataSource().getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)){
+             PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, idproduct);
             ps.setInt(2, iduser);
             ps.setInt(3, clevel);
             ps.setString(4, ctitle);
             ps.setString(5, ccontent);
             return (ps.executeUpdate() == 1);
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
-
         }
-/*        finally {
-            //关闭数据库连接
-            try {
-                if (connection != null)
-                    connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }*/
-
     }
 
 

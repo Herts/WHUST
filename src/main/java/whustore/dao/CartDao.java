@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-public class CartDao implements CartDaoIntf{
+public class CartDao implements CartDaoIntf {
 
     /**
      * 获取用户的购物车
@@ -25,7 +25,7 @@ public class CartDao implements CartDaoIntf{
         String sql = "SELECT * FROM cartInfo WHERE idcart=?";
 
         try (Connection conn = HakariDB.getDataSource().getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)){
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, cartID);
             ResultSet rs = ps.executeQuery();
             HashMap<Product, Integer> items = new HashMap<Product, Integer>();
@@ -56,7 +56,7 @@ public class CartDao implements CartDaoIntf{
         String sql = "SELECT * FROM cart WHERE iduser=?";
 
         try (Connection conn = HakariDB.getDataSource().getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)){
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             if (ps != null) {
                 ps.setInt(1, userID);
                 ResultSet rs = ps.executeQuery();
@@ -93,7 +93,7 @@ public class CartDao implements CartDaoIntf{
     public void addProductToCart(int userID, int productID, int num) {
         String sql = "SELECT amount FROM cartitem WHERE idproduct=? AND idcart=?";
         try (Connection conn = HakariDB.getDataSource().getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)){
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             int cartID = getCartID(userID);
             //购物车已有该商品
             ps.setInt(1, productID);
@@ -142,7 +142,7 @@ public class CartDao implements CartDaoIntf{
     public boolean deleteCartitem(int idcart) {
         String sql = "DELETE FROM cartitem WHERE idcart = ?";
         try (Connection conn = HakariDB.getDataSource().getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)){
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setObject(1, idcart);
             ps.executeUpdate();
             return true;
@@ -163,7 +163,7 @@ public class CartDao implements CartDaoIntf{
         int cartID = getCartID(userID);
         String sql = "SELECT amount FROM cartitem WHERE idproduct=? AND idcart=?";
         try (Connection conn = HakariDB.getDataSource().getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)){
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, productID);
             ps.setInt(2, cartID);
             ResultSet rs = ps.executeQuery();
@@ -179,12 +179,10 @@ public class CartDao implements CartDaoIntf{
                 ps2.setInt(3, cartID);
                 ps2.executeUpdate();
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -200,7 +198,7 @@ public class CartDao implements CartDaoIntf{
     public boolean removeProduct(int productID, int cartID) {
         String sql = "DELETE FROM cartitem WHERE idproduct=? AND idcart=?";
         try (Connection conn = HakariDB.getDataSource().getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)){
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, productID);
             ps.setInt(2, cartID);
             ps.executeUpdate();
