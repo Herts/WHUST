@@ -104,6 +104,8 @@ public class UserService implements UserServiceIntf {
             totalOrder++;
             totalProduct += order.getItems().size();
             Integer[] newArrayData = {totalOrder, totalProduct};
+            if (createDate==null)
+                continue;
             if (totalGrow.get(createDate) == null) {
                 //该日期没有订单
                 totalGrow.put(createDate, total);
