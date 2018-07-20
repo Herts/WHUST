@@ -55,4 +55,28 @@ public class JumpController {
     }
     @RequestMapping("/administrator")
     public String administrator(){return "/Management/Super";}
+
+    @RequestMapping("/aboutUs")
+    public String gotoAboutUs(){return "/footerContent/aboutUs";}
+
+    @RequestMapping("/joinUs")
+    public String gotoJoinUs(){return "/footerContent/joinUs";}
+
+    @RequestMapping("/teamMember")
+    public String gotoTeamMember(){return "/footerContent/teamMember";}
+
+    @RequestMapping("/supportUs")
+    public String gotoSupportUs(){return "/footerContent/supportUs";}
+
+    @RequestMapping("/FAQS")
+    public String gotoFAQS(){return "/footerContent/FAQS";}
+
+    @RequestMapping("/privacy-policy")
+    public String gotoPrivacy(){return "/footerContent/privacy-policy";}
+
+    @RequestMapping("/distribution-service")
+    public String gotoDistribution(){return "/footerContent/distribution-service";}
+
+    @RequestMapping("/construction")
+    public String gotoConstruction(){return "/footerContent/construction";}
 }

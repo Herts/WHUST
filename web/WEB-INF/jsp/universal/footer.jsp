@@ -52,11 +52,11 @@
                                 <h3>快速链接</h3>
                             </div>
                             <ul class="link-widget">
-                                <li><a href="#">支持中心</a></li>
-                                <li><a href="#">服务合同</a></li>
-                                <li><a href="#">配送服务</a></li>
-                                <li><a href="#">隐私条款</a></li>
-                                <li><a href="#">FAQS</a></li>
+                                <li><a href="<c:url value="/construction"/>">支持中心</a></li>
+                                <li><a href="<c:url value="/construction"/>">服务合同</a></li>
+                                <li><a href="<c:url value="/distribution-service"/>">配送服务</a></li>
+                                <li><a href="<c:url value="/privacy-policy"/>">隐私条款</a></li>
+                                <li><a href="<c:url value="/FAQS"/>">FAQS</a></li>
                             </ul>
                         </div>
                         <!--Single Footer Widget End-->
