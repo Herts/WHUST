@@ -67,4 +67,16 @@ public class JumpController {
 
     @RequestMapping("/supportUs")
     public String gotoSupportUs(){return "/footerContent/supportUs";}
+
+    @RequestMapping("/FAQS")
+    public String gotoFAQS(){return "/footerContent/FAQS";}
+
+    @RequestMapping("/privacy-policy")
+    public String gotoPrivacy(){return "/footerContent/privacy-policy";}
+
+    @RequestMapping("/distribution-service")
+    public String gotoDistribution(){return "/footerContent/distribution-service";}
+
+    @RequestMapping("/construction")
+    public String gotoConstruction(){return "/footerContent/construction";}
 }
