@@ -22,7 +22,7 @@ public class UserRecordDao {
     public UserRecord loadRecord(int userId) {
         String sql = "SELECT * FROM usersearch WHERE iduser= ?";
         try (Connection conn = HakariDB.getDataSource().getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)){
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             UserRecord userRecord = new UserRecord();
             userRecord.setUserId(userId);
             ps.setInt(1, userId);
@@ -48,8 +48,8 @@ public class UserRecordDao {
             //读取收藏列表记录
             dao.getIdproductByIduser(userId);
             StringBuilder favProductNames = new StringBuilder();
-            for (int id:
-                 dao.getIdproductByIduser(userId)) {
+            for (int id :
+                    dao.getIdproductByIduser(userId)) {
                 favProductNames.append(ProductData.getProductByID(id).getProductName());
             }
             userRecord.setFavProductNames(favProductNames.toString());
@@ -67,7 +67,7 @@ public class UserRecordDao {
         //删除愿有记录
         String sql = "DELETE FROM usersearch WHERE iduser = ?";
         try (Connection conn = HakariDB.getDataSource().getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)){
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, userId);
             conn.createStatement().executeUpdate(sql);
 
@@ -95,7 +95,7 @@ public class UserRecordDao {
         //删除原纪录
         String sql = "DELETE FROM usercatehis WHERE iduser = ?";
         try (Connection conn = HakariDB.getDataSource().getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)){
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, userId);
             ps.executeUpdate();
 
