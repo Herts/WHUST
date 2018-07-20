@@ -13,7 +13,8 @@ import java.util.*;
 
 @Service
 public class UserService implements UserServiceIntf {
-    @Autowired OrderService orderService;
+    @Autowired
+    OrderService orderService = new OrderService();
 
     UserDao userDao = new UserDao();
 
@@ -95,8 +96,8 @@ public class UserService implements UserServiceIntf {
 
         List<Order> orderList = orderService.getAllOrderByIduser(user.getUserid());
         orderSize.setINT(orderList.size());
-        for (Order order :
-                orderList) {
+        for (int j = orderList.size() - 1; j >= 0; j--) {
+            Order order = orderList.get(j);
             //花费增长和订单增长计算区
             Date createDate = order.getCreateDate();
             total += order.getTotal();
@@ -141,8 +142,7 @@ public class UserService implements UserServiceIntf {
     }
 
 
-
-    public UserRecord getUserRecord(int userId){
+    public UserRecord getUserRecord(int userId) {
         UserRecordDao userRecordDao = new UserRecordDao();
         return userRecordDao.loadRecord(userId);
     }

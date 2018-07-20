@@ -91,6 +91,8 @@ public class ProductDao {
                 if (lastProduct.getId() != idproduct) {
                     Product current = new Product();
                     current = this.getProductFromResultSet(rs);
+                    current.picPathAppend(rs.getString("ppath"));
+                    current.typeAppend(rs.getString("category"));
                     list.add(current);
                     lastProduct = current;
                 } else {
