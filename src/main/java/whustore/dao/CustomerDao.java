@@ -1,6 +1,7 @@
 package whustore.dao;
 
 import org.springframework.stereotype.Repository;
+import whustore.Hakari.HakariDB;
 import whustore.model.Customer;
 import whustore.model.User;
 
@@ -12,7 +13,6 @@ import java.sql.SQLException;
 @Repository
 public class CustomerDao {
 
-    Connection conn;
 
     /**
      * 获取Customer
@@ -21,19 +21,13 @@ public class CustomerDao {
      * @return Customer对象
      */
     public Customer getCustomer(User user) {
-
-        //获取数据库连接
-        conn = DBConnector.getDBConn();
-        if (conn == null)
-            return null;
-        Customer cus;
-
         String sql = "SELECT * FROM user u,customer c WHERE  u.username = ? AND u.iduser = c.iduser";
 
-        try {//查询数据库
-            PreparedStatement ps = conn.prepareStatement(sql);
+        try (Connection conn = HakariDB.getDataSource().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {//查询数据库
             ps.setString(1, user.getUsername());
             ResultSet rs = ps.executeQuery();
+            Customer cus;
             if (rs.next()) {
                 cus = new Customer();
                 cus.setEmail(user.getEmail());
@@ -55,12 +49,6 @@ public class CustomerDao {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
-        } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -73,12 +61,10 @@ public class CustomerDao {
      * @return 是否成功
      */
     public boolean insertCustomer(Customer customer, User user) {
-        if ((conn = DBConnector.getDBConn()) == null)
-            return false;
         String sql = "INSERT INTO customer (fname, lname, sex, birthdate, addr, tel, email,iduser) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
+        try (Connection conn = HakariDB.getDataSource().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, customer.getFname());
             ps.setString(2, customer.getLname());
             ps.setString(3, customer.getSex());
@@ -92,12 +78,6 @@ public class CustomerDao {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
-        } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -109,9 +89,6 @@ public class CustomerDao {
      * @return
      */
     public boolean modifyCustomer(Customer customer, User user) {
-        conn = DBConnector.getDBConn();
-        if (conn == null)
-            return false;
         user.setEmail(customer.getEmail());
         user.setPhone(customer.getPhone());
         syncWithUser(user);
@@ -119,8 +96,8 @@ public class CustomerDao {
 
         String sql = "UPDATE customer SET fname = ?, lname = ?, sex = ?,birthdate = ?,addr = ? WHERE iduser = ?";
 
-        try {//修改数据库
-            PreparedStatement ps = conn.prepareStatement(sql);
+        try (Connection conn = HakariDB.getDataSource().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {//修改数据库
             ps.setString(1, customer.getFname());
             ps.setString(2, customer.getLname());
             ps.setString(3, customer.getSex());
@@ -128,17 +105,10 @@ public class CustomerDao {
             ps.setString(5, customer.getAddress());
             ps.setInt(6, user.getUserid());
             ps.executeUpdate();
-
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
-        } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
 
     }
