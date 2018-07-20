@@ -141,7 +141,7 @@
         <div style="width: 60%;margin:10% auto">
             <div><h1 style="text-align: center">团队成员</h1></div><br/>
             <div >
-                <img src="img/footer/teamMember.png" style="width: 100%">
+                <img src="../../../img/footer/teamMember.png" style="width: 100%">
             </div>
         </div>
     <%@include file="../universal/footer.jsp" %>

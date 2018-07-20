@@ -139,7 +139,7 @@
     </header>
     <!--Header Area End-->
     <div style="width: 60%;margin: 10% auto">
-        <a href="http://wpa.qq.com/msgrd?v=3&uin=2392651490&site=qq&menu=yes"><img src="img/footer/joinUs.jpeg"
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=2392651490&site=qq&menu=yes"><img src="../../../img/footer/joinUs.jpeg"
                                                                                    style="width: 100%"></a>
         <p style="font-family: 微软雅黑;font-size: 28px;line-height: 40px">&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp;如果你和我们有一样的梦想、有激情，别犹豫，<span
                 style="color: blue">点击上方的图片</span>加入我们，一起为校园文化团队打造最好的文化输出平台。</p>
