@@ -13,10 +13,7 @@ import java.util.List;
 
 @Repository
 public class UserDao implements UserDaoIntf{
-    private Connection conn = null;
     private String sql;
-    private PreparedStatement ps;
-    private ResultSet rs;
 
 
     /**
@@ -26,10 +23,7 @@ public class UserDao implements UserDaoIntf{
      * @return 返回是否插入
      */
     public boolean userReg(User user) {
-        /*       conn = DBConnector.getDBConn();
-        if (conn == null)
-            return false;
-*/
+
         String sql = "SELECT COUNT(*) FROM user WHERE username = ?";
         try (Connection connection = HakariDB.getDataSource().getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)){
@@ -57,16 +51,6 @@ public class UserDao implements UserDaoIntf{
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
-/*
-        } finally {
-            //关闭数据库连接
-            try {
-                if (conn != null)
-                    conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-*/
         }
     }
 
@@ -77,15 +61,10 @@ public class UserDao implements UserDaoIntf{
      * @return
      */
     public boolean userModify(User user) {
-        //获取数据库连接
- /*       conn = DBConnector.getDBConn();
-        if (conn == null)
-            return false;
-*/
         String sql = "UPDATE user SET email = ?, phone = ? WHERE username = ?";
 
         try (Connection connection = HakariDB.getDataSource().getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)){//查询数据库
+             PreparedStatement ps = connection.prepareStatement(sql)) {//查询数据库
             ps.setString(1, user.getEmail());
             ps.setString(2, user.getPhone());
             ps.setString(3, user.getUsername());
@@ -94,14 +73,9 @@ public class UserDao implements UserDaoIntf{
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
- /*       } finally {
-            try {
-                conn.close();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
- */       }
+        }
     }
+
     /**
      * 检查用户是否属于某个team
      * @param iduser
@@ -109,29 +83,17 @@ public class UserDao implements UserDaoIntf{
      * @return
      */
     public boolean checkTeamid (int iduser, int idteam){
- /*       conn = DBConnector.getDBConn();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
- */       List<Integer> iduserinteam = new ArrayList<>();
+        List<Integer> iduserinteam = new ArrayList<>();
         String sql = "SELECT * FROM team WHERE idteam = ?";
         try (Connection connection = HakariDB.getDataSource().getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)){
             ps.setObject(1,idteam);
-            rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 iduserinteam.add(rs.getInt("iduser"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-
-            try {
-//                conn.close();
-//                ps.close();
-                rs.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         if(iduserinteam.contains(iduser)){
             return true;
@@ -148,11 +110,10 @@ public class UserDao implements UserDaoIntf{
 
     public List<User> getAllUser(){
         List<User> userList= new ArrayList<>();
-//        conn = DBConnector.getDBConn();
         sql = "SELECT * FROM user";
         try(Connection connection = HakariDB.getDataSource().getConnection();
             PreparedStatement ps = connection.prepareStatement(sql)){
-            rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 User u = new User();
                 u.setUserid(rs.getInt("iduser"));
@@ -176,8 +137,6 @@ public class UserDao implements UserDaoIntf{
 
 
     public <T> User findBy(T key, String sql){
-//        if (conn == null)
-//            return null;
         try (Connection connection = HakariDB.getDataSource().getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)){
             //查询数据库
@@ -197,21 +156,6 @@ public class UserDao implements UserDaoIntf{
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
-//            try {
-//                conn.close();
-//            } catch (SQLException e1) {
-//                e1.printStackTrace();
-//            }
-//            return null;
-//        }
-//        finally {
-//            //关闭数据库连接
-//            try {
-//                if (conn != null)
-//                    conn.close();
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
         }
     }
 
