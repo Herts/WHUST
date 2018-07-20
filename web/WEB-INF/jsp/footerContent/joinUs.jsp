@@ -10,7 +10,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>关于我们</title>
+    <title>加入我们</title>
     <%@ include file="../universal/allcss.jsp" %>
     <style type="text/css">
         .blackcolor {
@@ -138,16 +138,11 @@
         </div>
     </header>
     <!--Header Area End-->
-    <div style="width:60%;margin:10% auto">
-        <div><h1 style="text-align: center">关于我们</h1></div>
-        <br/>
-        <div style="width: 75%;margin: 0 auto">
-            <p style="font-size: 28px;font-family: 微软雅黑;line-height: 40px">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;放眼世界的一流大学，大学的校园文化产品是大学文化的重要部分。这些大学的校园乃至所在的城市街头都随处可见使用拥有校园文化符号产品的行人。而在中国，校园文化产品似乎还停留在普通商品加校名logo的阶段。而令人欣慰的是中国具有品牌效应的高校的校园文化产品也已经有了发展的势头WHU
-                Store的意义，就是顺势推动武大，乃至所有高校的校园文化产品的发展，成为校园文化产品的倡导者和中坚力量。
-
-            </p>
-        </div>
+    <div style="width: 60%;margin: 10% auto">
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=2392651490&site=qq&menu=yes"><img src="img/footer/joinUs.jpeg"
+                                                                                   style="width: 100%"></a>
+        <p style="font-family: 微软雅黑;font-size: 28px;line-height: 40px">&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp;如果你和我们有一样的梦想、有激情，别犹豫，<span
+                style="color: blue">点击上方的图片</span>加入我们，一起为校园文化团队打造最好的文化输出平台。</p>
     </div>
     <%@include file="../universal/footer.jsp" %>
 
