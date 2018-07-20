@@ -1,6 +1,5 @@
 package whustore.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import whustore.Hakari.HakariDB;
 import whustore.data.ProductData;
@@ -19,7 +18,6 @@ import java.util.List;
 
 @Repository
 public class OrderDao implements OrderDaoIntf {
-
 
 
     /**
@@ -45,10 +43,6 @@ public class OrderDao implements OrderDaoIntf {
                 boolean statusAdded = false;
                 while (rs.next()) {
                     if (!statusAdded) {
-                        /*order.setPhone(rs.getString("phone"));
-                        order.setName(rs.getString("name"));
-                        order.setAddress(rs.getString("address"));
-                        */
                         CustomerInfo info = infoService.getCustomerInfoByIdcustomerInfo(rs.getInt("idcustomerInfo"));
                         order.setInfo(info);
                         order.setStatus(rs.getString("ostatus"));
@@ -78,10 +72,7 @@ public class OrderDao implements OrderDaoIntf {
      * @return 是否成功添加
      */
     public boolean addOrder(Order order, int idcart) {
-/*
-        Connection conn = null;
-        PreparedStatement ps = null;
-*/
+
         ProductDao pd = new ProductDao();
         CartDao cd = new CartDao();
         String insert_order = "INSERT INTO orders(idorder, iduser,idcustomerInfo) values(?,?,?)";
@@ -89,20 +80,14 @@ public class OrderDao implements OrderDaoIntf {
         String changequantity = "UPDATE product SET quantity = ? WHERE idproduct = ?";
         try (Connection connection = HakariDB.getDataSource().getConnection();
              PreparedStatement ps = connection.prepareStatement(insert_order)) {
-/*
-            if (conn == null || conn.isClosed())
-                conn = DBConnector.getDBConn();
-*/
+
             connection.setAutoCommit(false);
             cd.deleteCart(idcart);
             System.out.println("删除cart" + idcart);
-//            ps = connection.prepareStatement(insert_order);
+
             ps.setObject(1, order.getIdOrder());
             ps.setObject(2, order.getIduser());
             ps.setInt(3, order.getInfo().getIdCustomerInfo());
-/*            ps.setString(3, order.getPhone());
-            ps.setObject(4, order.getAddress());
-            ps.setString(5, order.getName());*/
             ps.executeUpdate();
             System.out.println("插入order" + order.getIdOrder());
 
@@ -124,22 +109,8 @@ public class OrderDao implements OrderDaoIntf {
             connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
-            /*try {
-                connection.rollback();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }*/
             return false;
         }
-        /*finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }*/
         return true;
     }
 
@@ -148,14 +119,12 @@ public class OrderDao implements OrderDaoIntf {
      * @return 是否成功删除
      */
     public boolean deleteOrder(int idorder) {
-//        conn = DBConnector.getDBConn();
-//        PreparedStatement ps = null;
+
         String delete_orderitem = "DELETE FROM orderitem WHERE idorder = ?";
         String delete_order = "DELETE FROM orders WHERE idorder = ?";
         try (Connection connection = HakariDB.getDataSource().getConnection();
              PreparedStatement ps = connection.prepareStatement(delete_orderitem)) {
             connection.setAutoCommit(false);
-//            ps = conn.prepareStatement(delete_orderitem);
             ps.setObject(1, idorder);
             ps.executeUpdate();
 
@@ -167,15 +136,6 @@ public class OrderDao implements OrderDaoIntf {
             e.printStackTrace();
             return false;
         }
-        /*finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }*/
         return true;
     }
 
@@ -186,42 +146,28 @@ public class OrderDao implements OrderDaoIntf {
      * @return 订单号List
      */
     private List<Integer> getOrderIdList(int userID) {
-//        conn = DBConnector.getDBConn();
+
         int orderID;
         String sql = "SELECT * FROM orders WHERE iduser = ? ORDER BY createdsince DESC";
         List<Integer> list = new ArrayList<>();
         try (Connection connection = HakariDB.getDataSource().getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
-//            PreparedStatement ps = null;
+
             ResultSet rs;
-/*
-            if (conn != null) {
-                ps = conn.prepareStatement(sql);
-            }
-*/
-//            if (ps != null) {
+
             ps.setInt(1, userID);
             rs = ps.executeQuery();
             while (rs.next()) {
                 orderID = rs.getInt("idorder");
                 System.out.println("获取订单id : " + orderID);
                 list.add(orderID);
-//                }
+
             }
             return list;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        /*finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        */
+
         System.out.println("获取订单ID失败");
         return list;
     }
@@ -237,11 +183,6 @@ public class OrderDao implements OrderDaoIntf {
         try (Connection connection = HakariDB.getDataSource().getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
 
-/*
-            if (conn == null || conn.isClosed())
-                conn = DBConnector.getDBConn();
-            PreparedStatement ps = conn.prepareStatement(sql);
-*/
             ps.setInt(1, orderId);
             ResultSet rs = ps.executeQuery();
             if (rs.next() && rs.getString("ostatus").equals("未付款")) {
@@ -268,27 +209,18 @@ public class OrderDao implements OrderDaoIntf {
     public Order getOrderIduser(int orderId, int userID) {
         Order order = new Order();
         String sql = "SELECT * FROM orderInfo WHERE idorder=?";
-//        PreparedStatement ps = null;
         int amount;
         ResultSet rs;
         try (Connection connection = HakariDB.getDataSource().getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
-/*
-            if (conn == null || conn.isClosed())
-                conn = DBConnector.getDBConn();
-            ps = conn.prepareStatement(sql);
-*/
+
             ps.setInt(1, orderId);
             rs = ps.executeQuery();
             HashMap<Product, Integer> items = new HashMap<>();
             boolean statusAdded = false;
             while (rs.next()) {
                 if (!statusAdded) {
-/*                    order.setPhone(rs.getString("phone"));
-                    order.setName(rs.getString("name"));
-                    order.setAddress(rs.getString("address"));*/
                     order.setStatus(rs.getString("ostatus"));
-
                     order.setCreateDate(rs.getDate("createdsince"));
                     statusAdded = true;
                 }
@@ -304,29 +236,17 @@ public class OrderDao implements OrderDaoIntf {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-/*
-        finally {
-            //关闭数据库连接
-            if (conn != null) {
-                    try {
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-*/
         return null;
     }
 
-    public void changeOstatus (int idorder, String status){
+    public void changeOstatus(int idorder, String status) {
 
         String sql = "UPDATE orders SET ostatus = ? WHERE idorder = ?";
         try (Connection connection = HakariDB.getDataSource().getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)){
+             PreparedStatement ps = connection.prepareStatement(sql)) {
 
-            ps.setObject(1,idorder);
-            ps.setObject(2,status);
+            ps.setObject(1, idorder);
+            ps.setObject(2, status);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
