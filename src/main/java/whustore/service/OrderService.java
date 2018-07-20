@@ -38,5 +38,8 @@ public class OrderService implements OrderServiceIntf {
     }
 
 
-    public List<Order> getOrdersByidteam (int idteam){ return dao.getOrdersByidteam(idteam);}
+    public List<Order> getOrdersByidteam (int idteam){
+        return null;
+        //        return dao.getOrdersByidteam(idteam);
+    }
 }

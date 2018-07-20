@@ -7,8 +7,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="whustore.model.User" %>
-<%@ page import="static sun.java2d.cmm.ColorTransform.In" %>
 <div class="row">
     <!--Header Logo Start-->
     <div class="col-lg-3 col-md-3">
@@ -101,32 +99,25 @@
                         <a href="#"><i class="fa fa-user"></i></a>
                         <div class="currency-dropdown">
                             <ul class="menu-top-menu">
-                                <%
-                                    User user = (User) session.getAttribute("user");
-                                    Integer idteam = (Integer) session.getAttribute("idteam");
-                                    Integer administrator = (Integer) session.getAttribute("super");
-                                    if (user != null) {
-                                        if(administrator!=null){
-                                            out.println("<li><a href=\"/administrator\">管理员</a></li>");
-                                        }
-                                        if (idteam != null){
-                                        out.println("<li><a href=\"/gototeamAccount\">团队账户</a></li>");
-                                        }
-                                                out.println("<li><a href=\"/user/home\">" +
-                                                user.getUsername() +
-                                                "的账户</a></li>" +
-                                                "<li><a href=\"/order/myOrders\">历史订单</a></li>\n" +
-                                                "<li><a href=\"/fav/my\">我的收藏</a></li>\n" +
-                                                "<li><a href=\"/cart/myCart\">购物车</a></li>\n" +
-                                                "<li><a href=\"/addorder\">结算</a></li>" +
-                                                "<li><a href='/logOut'>注销</a></li>");
-                                        }
-                                    else
-                                        out.println("<li><a href=\"/log\">" +
-                                                "请登录" +
-                                                "</a></li>" +
-                                                "<li><a href='/reg'>注册</a></li>");
-                                %>
+                                <c:if test="${idteam != null}">
+                                    <li><a href="/gototeamAccount">团队账户</a></li>
+                                </c:if>
+                                <c:if test="${user.getUserid() == 0}">
+                                    <li><a href="/administrator">管理员</a></li>
+                                </c:if>
+                                <c:choose>
+                                    <c:when test="${user != null}">
+                                        <li><a href="/user/home">${user.getUsername()}的账户</a></li>
+                                        <li><a href="/order/myOrders">历史订单</a></li>
+                                        <li><a href="/fav/my">我的收藏</a></li>
+                                        <li><a href="/cart/myCart">购物车</a></li>
+                                        <li><a href='/logOut'>注销</a></li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li><a href="/log">请登录</a></li>
+                                        <li><a href='/reg'>注册</a></li>
+                                    </c:otherwise>
+                                </c:choose>
                             </ul>
                         </div>
                     </div>

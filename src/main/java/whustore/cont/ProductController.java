@@ -2,7 +2,9 @@ package whustore.cont;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -112,9 +114,10 @@ public class ProductController {
         modelAndView.addObject("productList",list);
         return modelAndView;
     }
-    @RequestMapping("/ShelfGoods")
-    public String ShelfGoods(HttpServletRequest request){
-        int idproduct = Integer.parseInt(request.getParameter("idproduct"));
+    @RequestMapping(value = "/ShelfGoods/${idproduct}", method = RequestMethod.GET)
+    public String ShelfGoods(HttpServletRequest request,
+                             @PathVariable int idproduct){
+//        int idproduct = Integer.parseInt(request.getParameter("idproduct"));
         ProductService productService = new ProductService();
         productService.changeStatus(idproduct,1);
         return "/Management/ShelfGoods";

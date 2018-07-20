@@ -153,7 +153,7 @@
         <div class="row">
             <h2 class="title">发布的商品</h2>
             <table class="tab" width="100%" border="0" cellspacing="0" cellpadding="0"
-                   style="padding-bottom: 2%;padding-bottom: 2%">
+                   style="padding-bottom: 2%;">
                 <thead>
                 <tr style="text-align: center">
                     <th colspan="1">商品信息</th>
@@ -174,8 +174,8 @@
                     </td>
                     <td><p>${product.teamID}</p></td>
                     <td><p>${product.price}</p></td>
-                    <td class="num">${product.quantity}&nbsp;&nbsp;</td>
-                    <td><button class="form-button"><a  href="/ShelfGoods" style="color: white">上架商品</a></button> </td>
+                    <td class="num">${product.quantity}</td>
+                    <td><button class="form-button"><a  href="<c:url value='/ShelfGoods/${product.id}'/>"  style="color: white">上架商品</a></button> </td>
                 </tr>
                 <hr/>
             </c:forEach>
