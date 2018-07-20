@@ -50,7 +50,7 @@ public class RecommendService {
             }
         ShopService shopService = new ShopService();
         List<Product> searchProducts = shopService.getProductsBySearch(recordSearch.toString());
-        if (cateProducts.size() < 7)
+        if (searchProducts.size() < 7)
             recommendProducts.addAll(searchProducts);
         else
             recommendProducts.addAll(searchProducts.subList(0, 7));
@@ -59,7 +59,7 @@ public class RecommendService {
         String favProductNames = userRecord.getFavProductNames();
         List<Product> favProducts =  shopService.getProductsBySearch(favProductNames);
 
-        if (cateProducts.size() < 8)
+        if (favProducts.size() < 8)
             recommendProducts.addAll(favProducts);
         else
             recommendProducts.addAll(favProducts.subList(0, 8));

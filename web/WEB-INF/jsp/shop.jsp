@@ -276,7 +276,7 @@
                                              aria-labelledby="single-slide-tab-1">
                                             <!--Single Product Image Start-->
                                             <div class="single-product-img img-full">
-                                                <img src="${product.picPath.get(j)}" alt="">
+                                                <img src="../../${product.picPath.get(j)}" alt="">
                                             </div>
                                             <!--Single Product Image End-->
                                         </div>
@@ -292,7 +292,7 @@
                                                 <a <c:if test="${j==0}"> class="active" </c:if> data-toggle="tab"
                                                                                                 id="single-slide-tab-1"
                                                                                                 href="#single-slide${j+1}"><img
-                                                        src="${product.picPath.get(j)}"
+                                                        src="../../${product.picPath.get(j)}"
                                                         alt=""></a>
                                             </div>
                                         </c:forEach>
