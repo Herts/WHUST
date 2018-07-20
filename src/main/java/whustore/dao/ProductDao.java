@@ -243,7 +243,7 @@ public class ProductDao {
 
     public List<Product> getProductsByQuery(String query) {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM product WHERE pname LIKE '%" + query +"%'";
+        String sql = "SELECT * FROM product WHERE pname LIKE '%" + query + "%'";
         try (Connection conn = HakariDB.getDataSource().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
