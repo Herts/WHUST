@@ -23,13 +23,21 @@ public class OrderDao implements OrderDaoIntf {
     /**
      * 获取用户的历史订单
      *
-     * @param idUser 用户ID
+     * @param id 用户ID
      * @return 历史订单列表
      */
-    public List<Order> getOrderList(int idUser) {
+    public List<Order> getOrderList(int id, String userType) {
         CustomerInfoService infoService = new CustomerInfoService();
         List<Order> orderList = new ArrayList<>();
-        List<Integer> orderIdList = getOrderIdLisByIdUser(idUser);
+        List<Integer>orderIdList = new ArrayList<>();
+        switch (userType){
+            case "user": orderIdList = getOrderIdLisByIdUser(id);
+            break;
+            case "team": orderIdList = getOrderIdListByIdteam(id);
+            break;
+        }
+
+
         String sql = "SELECT * FROM orderInfo_1 WHERE idorder = ?";
 
         try (Connection connection = HakariDB.getDataSource().getConnection();
@@ -47,6 +55,7 @@ public class OrderDao implements OrderDaoIntf {
                         order.setInfo(info);
                         order.setStatus(rs.getString("ostatus"));
                         order.setCreateDate(rs.getDate("createdsince"));
+
                         statusAdded = true;
                     }
                     Product current = ProductData.getProductByID(rs.getInt("idproduct"));
@@ -54,7 +63,9 @@ public class OrderDao implements OrderDaoIntf {
                     items.put(current, amount);
                 }
                 order.setIdOrder(i);
-                order.setIduser(idUser);
+                if(userType=="user"){
+                    order.setIduser(id);
+                }
                 order.setItems(items);
                 orderList.add(order);
             }
@@ -173,7 +184,7 @@ public class OrderDao implements OrderDaoIntf {
     }
 
     private List<Integer> getOrderIdListByIdteam(int idTeam){
-        String sql = "SELECT * FROM orders WHERE iduser = ? ORDER BY createdsince DESC";
+        String sql = "SELECT * FROM orders WHERE idteam = ? ORDER BY createdsince DESC";
         return getOrderIdListById(idTeam, sql);
     }
 

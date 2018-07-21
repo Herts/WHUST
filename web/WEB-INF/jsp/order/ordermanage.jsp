@@ -8,8 +8,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
@@ -172,7 +171,7 @@
                         <tbody>
                         <tr></tr>
                         <td style="text-align: left"><h5>订单号：${order.idOrder}</h5></td>
-                        <c:forEach items="${order.items.keySet()}" end="${order.items.keySet().size()}" var="product"
+                        <c:forEach items="${order.items.keySet()}"  var="product"
                                    varStatus="status">
                             <tr id="${product.id}" style="padding-bottom: 1%">
                                 <td class="goods">
@@ -201,39 +200,36 @@
                                     <td/>
                                 </c:if>
                                 <c:if test="${order.status.equals('已付款')}">
-                                    <c:if test="${order.status.equals('未发货')}">
                                         <td class="blackcolor" id="post${product.id}">
                                            <button class="form-button" type="submit" value="1" name="postStatus">确认发货</button>
                                         </td>
-                                    </c:if>
-                                    <c:if test="${order.status.equals('已发货')}">
+                                </c:if>
+                                <c:if test="${order.status.equals('已发货')}">
                                         <td>
                                             <p>已发货</p>
                                         </td>
-                                    </c:if>
                                 </c:if>
-                                <c:if test="order.status.equals('未付款')">
-                                    <td></td>
+
+                                <c:if test="${order.status.equals('未付款')}">
+                                    <td><button class="form-button" type="submit" value="1" name="postStatus">提醒付款</button></td>
                                 </c:if>
+
                             </tr>
                         </c:forEach>
                         </tbody>
                         <tfoot>
                         <tr>
-                            <td><h5>地址：${order.address}</h5></td>
-                            <td><h5>姓名：${order.name}</h5></td>
+                            <td><h5>地址：${order.info.addr}</h5></td>
+                            <td><h5>姓名：${order.info.name}</h5></td>
                             <td></td>
-                            <td><h5>电话：${order.phone}</h5></td>
+                            <td><h5>电话：${order.info.tel}</h5></td>
+
                             <br/>
                         </tr>
                         <tr class="footer" style="margin-top: 40px">
                             <td colspan="5">
                                 <h3><span id="total">${order.total}</span>元</h3>
-                                <form>
-                                    <button type="button" class="form-button" onclick="hid(${order.idOrder})">
-                                        隐藏
-                                    </button>
-                                </form>
+
                             </td>
                         </tr>
                         </tfoot>

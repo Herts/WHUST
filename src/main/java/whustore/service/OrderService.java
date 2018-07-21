@@ -16,7 +16,7 @@ public class OrderService implements OrderServiceIntf {
     CartService cartService = new CartService();
 
     public List<Order> getAllOrderByIduser(int idUser) {
-        return orderDao.getOrderList(idUser);
+        return orderDao.getOrderList(idUser, "user");
     }
 
     public Order getOrderByIduser(int orderId, int userId) {
@@ -43,8 +43,7 @@ public class OrderService implements OrderServiceIntf {
 
 
     public List<Order> getOrdersByidteam (int idteam){
-        return null;
-        //        return dao.getOrdersByidteam(idteam);
+        return orderDao.getOrderList(idteam, "team");
     }
 
     public List<Order> addOrderByIdTeam(Cart cart, CustomerInfo info){
@@ -82,17 +81,6 @@ public class OrderService implements OrderServiceIntf {
                 break;
             }
 
-
-
-/*
-            for (Product product : map.keySet()){
-                if(product.getTeamID() == p.getTeamID()){
-                    items.put(product, map.get(product));
-                    map.remove(product);
-                 }
-                cur.setItems(items);
-            }
-*/
             if(addAnOrder(cur) != null){
                 orderList.add(cur);
             }

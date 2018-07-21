@@ -107,46 +107,20 @@
         <div class="account_area" style="align:left;">
             <form action="/user/changeInfo" method="post">
                 <div class="single-feature mb-35" style="width: 75%">
-                    <!--<div class="con4">-->
-                    <!--<canvas id="cvs" width="200" height="200" ></canvas>-->
-                    <!--<span class="btn upload">上传头像<input type="file" class="upload_pic" id="upload" /></span>-->
-                    <!--</div>-->
-                    <div class="customer_photo">
-                        <img class="c_photo"
-                             src="//wwc.alicdn.com/avatar/getAvatar.do?userId=2239377814&amp;width=80&amp;height=80&amp;type=sns"
-                             style="padding-right: 30px; margin-top: 0px">
-                        <button class="btn-outline-dark" type="submit" style="margin-left:30%; margin-top: 20px">上传图片
-                        </button>
-                        <br>
-                        <div style="margin-left: 30px">
-                            <h4 style=" margin-top: 100px;margin-left: 42px">姓名</h4>
-                            <input name="lname" value="${customer.lname}" class="" type="text" placeholder="姓"
-                                   style="height: 30px;width: 60px;text-align: center">
-                            <input name="fname" value="${customer.fname}" type="text " placeholder="名"
-                                   style="height: 30px;width: 60px;text-align: center">
-                        </div>
-                    </div>
-                    <div class="customer_info">
-                        <p>性别</p>
-                        <select name="sex">
 
-                            <option value="m" ${ms}>男</option>
-                            <option value="f" ${fs}>女</option>
-                        </select>
+                    <div class="customer_info">
                         <br>
                         <br>
-                        <p>生日</p>
-                        <input name="date" type="date" id="c_birthday" value="${customer.date}" readonly>
 
                         <br/>
                         <p>电话</p>
-                        <input name="phone" type="text" id="customer_phone" value="${customer.phone}" maxlength="25"
+                        <input name="phone" type="text" id="customer_phone" value="${team.phone}" maxlength="25"
                                readonly>
                         <p>邮箱</p>
-                        <input name="email" type="text" id="customer_email" value="${customer.email}" maxlength="60"
+                        <input name="email" type="text" id="customer_email" value="${team.email}" maxlength="60"
                                readonly>
                         <p>地址</p>
-                        <input name="address" type="text" id="customer_address" value="${customer.address}"
+                        <input name="address" type="text" id="customer_address" value="${team.address}"
                                maxlength="255" readonly>
                         <br/><br/>
                         <button class="btn-outline-dark" type="submit" value="保存" style="margin-left: 220px">保存</button>
