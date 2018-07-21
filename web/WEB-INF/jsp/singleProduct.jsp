@@ -190,11 +190,11 @@
                                                     <div class="product-reviews">
                                                         <c:forEach var="i" begin="1" end="5">
 
-                                                                <c:if test=" ${i <=comment.clevel}">
-                                                                    <i class="fa fa-star-o"></i>
-                                                                </c:if>
-                                                                <c:if test=" ${i >comment.clevel}">
+                                                            <c:if test="${i <= comment.clevel}">
                                                                     <i class="fa fa-star"></i>
+                                                                </c:if>
+                                                                <c:if test="${i> comment.clevel}">
+                                                                    <i class="fa fa-star-o"></i>
                                                                 </c:if>
 
 
