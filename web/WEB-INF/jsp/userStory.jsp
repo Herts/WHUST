@@ -199,7 +199,7 @@
                 <div class="cat-1 col-md-4">
                     <div class="categories-img img-full mb-30">
                         <a href="/shop/byCates?categories=${favCates.get(0)}"><img
-                                src="../../img/category/home1-category-1.jpg" alt=""></a>
+                                src="../../img/category/上衣.jpg" style="height: 300px;width: 300px" alt=""></a>
                         <div class="categories-content">
                             <h3>${favCates.get(0)}</h3>
                             <h4>${cateNumMap.get(favCates.get(0))}次购买</h4>
@@ -210,7 +210,8 @@
                     <div class="row">
                         <div class="cat-3 col-md-7">
                             <div class="categories-img img-full mb-30">
-                                <a href="#"><img src="../../img/category/home1-category-2.jpg" alt=""></a>
+                                <a href="#"><img src="../../img/category/书籍.jpg" style="height: 300px;width: 300px"
+                                                 alt=""></a>
                                 <div class="categories-content">
                                     <h3>${favCates.get(1)}</h3>
                                     <h4>${cateNumMap.get(favCates.get(1))}次购买</h4>
@@ -219,28 +220,12 @@
                         </div>
                         <div class="cat-4 col-md-5">
                             <div class="categories-img img-full mb-30">
-                                <a href="#"><img src="../../img/category/home1-category-3.jpg" alt=""></a>
+                                <a href="#"><img src="../../img/category/独创.jpg" alt=""></a>
                                 <div class="categories-content">
-                                    <h3>Potted Plant</h3>
-                                    <h4>18 items</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="cat-5 col-md-4">
-                            <div class="categories-img img-full mb-30">
-                                <a href="#"><img src="../../img/category/home1-category-4.jpg" alt=""></a>
-                                <div class="categories-content">
-                                    <h3>Potted Plant</h3>
-                                    <h4>18 items</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="cat-6 col-md-8">
-                            <div class="categories-img img-full mb-30">
-                                <a href="#"><img src="../../img/category/home1-category-5.jpg" alt=""></a>
-                                <div class="categories-content">
-                                    <h3>Potted Plant</h3>
-                                    <h4>18 items</h4>
+                                    <c:if test="${favCates.size()>2}">
+                                        <h3>${favCates.get(2)}</h3>
+                                        <h4>${cateNumMap.get(favCates.get(2))}</h4>
+                                    </c:if>
                                 </div>
                             </div>
                         </div>

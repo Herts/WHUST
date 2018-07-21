@@ -210,6 +210,7 @@
                                         </c:if>
                                         <td class="blackcolor" id="comment${product.id}">
                                             <a href="/comments/comment?idproduct=${product.id}">评价此商品</a>
+                                            <a href="/product?productID=1">申请售后</a>
                                         </td>
                                     </tr>
                                 </c:forEach>
