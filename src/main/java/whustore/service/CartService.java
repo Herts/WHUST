@@ -24,4 +24,8 @@ public class CartService {
     public void removeProduct(int productID, int cartID) {
         dao.removeProduct(productID, cartID);
     }
+
+    public boolean deleteCartByIdCart(int idcart){
+        return dao.deleteCart(idcart);
+    }
 }

@@ -13,6 +13,8 @@ public interface OrderServiceIntf {
 
     boolean orderPaid(int orderId);
 
-    Order addOrder(Cart cart, CustomerInfo info);
+    Order addAnOrder(Order order);
+
+    List<Order> addOrderByIdTeam(Cart cart, CustomerInfo info);
 
 }

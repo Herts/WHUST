@@ -144,13 +144,13 @@
     </header>
     <!--Header Area End-->
     <div style="width: 75%;margin-top:10%">
-        <div class="well lead" style="margin-top: 20%"><h2>User Registration Form</h2></div>
+        <div class="well lead" style="margin-top: 20%"><h2>用户注册</h2></div>
         <form:form method="POST" modelAttribute="user" class="form-horizontal">
             <div class="row" style="width: 75%;margin:0 auto">
                 <div class="form-group col-md-12">
                     <c:choose>
                     <c:when test="${edit}">
-                    <label class="col-md-3 control-lable" for="userid">User ID</label>
+                    <label class="col-md-3 control-lable" for="userid">用户 ID</label>
                     <div class="col-md-7">
                         <form:input type="text" path="userid" id="userid" class="form-control input-sm"
                                     disabled="true"/>
@@ -165,7 +165,7 @@
 
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3 control-lable" for="username">Username</label>
+                    <label class="col-md-3 control-lable" for="username">用户名</label>
                     <div class="col-md-7">
                         <form:input type="text" path="username" id="username" class="form-control input-sm"/>
                         <div class="has-error">
@@ -177,7 +177,7 @@
 
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3 control-lable" for="password">Password</label>
+                    <label class="col-md-3 control-lable" for="password">密码</label>
                     <div class="col-md-7">
                         <form:input type="password" path="password" id="password" class="form-control input-sm"/>
                         <div class="has-error">
@@ -190,7 +190,7 @@
 
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3 control-lable" for="phone">Phone</label>
+                    <label class="col-md-3 control-lable" for="phone">联系电话</label>
                     <div class="col-md-7">
                         <form:input type="text" path="phone" id="phone" class="form-controlinput-sm"/>
                     </div>
@@ -215,17 +215,17 @@
                 <div class="form-actions floatRight">
                     <c:choose>
                         <c:when test="${edit}">
-                            <input style="width: 115px" type="submit" value="Update" class="form-button"/><br/><br/>
+                            <input style="width: 115px" type="submit" value="更新" class="form-button"/><br/><br/>
                             <button style="width: 115px" class="form-button"><a style="color: white"
-                                                                                href="<c:url value='/manageUser' />">Cancel</a>
+                                                                                href="<c:url value='/manageUser' />">取消</a>
                             </button>
                             <br/><br/><br/>
                         </c:when>
                         <c:otherwise>
-                            <input style="width: 115px" type="submit" value="Register"
+                            <input style="width: 115px" type="submit" value="注册"
                                    class="form-button"/><br/><br/>
                             <button style="width: 115px" class="form-button"><a style="color: white"
-                                                                                href="<c:url value='/manageUser' />">Cancel</a>
+                                                                                href="<c:url value='/manageUser' />">取消</a>
                             </button>
                             <br/><br/><br/>
                         </c:otherwise>

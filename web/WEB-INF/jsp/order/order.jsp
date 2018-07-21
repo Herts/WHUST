@@ -1,5 +1,3 @@
-<%@ page import="java.util.List" %>
-<%@ page import="whustore.model.Product" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
@@ -156,70 +154,81 @@
 
                 <div id="app">
                     <h2 class="title">购物车</h2>
-                    <table class="tab" width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <thead>
-                        <tr style="text-align: center">
-                            <th colspan="1">商品信息</th>
-                            <th style="width: 14%;">商品金额</th>
-                            <th style="width: 14%;">商品数量</th>
-                            <th style="width: 14%;">总金额</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${items}" end="${items.size()}" var="product" varStatus="status">
-                            <tr id="${product.id}">
-                                <td class="goods">
-                                    <img src="../../${product.picPath.get(0)}" class="goods-left"/>
-                                    <div class="goods-right">
-                                        <p>${product.productName}</p>
-                                    </div>
-                                </td>
-                                <td class="blackcolor">${product.price}</td>
-                                <td class="num">
-                                    <input id="num${product.id}" value="${order.items.get(product)}"
-                                           type="number" readonly disabled/>&nbsp;&nbsp;
-                                </td>
-                                <td class="blackcolor"
-                                    id="total${product.id}">${product.price * order.items.get(product)}</td>
+                    <c:if test="${orderList.size()> 1 }">
+                        <h3>您的订单中包含多个团队的商品，已拆分为多个订单哦！</h3>
+                    </c:if>
+                    <c:forEach items="${orderList}" var="order">
+                    <h3>订单号：${order.idOrder}</h3>
+
+                        <table class="tab" width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <thead>
+                            <tr style="text-align: center">
+                                <th colspan="1">商品信息</th>
+                                <th style="width: 14%;">商品金额</th>
+                                <th style="width: 14%;">商品数量</th>
+                                <th style="width: 14%;">总金额</th>
                             </tr>
-                        </c:forEach>
-                        </tbody>
-                        <tfoot>
-                        <tr class="footer">
-                            <td colspan="5">
-                                <p>合计：</p>
-                                <h1><span id="total">${order.total}</span>元</h1>
-                            </td>
-                        </tr>
-                        </tfoot>
-                    </table>
-                    <div class="review-form-wrapper" style="padding-left: 25%; padding-right: 25%; text-align: center">
-                        <HR size="2" style="color: #abd373">
-                        <div class="review-form">
-                            <h2>收货信息</h2>
-                            <br>
-                            <br>
-                            <br>
-                            <div class="input-element">
-                                <div class="comment-form-comment">
-                                    <label>收货地址:</label>
-                                    <h3>${info.addr}</h3>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${order.items.keySet()}" var="product" varStatus="status">
+                                <tr id="${product.id}">
+                                    <td class="goods">
+                                        <img src="../../${product.picPath.get(0)}" class="goods-left"/>
+                                        <div class="goods-right">
+                                            <p>${product.productName}</p>
+                                        </div>
+                                    </td>
+                                    <td class="blackcolor">${product.price}</td>
+                                    <td class="num">
+                                        <input id="num${product.id}" value="${order.items.get(product)}"
+                                               type="number" readonly disabled/>
+                                    </td>
+                                    <td class="blackcolor"
+                                        id="total${product.id}">${product.price * order.items.get(product)}</td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                            <tfoot>
+                            <tr class="footer">
+                                <td colspan="5">
+                                    <p>合计：</p>
+                                    <h1><span id="total">${order.total}</span>元</h1>
+                                </td>
+                            </tr>
+                            </tfoot>
+
+                        </table>
+                        <div class="review-form-wrapper"
+                             style="padding-left: 25%; padding-right: 25%; text-align: center">
+                            <HR size="2" style="color: #abd373">
+                            <div class="review-form">
+                                <h2>收货信息</h2>
+                                <br>
+                                <br>
+                                <br>
+                                <div class="input-element">
+                                    <div class="comment-form-comment">
+                                        <label>收货地址:</label>
+                                        <h3>${info.addr}</h3>
+                                    </div>
+                                    <div class="review-comment-form-author">
+                                        <label>姓名:</label>
+                                        <h3>${info.name}</h3>
+                                    </div>
+                                    <div class="review-comment-form-email">
+                                        <label>电话:</label>
+                                        <h3>${info.tel}</h3>
+                                    </div>
+                                    <form action="<c:url value="/pay/payOrder"/>">
+                                        <input type="hidden" value="${order.idOrder}" name="orderId">
+                                        <button type="submit" class="form-button">付款</button>
+                                    </form>
                                 </div>
-                                <div class="review-comment-form-author">
-                                    <label>姓名:</label>
-                                    <h3>${info.name}</h3>
-                                </div>
-                                <div class="review-comment-form-email">
-                                    <label>电话:</label>
-                                    <h3>${info.tel}</h3>
-                                </div>
-                                <form action="/pay/payOrder">
-                                    <input type="hidden" value="${order.idOrder}" name="orderId">
-                                    <button type="submit" class="form-button">付款</button>
-                                </form>
                             </div>
                         </div>
-                    </div>
+                        <br/>
+                        <br/>
+                    </c:forEach>
                 </div>
             </div>
         </div>

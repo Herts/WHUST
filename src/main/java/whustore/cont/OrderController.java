@@ -48,15 +48,15 @@ public class OrderController {
                 info = infoService.initAndGetCustomerInfo(customer, u.getUserid());
             }
         }
-        Order order = orderService.addOrder(cart, info);
+        List<Order> orderList = orderService.addOrderByIdTeam(cart, info);
 
-        if (order != null) {
+        if (orderList != null) {
             Cart userCart = cartService.getUserCart(u.getUserid());
             request.getSession().setAttribute("cart", userCart);
-            request.getSession().setAttribute("order", order);
+            request.getSession().setAttribute("orderList", orderList);
             modelMap.addAttribute("info", info);
-            modelMap.addAttribute("order", order);
-            modelMap.addAttribute("items", order.getItems().keySet());
+            modelMap.addAttribute("orderList", orderList);
+//            modelMap.addAttribute("items", order.getItems().keySet());
         }
         return "order/order";
     }

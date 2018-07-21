@@ -146,15 +146,15 @@
         <div class="shop-area mb-70" style="width: 70%;margin:10% auto">
             <div class="panel panel-default">
                 <!-- Default panel contents -->
-                <div class="panel-heading"><h2 style="text-align: center">List of Users </h2></div>
+                <div class="panel-heading"><h2 style="text-align: center">用户列表</h2></div>
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th>IdUser</th>
-                        <th>Username</th>
-                        <th>Password</th>
+                        <th>用户 Id</th>
+                        <th>用户名</th>
+                        <th>密码</th>
                         <th>Email</th>
-                        <th>Phone</th>
+                        <th>联系电话</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -168,8 +168,8 @@
                             <td>${user.email}</td>
                             <td>${user.phone}</td>
                             <td><a href="<c:url value='manageUser/edit-user-${user.userid}' />"
-                                   class="btn btn-success custom-width">edit</a></td>
-                            <td><a href="<c:url value='manageUser/delete-user-${user.userid}' />" class="btn btn-danger custom-width">delete</a>
+                                   class="btn btn-success custom-width">编辑信息</a></td>
+                            <td><a href="<c:url value='manageUser/delete-user-${user.userid}' />" class="btn btn-danger custom-width">删除</a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -177,7 +177,7 @@
                 </table>
             </div>
             <div class="well"style="margin-right: 70%">
-               <button class="form-button" > <a href="<c:url value='/manageUser/add' />" style="color: white">Add New User</a></button>
+               <button class="form-button" > <a href="<c:url value='/manageUser/add' />" style="color: white">添加新用户</a></button>
             </div>
         </div>
 

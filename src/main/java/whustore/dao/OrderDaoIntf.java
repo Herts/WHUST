@@ -7,7 +7,7 @@ import java.util.List;
 interface OrderDaoIntf {
     List<Order> getOrderList(int userID);
 
-    boolean addOrder(Order order, int idcart);
+    boolean addOrder(Order order);
 
     boolean deleteOrder(int idorder);
 

@@ -29,7 +29,7 @@ public class OrderDao implements OrderDaoIntf {
     public List<Order> getOrderList(int idUser) {
         CustomerInfoService infoService = new CustomerInfoService();
         List<Order> orderList = new ArrayList<>();
-        List<Integer> orderIdList = getOrderIdList(idUser);
+        List<Integer> orderIdList = getOrderIdLisByIdUser(idUser);
         String sql = "SELECT * FROM orderInfo_1 WHERE idorder = ?";
 
         try (Connection connection = HakariDB.getDataSource().getConnection();
@@ -64,30 +64,31 @@ public class OrderDao implements OrderDaoIntf {
         return orderList;
     }
 
+
+
     /**
      * 添加Order
      *
      * @param order  order对象
-     * @param idcart 购物车号码
+     *
      * @return 是否成功添加
      */
-    public boolean addOrder(Order order, int idcart) {
+    public boolean addOrder(Order order) {
 
         ProductDao pd = new ProductDao();
-        CartDao cd = new CartDao();
-        String insert_order = "INSERT INTO orders(idorder, iduser,idcustomerInfo) values(?,?,?)";
+
+        String insert_order = "INSERT INTO orders(idorder, iduser,idcustomerInfo,idteam) values(?,?,?,?)";
         String insert_orderitem = "INSERT INTO orderitem(idorder, idproduct, amount, price) values(?,?,?,?)";
         String changequantity = "UPDATE product SET quantity = ? WHERE idproduct = ?";
         try (Connection connection = HakariDB.getDataSource().getConnection();
              PreparedStatement ps = connection.prepareStatement(insert_order)) {
 
             connection.setAutoCommit(false);
-            cd.deleteCart(idcart);
-            System.out.println("删除cart" + idcart);
 
             ps.setObject(1, order.getIdOrder());
             ps.setObject(2, order.getIduser());
             ps.setInt(3, order.getInfo().getIdCustomerInfo());
+            ps.setInt(4, order.getIdTeam());
             ps.executeUpdate();
             System.out.println("插入order" + order.getIdOrder());
 
@@ -140,36 +141,40 @@ public class OrderDao implements OrderDaoIntf {
     }
 
     /**
-     * 根据用户id获取用户的全部订单号
+     * 根据用户或团队id获取全部订单号
      *
-     * @param userID 用户id
+     * @param id id
      * @return 订单号List
      */
-    private List<Integer> getOrderIdList(int userID) {
+    private List<Integer> getOrderIdListById(int id, String sql) {
 
-        int orderID;
-        String sql = "SELECT * FROM orders WHERE iduser = ? ORDER BY createdsince DESC";
         List<Integer> list = new ArrayList<>();
         try (Connection connection = HakariDB.getDataSource().getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
-
             ResultSet rs;
-
-            ps.setInt(1, userID);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
-                orderID = rs.getInt("idorder");
+                int orderID = rs.getInt("idorder");
                 System.out.println("获取订单id : " + orderID);
                 list.add(orderID);
-
             }
             return list;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         System.out.println("获取订单ID失败");
         return list;
+    }
+
+    private List<Integer> getOrderIdLisByIdUser(int idUser){
+        String sql = "SELECT * FROM orders WHERE iduser = ? ORDER BY createdsince DESC";
+        return getOrderIdListById(idUser, sql);
+    }
+
+    private List<Integer> getOrderIdListByIdteam(int idTeam){
+        String sql = "SELECT * FROM orders WHERE iduser = ? ORDER BY createdsince DESC";
+        return getOrderIdListById(idTeam, sql);
     }
 
     /**

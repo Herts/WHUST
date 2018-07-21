@@ -15,6 +15,15 @@ public class Order {
    */
     private Date createDate;
     private CustomerInfo info;
+    private int idTeam;
+
+    public int getIdTeam() {
+        return idTeam;
+    }
+
+    public void setIdTeam(int idTeam) {
+        this.idTeam = idTeam;
+    }
 
     public CustomerInfo getInfo() {
         return info;
