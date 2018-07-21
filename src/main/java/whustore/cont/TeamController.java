@@ -44,10 +44,12 @@ public class TeamController {
         request.getSession().setAttribute("idteam",idteam);
         return new ModelAndView("homepage");
     }
+
     @RequestMapping("gototeamAccount")
     public String gototeamAccount(){
         return "user/teamAccount";
     }
+
     @RequestMapping("teamProductList")
     public ModelAndView gototeamProductList(ModelMap modelMap, HttpServletRequest request){
         int idteam = (int)request.getSession().getAttribute("idteam");
@@ -58,6 +60,7 @@ public class TeamController {
         modelAndView.addObject("productList",list);
         return modelAndView;
     }
+
     @RequestMapping("modifyProduct")
     public String modifyProduct(HttpServletRequest request){
         String pname = request.getParameter("pname");

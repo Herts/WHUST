@@ -15,7 +15,7 @@ public class HakariDB {
 
     static {
         config.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        config.setJdbcUrl( "jdbc:mysql://104.199.177.163:3306/WHUStore?useSSL=false&" );
+        config.setJdbcUrl( "jdbc:mysql://104.199.177.163:3306/WHUStore?useSSL=false" );
         config.setUsername( "springtest" );
         config.setPassword( "wsspring" );
         config.addDataSourceProperty( "cachePrepStmts" , "true" );

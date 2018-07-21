@@ -75,7 +75,7 @@
                                 class="float-right">¥${sessionScope.cart.getTotal()}</span></p>
                         <p class="cart-btn">
                             <a href="/cart/myCart">购物车</a>
-                            <a href="/addorder">结算</a>
+                            <a href="/addorder">一键下单</a>
                         </p>
                     </div>
                     <!--Cart Dropdown End-->
@@ -99,14 +99,14 @@
                         <a href="#"><i class="fa fa-user"></i></a>
                         <div class="currency-dropdown">
                             <ul class="menu-top-menu">
-                                <c:if test="${idteam != null}">
+                                <c:if test="${sessionScope.idteam != null}">
                                     <li><a href="/gototeamAccount">团队账户</a></li>
                                 </c:if>
-                                <c:if test="${user.getUserid() == 0}">
+                                <c:if test="${sessionScope.user.getUserid() == 0}">
                                     <li><a href="/administrator">管理员</a></li>
                                 </c:if>
                                 <c:choose>
-                                    <c:when test="${user != null}">
+                                    <c:when test="${sessionScope.user != null}">
                                         <li><a href="/user/home">${user.getUsername()}的账户</a></li>
                                         <li><a href="/order/myOrders">历史订单</a></li>
                                         <li><a href="/fav/my">我的收藏</a></li>

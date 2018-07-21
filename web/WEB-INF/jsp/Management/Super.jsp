@@ -38,24 +38,10 @@
             </li>
             <br/>
             <li>
-                <button class="form-button" style="width:50%"><p style="color: white;font-size: larger"></p>
+                <button class="form-button" style="width:50%"><a href="<c:url value="/manageUser"/>" style="color: white;font-size: larger;margin: auto auto">管理用户</a> <p style="color: white;font-size: larger"></p>
                 </button>
             </li>
-            <br/>
-            <li>
-                <button class="form-button" style="width:50%"><p style="color: white;font-size: larger"></p>
-                </button>
-            </li>
-            <br/>
-            <li>
-                <button class="form-button" style="width:50%"><p style="color: white;font-size: larger"></p>
-                </button>
-            </li>
-            <br/>
-            <li>
-                <button class="form-button" style="width:50%"><p style="color: white;font-size: larger"></p>
-                </button>
-            </li>
+ 
             <br/>
         </ul>
     </div>

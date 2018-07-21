@@ -28,6 +28,8 @@
             <mvc:mapping path="/comments/**"/>
             <mvc:mapping path="/fav/**"/>
             <mvc:mapping path="/cart/**"/>
+            <mvc:mapping path="/manageUser/**"/>
+            <mvc:mapping path="order/**/"/>
             <bean class="whustore.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

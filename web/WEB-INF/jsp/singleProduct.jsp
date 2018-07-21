@@ -174,7 +174,7 @@
                             <div class="tab-pane fade active show" id="description">
                                 <div class="single-product-description">
                                     <p>${product.proIntro}</p>
-                                    <p>考虑添加商品详细介绍</p>
+
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="reviews">
@@ -189,15 +189,15 @@
                                                 <div class="product-comment-content">
                                                     <div class="product-reviews">
                                                         <c:forEach var="i" begin="1" end="5">
-                                                            <c:choose>
-                                                                <c:when test="i <= ${comment.clevel}">
-                                                                    <i class="fa fa-star"></i>
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                </c:otherwise>
 
-                                                            </c:choose>
+                                                            <c:if test="${i <= comment.clevel}">
+                                                                    <i class="fa fa-star"></i>
+                                                                </c:if>
+                                                                <c:if test="${i> comment.clevel}">
+                                                                    <i class="fa fa-star-o"></i>
+                                                                </c:if>
+
+
 
                                                         </c:forEach>
                                                     </div>
