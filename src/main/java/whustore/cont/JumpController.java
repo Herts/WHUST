@@ -23,7 +23,7 @@ public class JumpController {
      *
      * @return
      */
-    @RequestMapping("home")
+    @RequestMapping(value = {"home","/"})
     public String toHomePage() {
         return "homepage";
     }

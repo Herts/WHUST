@@ -83,6 +83,7 @@ public class UserController {
         request.getSession().removeAttribute("user");
         request.getSession().removeAttribute("cart");
         request.getSession().removeAttribute("super");
+        request.getSession().removeAttribute("idteam");
         return new ModelAndView("homepage");
     }
 
