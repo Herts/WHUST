@@ -67,7 +67,7 @@
     <!--Header Area End-->
     <div class="team_container" style="margin:10% auto;width:75% ">
         <div class="team-sidebar" style="width: 30%;float: left">
-            <h2>团队行为</h2>
+            <h2>团队操作</h2>
             <br/>
             <div class="categori-checkbox" style="height: 1000px">
                 <ul>
@@ -77,7 +77,7 @@
                     </li>
                     <br/>
                     <li>
-                        <button class="form-button" style="width:50%"><a href="/teamProductList" style="color: white;font-size: larger;margin: auto auto">本组商品</a>
+                        <button class="form-button" style="width:50%"><a href="/teamProductList" style="color: white;font-size: larger;margin: auto auto">团队商品</a>
                         </button>
                     </li>
                     <br/>
@@ -85,22 +85,7 @@
                         <button class="form-button" style="width:50%"><a href="/gototeamOrderManage" style="color: white;font-size: larger;margin: auto auto">查看订单</a>
                         </button>
                     </li>
-                    <br/>
-                    <li>
-                        <button class="form-button" style="width:50%"><p style="color: white;font-size: larger">添加商品</p>
-                        </button>
-                    </li>
-                    <br/>
-                    <li>
-                        <button class="form-button" style="width:50%"><p style="color: white;font-size: larger">添加商品</p>
-                        </button>
-                    </li>
-                    <br/>
-                    <li>
-                        <button class="form-button" style="width:50%"><p style="color: white;font-size: larger">添加商品</p>
-                        </button>
-                    </li>
-                    <br/>
+
                 </ul>
             </div>
         </div>

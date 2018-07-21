@@ -80,7 +80,7 @@
                                                 class="float-right">¥${sessionScope.cart.getTotal()}</span></p>
                                         <p class="cart-btn">
                                             <a href="#">购物车</a>
-                                            <a href="#">结算</a>
+                                            <a href="#">一键下单</a>
                                         </p>
                                     </div>
                                     <!--Cart Dropdown End-->
@@ -112,7 +112,7 @@
                                                 </c:if>
                                                 <c:choose>
                                                     <c:when test="${user != null}">
-                                                        <li><a href="/user/home">${user.getUsername}的账户</a></li>
+                                                        <li><a href="/user/home">${user.getUsername()}的账户</a></li>
                                                         <li><a href="/order/myOrders">历史订单</a></li>
                                                         <li><a href="/fav/my">我的收藏</a></li>
                                                         <li><a href="/cart/myCart">购物车</a></li>
